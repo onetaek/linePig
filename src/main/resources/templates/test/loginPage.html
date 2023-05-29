@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>로그인 페이지</title>
+    <link rel="stylesheet" href="/css/common/reset.css">
+    <link rel="stylesheet" href="/css/loginPage.css">
+
+</head>
+<body>
+<div id="wrapper">
+    <div id="content-wrap">
+        <form id="login-form" action="#">
+            <h1 id="logo">linepig</h1>
+            <div id="user-info">
+
+                <div id="email-wrap">
+                    <label for="email">아이디</label>
+                    <input id="email" type="text">
+                </div>
+                <div id="password-wrap">
+                    <label for="password">비밀번호</label>
+                    <input id="password" type="text">
+                </div>
+            </div>
+            <div id="login-btn-wrap">
+                <div id="id-save-wrap">
+                    <label for="id-save">아이디 저장</label>
+                    <input id="id-save" type="checkbox"/>
+                </div>
+                <input type="submit" value="로그인">
+            </div>
+        </form>
+        <div>
+            <ul id="register-wrap">
+                <li>아이디 찾기</li>
+                <li>비밀번호 재설정</li>
+                <li>회원가입</li>
+            </ul>
+            <ul id="sns-login-wrap">
+                <li>구글</li>
+                <li>페이스북</li>
+                <li>애플</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

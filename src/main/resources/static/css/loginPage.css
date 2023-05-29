@@ -1,0 +1,70 @@
+#wrapper{
+    width:100%;
+    height:100vh;
+    /*background: #ff7878;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#content-wrap{
+    width:420px;
+    margin:34px auto 0;
+    /*background: #ffd6d6;*/
+}
+
+#login-form{
+    margin-bottom:100px;
+}
+
+#logo{
+    font-size: 46px;
+    text-align: center;
+    color: #e8e800;
+}
+
+#user-info{
+    /*background: red;*/
+    display: flex;
+    flex-direction: column;
+    margin-bottom:50px;
+    margin-top:50px;
+}
+
+#user-info #email-wrap{
+    border-bottom: 1px solid #adadad;
+}
+
+#user-info #password-wrap{
+    border-bottom: 1px solid #adadad;
+}
+
+#user-info label[for="email"]{
+    width:200px;
+    /*background: #ff7878;*/
+}
+
+#login-btn-wrap{
+    /*background: blue;*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#login-btn-wrap input[type="submit"]{
+    font-size: 28px;
+    border-bottom:1px solid black;
+}
+
+#register-wrap{
+    display: flex;
+    justify-content: space-around;
+}
+
+#sns-login-wrap{
+    display: flex;
+    justify-content: space-around;
+    color: #e8e800;
+    border-top:1px solid #e8e800;
+    margin-top:20px;
+}
