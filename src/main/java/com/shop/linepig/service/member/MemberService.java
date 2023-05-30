@@ -74,4 +74,9 @@ public class MemberService {
 
         return findMember;
     }
+
+    public boolean isLoginIdDuplicate(String loginId) {
+        boolean isExist = memberRepository.existsByLoginId(loginId);
+        return isExist;
+    }
 }

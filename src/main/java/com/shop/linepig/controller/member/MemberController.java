@@ -42,7 +42,7 @@ public class MemberController {
         //회원가입 로직
         Long joinedMemberId = memberService.join(memberJoinDto);
 
-        return "";
+        return "/test/joinSuccess";
     }
 
     @PostMapping("/login")

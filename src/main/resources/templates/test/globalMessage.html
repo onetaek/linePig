@@ -13,7 +13,7 @@
     <div>언어 선택</div>
     <select th:field="*{locale}">
         <option value="">== 언어 선택 ==</option>
-        <option th:each="language : ${languages}" th:value="${language.locale.toString()}" th:text="${language.lang}"></option>
+        <option th:each="language : ${languages}" th:value="${language.locale}" th:text="${language.lang}"></option>
 
     </select>
     <button type="submit">버튼</button>

@@ -20,17 +20,10 @@ public class MemberJoinDto {
     private String passwordCheck;//비밀번호 체크
     @NotBlank
     private String name;//이름
+    private String phoneCode;
+    private String phoneNumber;
     @NotBlank
-    private String phone1;//연락처 국제 번호
-    @NotBlank
-    private String phone2;//연락처 앞번호
-    @NotBlank
-    private String phone3;//연락처 중간번호
-    private String phone4;//연락처 끝번호
-    @NotBlank
-    private String email1;//이메일 앞자리
-    @NotBlank
-    private String email2;//이메일 뒷자리
+    private String email;//이메일 앞자리
     //백엔드 단에서 추가해주는 값
     private MemberStatus status;//회원상태
     private String salt;//난수

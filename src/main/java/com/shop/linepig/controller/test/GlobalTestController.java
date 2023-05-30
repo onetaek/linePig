@@ -3,8 +3,8 @@ package com.shop.linepig.controller.test;
 
 import com.shop.linepig.dto.LocaleDto;
 import com.shop.linepig.util.Language;
-import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,10 +27,8 @@ public class GlobalTestController {
 
     @GetMapping("/test/globalMessage")
     public String home(@ModelAttribute LocaleDto localeDto, Model model) {
-        model.addAttribute("localeDto",localeDto);
+
         model.addAttribute("languages", Language.values());
-
-
 
         return "/test/globalMessage";
     }
@@ -42,6 +40,8 @@ public class GlobalTestController {
 
         Locale locale = localeDto.getLocale();
         localeResolver.setLocale(request, response, locale);
+
+        log.info("locale = {}",locale);
 
         return "redirect:/test/globalMessage";
     }
