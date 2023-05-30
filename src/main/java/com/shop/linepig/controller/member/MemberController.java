@@ -46,19 +46,21 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute MemberLoginDto memberLoginDto, Model model, HttpServletRequest request){
+    public String login(@ModelAttribute(name = "member") MemberLoginDto memberLoginDto, Model model, HttpServletRequest request){
 
         //요청 받은 데이터로 회원을 찾기
         Member findMember = memberService.login(memberLoginDto);
 
         if(findMember == null){//DB에 회원이 없을경우(아이디 or 비번이 틀렸을 경우)
-            model.addAttribute("error","");
-            return null;//로그인 페이지로 다시 이동
+            log.info("회원이 없음");
+            model.addAttribute("errorMessage","loginFail");
+            return "/test/loginPage";//로그인 페이지로 다시 이동
 
         } else{//정상 로직
+            log.info("정상 로직");
             HttpSession session = request.getSession();
             session.setAttribute(MEMBER_ID, findMember.getId());
-            return null;//메인 페이지로 이동
+            return "/test/loginSuccess";//메인 페이지로 이동
         }
     }
 }

@@ -28,7 +28,7 @@ public class MemberService {
         memberJoinDto.setPassword(getPasswdEncry(memberJoinDto));
 
         //회원 등급 NORMAL로 설정
-        memberJoinDto.setStatus(MemberStatus.NORMAL);
+        memberJoinDto.setMemberStatus(MemberStatus.NORMAL);
 
         //dto를 entity로 변환
         Member mappedMember = modelMapper.map(memberJoinDto, Member.class);

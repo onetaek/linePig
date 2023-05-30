@@ -1,6 +1,7 @@
 package com.shop.linepig.controller.test;
 
 import com.shop.linepig.dto.member.MemberJoinDto;
+import com.shop.linepig.dto.member.MemberLoginDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,10 @@ public class TestController {
     }
 
     @GetMapping("/loginPage")
-    public String loginPage(){
+    public String loginPage(Model model){
+
+        model.addAttribute("member",new MemberLoginDto());
+
         return "/test/loginPage";
     }
 

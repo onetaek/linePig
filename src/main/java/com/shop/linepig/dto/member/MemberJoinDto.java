@@ -25,7 +25,7 @@ public class MemberJoinDto {
     @NotBlank
     private String email;//이메일 앞자리
     //백엔드 단에서 추가해주는 값
-    private MemberStatus status;//회원상태
+    private MemberStatus memberStatus;//회원상태
     private String salt;//난수
 
 }
