@@ -1,0 +1,51 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .error-message{
+            display: none;
+        }
+        .error-message.active{
+            display: inline;
+            color:red;
+        }
+    </style>
+</head>
+<body>
+
+<form th:object="${member}" id="join-form" action="/members/join" method="post">
+    아이디 <input th:field="*{loginId}" type="text"><br>
+
+    <span id="loginId-error" class="error-message">아이디는 빈 값을 허용하지 않고 최소 6자 이상이면서 영어만 허용</span><br>
+    <span id="loginId-duplicate" class="error-message">중복된 아이디 값입니다.</span><br>
+
+    비밀번호 <input th:field="*{password}" type="text"><br>
+    <span id="password-error" class="error-message">띄어쓰기 없는 8~15자의 영문 대/소문자, 숫자 또는 특수문자 조합</span><br>
+
+    비밀번호 확인 <input th:field="*{passwordCheck}" type="text"><br>
+    <span id="password-check-error" class="error-message">비밀번호와 일치하지 않습니다.</span><br>
+
+    이름 <input th:field="*{name}" type="text"><br>
+    <span id="name-error" class="error-message">필수 입력 값입니다.</span><br>
+
+    <select th:field="*{phoneCode}">
+
+    </select>
+    <input type="text" th:field="*{phoneNumber}"><br>
+    <span id="phone-error" class="error-message">전화번호를 정확히 입력해 주세요.</span><br>
+
+    이메일 <input type="text" th:field="*{email}"><br>
+    <span id="email-error" class="error-message">이메일 주소를 다시 확인해주세요.</span><br>
+    <input type="button" id="join-btn" value="회원가입">
+</form>
+
+<script src="/js/common/commonFunction.js"></script>
+<script src="/js/member/join/countryCode.js"></script>
+<script src="/js/member/join/joinValidation.js"></script>
+</body>
+</html>
