@@ -3,10 +3,7 @@ package com.shop.linepig.domain.product.entity;
 import com.shop.linepig.domain.common.BaseEntity;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
@@ -19,6 +16,6 @@ public class ProductOptionItem extends BaseEntity {
     private Long id;
     private String optionValue;//옵션 값
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ProductOption productOption;//제품옵션
 }

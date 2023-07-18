@@ -23,17 +23,13 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        //Login어노테이션이 있는지를 확인 있으면 true 없으면 false
         boolean hasLoginAnnotation = parameter.hasParameterAnnotation(Login.class);
-        //파라미터의 타입이 Long인지 확인 Long이면 true 아니면 false
         boolean hasLongType = Long.class.isAssignableFrom(parameter.getParameterType());
-        //위의 두 값들이 모두 true이면 통과!
         return hasLoginAnnotation && hasLongType;
     }
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        //webRequest가 뭔지는 정확하게 모르겠다. 인강에서도 그냥 침 어쨌든 request값을 사용할 수 있는듯
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
         HttpSession session = request.getSession(false);
         if(session == null){
