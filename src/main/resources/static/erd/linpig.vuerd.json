@@ -3,8 +3,8 @@
     "version": "2.2.11",
     "width": 3000,
     "height": 3000,
-    "scrollTop": -626.5051954852215,
-    "scrollLeft": -655,
+    "scrollTop": -763.3051954852191,
+    "scrollLeft": -1045.6,
     "zoomLevel": 0.5,
     "show": {
       "tableComment": true,
@@ -258,7 +258,7 @@
           "active": false,
           "left": 2338.8129,
           "top": 467.4613,
-          "zIndex": 12,
+          "zIndex": 9,
           "widthName": 60,
           "widthComment": 60
         },
@@ -527,7 +527,7 @@
           "active": false,
           "left": 2266.5357,
           "top": 48.9994,
-          "zIndex": 8,
+          "zIndex": 7,
           "widthName": 60,
           "widthComment": 60
         },
@@ -704,7 +704,7 @@
           "active": false,
           "left": 569.4944,
           "top": 534.3091,
-          "zIndex": 121,
+          "zIndex": 41,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1396,7 +1396,7 @@
           "active": false,
           "left": 1710.7636,
           "top": 861.8641,
-          "zIndex": 7,
+          "zIndex": 6,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1596,7 +1596,7 @@
           "active": false,
           "left": 1717.8991,
           "top": 1167.0558,
-          "zIndex": 9,
+          "zIndex": 8,
           "widthName": 60,
           "widthComment": 60
         },
@@ -1704,7 +1704,7 @@
           "active": false,
           "left": 2303.3579,
           "top": 1333.9119,
-          "zIndex": 14,
+          "zIndex": 10,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2182,7 +2182,7 @@
           "active": false,
           "left": 2312.1899,
           "top": 1117.7566,
-          "zIndex": 15,
+          "zIndex": 11,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2288,9 +2288,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 620.9825,
-          "top": 910.9178,
-          "zIndex": 41,
+          "left": 460.2965,
+          "top": 924.9752,
+          "zIndex": 51,
           "widthName": 78.59716796875,
           "widthComment": 60
         },
@@ -2375,7 +2375,7 @@
           "active": false,
           "left": 72.4396,
           "top": 575.462,
-          "zIndex": 20,
+          "zIndex": 13,
           "widthName": 83.66259765625,
           "widthComment": 60,
           "color": "#000000"
@@ -2461,7 +2461,7 @@
           "active": false,
           "left": 55.5727,
           "top": 893.5379,
-          "zIndex": 21,
+          "zIndex": 14,
           "widthName": 108.9453125,
           "widthComment": 67
         },
@@ -2684,7 +2684,7 @@
           "active": false,
           "left": 2302.1638,
           "top": 839.0275,
-          "zIndex": 16,
+          "zIndex": 12,
           "widthName": 60,
           "widthComment": 60
         },
@@ -2792,7 +2792,7 @@
           "active": false,
           "left": 624.7937,
           "top": 143.807,
-          "zIndex": 135,
+          "zIndex": 18,
           "widthName": 81.49169921875,
           "widthComment": 70.61181640625
         },
@@ -2900,12 +2900,97 @@
           "active": false,
           "left": 198.0001,
           "top": 312.9496,
-          "zIndex": 132,
+          "zIndex": 17,
           "widthName": 114.72802734375,
           "widthComment": 100.2236328125
         },
         "visible": true,
         "id": "4ad2ccd3-4752-46ed-ad20-4ce28745f9ad"
+      },
+      {
+        "name": "productSpecial",
+        "comment": "제품 특이사항",
+        "columns": [
+          {
+            "name": "id",
+            "comment": "",
+            "dataType": "",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": true,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": true,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "aaa22573-abbb-4f63-80bc-671b38fe6812"
+          },
+          {
+            "name": "productId",
+            "comment": "",
+            "dataType": "",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": true,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "44595901-ff4b-465d-a3b7-83d2f04baa1c"
+          },
+          {
+            "name": "value",
+            "comment": "특이사항",
+            "dataType": "",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": false
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 60,
+              "widthDefault": 60
+            },
+            "id": "9218ddb1-3146-4098-ae6a-264d1bcad7cd"
+          }
+        ],
+        "ui": {
+          "active": false,
+          "left": 979.6864,
+          "top": 914.9629,
+          "zIndex": 50,
+          "widthName": 87.998046875,
+          "widthComment": 83.61181640625
+        },
+        "visible": true,
+        "id": "120fbead-2364-4659-9b6d-6b78313a0be5"
       }
     ],
     "indexes": []
@@ -3236,7 +3321,7 @@
           "columnIds": [
             "0e3ce8d5-798f-47f7-bf26-79f676cae956"
           ],
-          "x": 745.42799375,
+          "x": 657.461196875,
           "y": 746.8091,
           "direction": "bottom"
         },
@@ -3245,8 +3330,8 @@
           "columnIds": [
             "30e33449-1462-4ee1-b68d-a2d025317774"
           ],
-          "x": 832.919267578125,
-          "y": 910.9178,
+          "x": 672.2332675781249,
+          "y": 924.9752,
           "direction": "top"
         },
         "constraintName": "fk_product_to_productdetail",
@@ -3382,6 +3467,32 @@
         "constraintName": "fk_product_to_productimage",
         "visible": true,
         "id": "4c4b3360-8b52-4a49-80b0-618b737219d2"
+      },
+      {
+        "identification": false,
+        "relationshipType": "ZeroN",
+        "startRelationshipType": "Dash",
+        "start": {
+          "tableId": "c62f4bc5-0bb8-463c-ae77-83096dee4b9a",
+          "columnIds": [
+            "0e3ce8d5-798f-47f7-bf26-79f676cae956"
+          ],
+          "x": 833.394790625,
+          "y": 746.8091,
+          "direction": "bottom"
+        },
+        "end": {
+          "tableId": "120fbead-2364-4659-9b6d-6b78313a0be5",
+          "columnIds": [
+            "44595901-ff4b-465d-a3b7-83d2f04baa1c"
+          ],
+          "x": 979.6864,
+          "y": 980.2129,
+          "direction": "left"
+        },
+        "constraintName": "fk_product_to_productspecial",
+        "visible": true,
+        "id": "2152ff36-85c9-4ae2-bbfd-13005fc1708d"
       }
     ]
   }
