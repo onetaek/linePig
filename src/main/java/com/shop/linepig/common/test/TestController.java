@@ -34,4 +34,9 @@ public class TestController {
 
         return "/test/joinPage";
     }
+
+    @GetMapping("/adminPage")
+    public String adminPage() {
+        return "/admin/form";
+    }
 }
