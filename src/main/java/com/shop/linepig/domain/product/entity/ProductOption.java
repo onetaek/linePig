@@ -4,6 +4,7 @@ import com.shop.linepig.domain.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,5 +21,5 @@ public class ProductOption extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
     @OneToMany(mappedBy = "productOption")
-    private List<ProductOptionItem> productOptionItemList;
+    private List<ProductOptionItem> productOptionItems = new ArrayList<>();
 }

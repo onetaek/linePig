@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<h1>파일 인코딩 샘플 코드</h1>
+<input type="file" class="file" name="upload">
+<input type="file" class="file" name="upload">
+<input type="file" class="file" name="upload">
+<button onclick="go()">파일 전송</button>
+<h1>이미지</h1>
+<div id="images">
+
+</div>
+<script src="/js/common/common.js"></script>
+<script>
+
+    let encodedFile, originalFileName, fileType;
+    let images = document.querySelector('#images');
+
+    function onClickSubmitBtn() {
+
+
+
+    }
+
+    async function go() {
+        if (confirm("제품을 등록하시겠습니까?")) {
+            const fileElements = document.querySelectorAll('.file');
+            // const file = fileElement.files[0];
+            // console.log("file = ",file);
+            //
+            // fileType = file.type;
+            //
+            // originalFileName = file.name;
+            // console.log("originalFileName = ",originalFileName);
+            //
+            // const fileSize = file.size;
+            // console.log("fileSize = ",fileSize);
+            //
+            // // FileReader를 사용해 BASE64로 변환합니다.
+            // const reader = new FileReader();
+            //
+            // // FileReader가 파일을 load했을 시 동작할 이벤트를 지정합니다.
+            // reader.addEventListener("load",() => {
+            //     const dataIndex = reader.result.indexOf(',') + 1
+            //     console.log("dataIndex = ",dataIndex)
+            //     const base64 = reader.result.substring(
+            //         dataIndex,reader.result.length
+            //     )
+            //     encodedFile = base64;
+            //     letGo();
+            // })
+            // // file을 DdataURL형식으로 읽습니다.
+            // reader.readAsDataURL(file)
+
+            const fileUploadObjs = await createUploadFiles(fileElements);
+            console.log("fileUploadObjs = ",fileUploadObjs);
+            // letGo(uploadFile)
+            fetch("/test/uploads",{
+                method : 'POST',
+                body: JSON.stringify(fileUploadObjs),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then(response => {
+                if(response.ok) {
+                    console.log("서버와 통신에 성공했습니다.");
+                    return response.json();
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            }).then(data => {
+                console.log("data = ",data);
+                data.forEach((file) =>{
+                    const imgElement = createTemplateElement(`<img src="${file.uploadFileLink}">`);
+                    images.appendChild(imgElement);
+                });
+            }).catch(error => {
+                console.log('error : ',error);
+            })
+        }
+    }
+    async function letGo(uploadFile) {
+        // if(!encodedFile){
+        //     alert("파일이 없습니다.");
+        //     console.log("encodedFile = ",encodedFile)
+        //     return false;
+        // }
+
+        // const dataObj = {
+        //     fileBase64 : encodedFile,
+        //     fileName : originalFileName,
+        //     contentType : fileType
+        // }
+
+        const dataObj = {
+            fileBase64 : uploadFile.fileBase64,
+            fileName :uploadFile.fileName,
+            contentType : uploadFile.contentType
+        }
+
+
+
+        fetch("/test/upload",{
+            method : 'POST',
+            body: JSON.stringify(dataObj),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(response => {
+            if(response.ok) {
+                console.log("서버와 통신에 성공했습니다.");
+                return response.json();
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        }).then(data => {
+            console.log("data = ",data);
+            console.log("imageLink = ",data.imageLink);
+            const imgElement = createTemplateElement(`<img src="${data.imageLink}">`);
+            images.appendChild(imgElement);
+        }).catch(error => {
+            console.log('error : ',error);
+        })
+
+
+    }
+
+</script>
+
+</body>
+</html>

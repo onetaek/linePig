@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:placeholder="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/adminBase}">
+<head>
+    <title>제품 등록 페이지</title>
+</head>
+<body>
+
+<!-- 상품등록 start -->
+<div layout:fragment="content" class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">제품 이미지</h6>
+                <div id="productImagesBox">
+                    <!--JavaScript 로 productImageBox 계속 추가해줌-->
+                </div>
+                <button onclick="createProductImageBox()" class="btn btn-outline-primary w-100 m-2" type="button">이미지파일 추가</button>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">제품 정보</h6>
+                <form>
+                    <div class="row mb-3">
+                        <label for="productName" class="col-sm-2 col-form-label">제품명</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="productName">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="productNameDescription" class="col-sm-2 col-form-label">부재</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="productNameDescription">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="productPrice" class="col-sm-2 col-form-label">가격</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="productPrice">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="productPriceDescription" class="col-sm-2 col-form-label">가격설명</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="productPriceDescription">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <div id="productOptionMainBox">
+                    <!--javascript로 productOptionBox 계속 추가해줌-->
+                </div>
+                <button onclick="createProductOptionBox()" class="btn btn-outline-primary w-100 m-2" type="button">제품 옵션 추가</button>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">특이사항</h6>
+                <div id="productSpecialsBox">
+                    <!--javaScript 로 추가해줌-->
+                </div>
+                <button onclick="createSpecialBox()" class="btn btn-outline-primary w-100 m-2" type="button">제품 옵션 추가</button>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">제품 세부정보</h6>
+                <form id="productDetailsBox">
+                    <!--js로 요소 추가해줌-->
+                </form>
+                <button onclick="createProductDetailBox()" class="btn btn-outline-primary w-100 m-2" type="button">제품 세부정보 추가</button>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">제품 상세 이미지</h6>
+                <div id="productDetailImagesBox">
+                    <!--JavaScript 로 productImageBox 계속 추가해줌-->
+                </div>
+                <button onclick="createProductDetailImageBox()" class="btn btn-outline-primary w-100 m-2" type="button">이미지파일 추가</button>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <button onclick="submitProductBtn()" class="btn btn-outline-primary w-100 m-2" type="button">제품등록하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 상품등록 end -->
+
+<!-- javaScript 파일-->
+<th:block layout:fragment="scripts">
+    <script th:src="@{/js/common/common.js}"></script>
+    <script th:src="@{/js/admin/product/new.js}"></script>
+</th:block>
+</body>
+</html>
