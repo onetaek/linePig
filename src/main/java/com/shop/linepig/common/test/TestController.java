@@ -39,4 +39,9 @@ public class TestController {
     public String adminPage() {
         return "/admin/form";
     }
+
+    @GetMapping("/admin404Page")
+    public String admin404Page() {
+        return "/admin/404";
+    }
 }

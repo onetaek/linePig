@@ -16,6 +16,6 @@ public class ProductImage {
     private Long id;
     @Embedded
     private UploadFile uploadFile;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 }
