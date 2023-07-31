@@ -6,6 +6,7 @@ import com.shop.linepig.domain.product.entity.enumeration.ProductCategory;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -22,13 +23,15 @@ public class Product extends BaseEntity {
     private int price = 0;//가격
     private String priceDescription;//가격 상세설명
     @OneToMany(mappedBy = "product")
-    private List<ProductOption> productOptionList;//옵션
+    private List<ProductImage> productImages = new ArrayList<>();//제품이미지
     @OneToMany(mappedBy = "product")
-    private List<ProductSpecial> productSpecialList;//특이사항
+    private List<ProductOption> productOptions = new ArrayList<>();//옵션
     @OneToMany(mappedBy = "product")
-    private List<ProductDetail> productDetailList;//세부 정보
+    private List<ProductSpecial> productSpecials = new ArrayList<>();//특이사항
     @OneToMany(mappedBy = "product")
-    private List<ProductDetailImage> productDetailImageList;//제품 상세 이미지
+    private List<ProductDetail> productDetails = new ArrayList<>();//세부 정보
+    @OneToMany(mappedBy = "product")
+    private List<ProductDetailImage> productDetailImages = new ArrayList<>();//제품 상세 이미지
 
     @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;//카테고리

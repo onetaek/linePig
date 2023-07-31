@@ -21,7 +21,7 @@ countryCode.forEach((element)=>{
     // console.log(element["country"])
     // console.log(element["code"])
     const optionHtml = `<option value="${element["code"]}">${element["country"]}</option>`;
-    phoneCodeSelect.appendChild(myCreateElement(optionHtml));
+    phoneCodeSelect.appendChild(createTemplateElement(optionHtml));
 })
 
 //유효성 검사 시작

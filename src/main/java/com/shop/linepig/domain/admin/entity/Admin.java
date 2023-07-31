@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @AllArgsConstructor
@@ -19,7 +20,9 @@ public class Admin extends BaseEntity {
     private Long id;
     private String loginId;//로그인 아이디
     private String password;//비밀번호
+    private String salt;//난수
     private String name;//이름
+    private String profileImgLink;
     private int auth = 10;//권한
 
 }
