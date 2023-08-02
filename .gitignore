@@ -39,4 +39,4 @@ out/
 
 ### custom ###
 application-dba.properties
-sql/admin.sql
+sql/data.sql

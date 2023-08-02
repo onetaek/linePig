@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:placeholder="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/adminBase}">
+<head>
+    <title>판매자 목록 페이지</title>
+</head>
+<body>
+
+<!-- 상품등록 start -->
+<div layout:fragment="content" class="container-fluid pt-4 px-4">
+    <div class="container-fluid pt-4 px-4">
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">판매자</h6>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">순번</th>
+                            <th scope="col">아이디</th>
+                            <th scope="col">국제번호</th>
+                            <th scope="col">전화번호</th>
+                            <th scope="col">이메일</th>
+                            <th scope="col">회원상태</th>
+                            <th scope="col">이름</th>
+                            <th scope="col">성별</th>
+                            <th scope="col">상호</th>
+                            <th scope="col">대표자</th>
+                            <th scope="col">사업장 소재지</th>
+                            <th scope="col">이메일</th>
+                            <th scope="col">연락처</th>
+                            <th scope="col">사업자번호</th>
+                            <th scope="col">통신판매업 신고번호</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="member : ${members}">
+                            <th scope="row" th:field="${memberStat.count}">1</th>
+                            <td th:text="${member.loginId}">아이디</td>
+                            <td th:text="${member.phoneCode}">비밀번호</td>
+                            <td th:text="${member.phoneNumber}">01012345678</td>
+                            <td th:text="${member.email}">jhon@email.com</td>
+                            <td th:text="${member.memberStatus}">NORAML</td>
+                            <td th:text="${member.name}">이준호</td>
+                            <td th:text="${member.gender}">MAN</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 상품등록 end -->
+
+<!-- javaScript 파일-->
+<th:block layout:fragment="scripts">
+    <script th:src="@{/js/admin/product/new.js}"></script>
+</th:block>
+</body>
+</html>
