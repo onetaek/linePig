@@ -19,6 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
+    <!-- https://fontawesome.com/v4/icons/ 경로로 아이콘 찾아서 사용-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
@@ -59,6 +60,7 @@
                 </div>
             </div>
             <div class="navbar-nav w-100">
+                <a href="/admins" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>상품관리</a>
                     <div class="dropdown-menu bg-transparent border-0">
@@ -66,29 +68,38 @@
                         <a href="/admins/products/new" class="dropdown-item">상품등록</a>
                     </div>
                 </div>
-
-
-                <!--템플릿으로 가져온 사이드바 값-->
-                <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
+                    <a href="/admins/members" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user me-2"></i>회원관리</a>
                     <div class="dropdown-menu bg-transparent border-0">
-                        <a href="button.html" class="dropdown-item">Buttons</a>
-                        <a href="typography.html" class="dropdown-item">Typography</a>
-                        <a href="element.html" class="dropdown-item">Other Elements</a>
+                        <a href="/admins/members" class="dropdown-item">회원정보</a>
+                        <a href="/admins/members" class="dropdown-item">판매자정보</a>
                     </div>
                 </div>
-                <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-                <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
-                <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
-                <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-shopping-cart me-2"></i>주문정보</a>
                     <div class="dropdown-menu bg-transparent border-0">
-                        <a href="signin.html" class="dropdown-item">Sign In</a>
-                        <a href="signup.html" class="dropdown-item">Sign Up</a>
-                        <a href="404.html" class="dropdown-item active">404 Error</a>
-                        <a href="blank.html" class="dropdown-item">Blank Page</a>
+                        <a href="#" class="dropdown-item">주문목록</a>
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-newspaper me-2"></i>게시글관리</a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="#" class="dropdown-item">공지목록</a>
+                        <a href="#" class="dropdown-item">뉴스목록</a>
+                        <a href="#" class="dropdown-item">공지등록</a>
+                        <a href="#" class="dropdown-item">뉴스등록</a>
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-link me-2"></i>CONTACT</a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="#" class="dropdown-item">CONTACT목록</a>
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-comment me-2"></i>리뷰관리</a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="#" class="dropdown-item">리뷰목록</a>
                     </div>
                 </div>
             </div>
@@ -232,6 +243,7 @@
 
 <!-- Custom Javascript -->
 <script src="/js/admin/logout.js"></script>
+<script th:src="@{/js/common/common.js}"></script>
 <th:block layout:fragment="scripts"/>
 </body>
 </html>

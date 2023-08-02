@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
@@ -22,5 +23,6 @@ public class Seller extends BaseEntity {
     private String phoneNumber;//연락처
     private String companyNumber;//사업자번호
     private String telecommunicationNumber;//통신 판매어 신고번호
-
+    @OneToOne(mappedBy = "seller")
+    private Member member;
 }

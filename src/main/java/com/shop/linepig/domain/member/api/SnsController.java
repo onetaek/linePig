@@ -2,7 +2,7 @@ package com.shop.linepig.domain.member.api;
 
 
 import com.shop.linepig.domain.member.entity.Member;
-import com.shop.linepig.domain.member.dto.MemberSNSLoginDto;
+import com.shop.linepig.domain.member.dto.request.MemberSnsLoginRequest;
 import com.shop.linepig.domain.member.service.MemberService;
 import com.shop.linepig.domain.member.service.SnsService;
 import com.shop.linepig.common.constance.SessionConst;
@@ -57,7 +57,7 @@ public class SnsController {
 
         log.info("카카오톡으로 가져온 회원 정보 = {}",userInfo.toString());
 
-        MemberSNSLoginDto memberLoginDTO = MemberSNSLoginDto.builder()
+        MemberSnsLoginRequest memberLoginDTO = MemberSnsLoginRequest.builder()
                 .loginId(uniqueID)
                 .name(userInfo.get("nickName"))
                 .email(userInfo.get("email"))

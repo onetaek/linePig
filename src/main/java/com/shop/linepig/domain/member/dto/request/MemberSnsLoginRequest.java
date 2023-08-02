@@ -1,4 +1,4 @@
-package com.shop.linepig.domain.member.dto;
+package com.shop.linepig.domain.member.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberSNSLoginDto {
+public class MemberSnsLoginRequest {
 
     private String loginId;
     private String email;

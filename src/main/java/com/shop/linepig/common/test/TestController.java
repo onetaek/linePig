@@ -1,7 +1,7 @@
 package com.shop.linepig.common.test;
 
-import com.shop.linepig.domain.member.dto.MemberJoinDto;
-import com.shop.linepig.domain.member.dto.MemberLoginDto;
+import com.shop.linepig.domain.member.dto.request.MemberJoinRequest;
+import com.shop.linepig.domain.member.dto.request.MemberLoginRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +22,7 @@ public class TestController {
     @GetMapping("/loginPage")
     public String loginPage(Model model){
 
-        model.addAttribute("member",new MemberLoginDto());
+        model.addAttribute("member",new MemberLoginRequest());
 
         return "/test/loginPage";
     }
@@ -30,7 +30,7 @@ public class TestController {
     @GetMapping("/joinPage")
     public String joinPage(Model model){
 
-        model.addAttribute("member",new MemberJoinDto());
+        model.addAttribute("member",new MemberJoinRequest());
 
         return "/test/joinPage";
     }

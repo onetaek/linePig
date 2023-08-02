@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shop.linepig.domain.member.entity.Member;
 import com.shop.linepig.domain.member.entity.enumeration.MemberStatus;
-import com.shop.linepig.domain.member.dto.MemberSNSJoinDto;
-import com.shop.linepig.domain.member.dto.MemberSNSLoginDto;
+import com.shop.linepig.domain.member.dto.request.MemberSnsJoinRequest;
+import com.shop.linepig.domain.member.dto.request.MemberSnsLoginRequest;
 import com.shop.linepig.domain.member.repository.MemberRepository;
 import com.shop.linepig.common.constance.SnsConst;
 import lombok.AllArgsConstructor;
@@ -158,10 +158,10 @@ public class SnsService {
         return findMember;
     }
 
-    public Member snsJoin(MemberSNSLoginDto memberLoginDTO) {
+    public Member snsJoin(MemberSnsLoginRequest memberLoginDTO) {
 
         // API로 받은 로그인 정보를 회원가입하기 위한 정보로 변환
-        MemberSNSJoinDto memberJoinDTO = modelMapper.map(memberLoginDTO,MemberSNSJoinDto.class);
+        MemberSnsJoinRequest memberJoinDTO = modelMapper.map(memberLoginDTO, MemberSnsJoinRequest.class);
         // 비밀번호는 필요없음
 
         // status 세팅
