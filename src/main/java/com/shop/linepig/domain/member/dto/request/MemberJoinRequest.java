@@ -1,4 +1,4 @@
-package com.shop.linepig.domain.member.dto;
+package com.shop.linepig.domain.member.dto.request;
 
 import com.shop.linepig.domain.member.entity.enumeration.MemberStatus;
 import lombok.Data;
@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 
 @Slf4j
 @Data
-public class MemberJoinDto {
+public class MemberJoinRequest {
 
     //프론트 단에서 입력받는 값
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,10}$")

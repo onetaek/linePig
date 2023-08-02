@@ -1,5 +1,6 @@
 package com.shop.linepig.domain.product.api;
 
+import com.shop.linepig.common.argumentresolver.AdminLogin;
 import com.shop.linepig.domain.product.dto.request.ProductCreateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductApiController {
 
     @PostMapping("/admins/products")
-    public ResponseEntity<?> create(@RequestBody ProductCreateRequest productCreateRequest) {
+    public ResponseEntity<?> create(@RequestBody ProductCreateRequest productCreateRequest, @AdminLogin Long id) {
         System.out.println("productCreateRequest = " + productCreateRequest);
 
 

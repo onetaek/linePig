@@ -21,7 +21,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .order(1)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/members/join","/member/login",
-                        "/admins/**","/api/admins/**",
+                        "/admins/**","/api/admins/**","/",
                         "/error","/api/**","/oauth/**","/css/**",
                         "/js/**", "/img/**","/*.ico","/lib/**")
                 .excludePathPatterns("/test/**");
