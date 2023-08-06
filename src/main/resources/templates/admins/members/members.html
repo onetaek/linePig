@@ -4,6 +4,7 @@
       layout:decorate="~{layouts/adminBase}">
 <head>
     <title>회원 목록 페이지</title>
+    <link rel="stylesheet" href="/css/member/members.css">
 </head>
 <body>
 
@@ -12,31 +13,43 @@
     <div class="container-fluid pt-4 px-4">
         <div class="col-12">
             <div class="bg-secondary rounded h-100 p-4">
-                <h6 class="mb-4">회원목록</h6>
+                <div class="row">
+                    <div class="col">
+                        <h6 class="mb-4">회원목록</h6>
+                    </div>
+                    <div class="col d-flex justify-content-end">
+                        <button type="button" class="btn btn-info m-2" th:onclick="onClickMemberStatusUpdate()">상태수정</button>
+                        <button type="button" class="btn btn-info m-2">판매자로 등록</button>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
+                                <th scope="col">선택</th>
                                 <th scope="col">순번</th>
                                 <th scope="col">아이디</th>
+                                <th scope="col">이름</th>
+                                <th scope="col">이메일</th>
+                                <th scope="col">가입일</th>
+                                <th scope="col">회원상태</th>
                                 <th scope="col">국제번호</th>
                                 <th scope="col">전화번호</th>
-                                <th scope="col">이메일</th>
-                                <th scope="col">회원상태</th>
-                                <th scope="col">이름</th>
                                 <th scope="col">성별</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="member : ${members}">
-                                <th scope="row" th:field="${memberStat.count}">1</th>
-                                <td th:text="${member.loginId}">아이디</td>
-                                <td th:text="${member.phoneCode}">비밀번호</td>
-                                <td th:text="${member.phoneNumber}">01012345678</td>
-                                <td th:text="${member.email}">jhon@email.com</td>
-                                <td th:text="${member.memberStatus}">NORAML</td>
-                                <td th:text="${member.name}">이준호</td>
-                                <td th:text="${member.gender}">MAN</td>
+                            <tr th:each="member : ${members}" th:class="memberInfo">
+                                <th scope="row"><input type="radio" name="selectMember" th:data-id="${member.id}"></th>
+                                <td th:text="${memberStat.count}">순번</td>
+                                <td th:class="loginId" th:text="${member.loginId}">아이디</td>
+                                <td th:class="name" th:text="${member.name}">이준호</td>
+                                <td th:class="email" th:text="${member.email}">jhon@email.com</td>
+                                <td th:class="email" th:text="${member.createdAt}">1111년11월11일1시1분1초</td>
+                                <td th:calss="status" th:text="${member.memberStatus}">NORAML</td>
+                                <td th:class="phoneCode" th:text="${member.phoneCode}">국제번호</td>
+                                <td th:class="phoneNumber" th:text="${member.phoneNumber}">01012345678</td>
+                                <td th:class="gender" th:text="${member.gender}">MAN</td>
                             </tr>
                         </tbody>
                     </table>
@@ -48,9 +61,49 @@
 </div>
 <!-- 상품등록 end -->
 
+
+<!-- custom-popup start -->
+<th:block layout:fragment="custom-popup">
+    <div id="memberStatusUpdatePopup" class="rounded">
+        <div class="bg-secondary rounded h-100 p-4">
+            <div class="row mb-2">
+                <div class="col">
+                    <h6>회원상태수정</h6>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="updateMemberLoginId" class="col-sm-2 col-form-label">아이디</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" readonly id="updateMemberLoginId" value="temp id">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="updateMemberName" class="col-sm-2  col-form-label" >이름</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="updateMemberName" value="temp name" readonly>
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <select class="form-select" id="updateMemberStatus"
+                        aria-label="회원 상태" >
+                    <th:block th:each="status:${statuses}">
+                        <option th:value="${status.code}" th:text="${status.displayValue}">sample status</option>
+                    </th:block>
+                </select>
+                <label for="updateMemberStatus">회원 상태를 선택하시오</label>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button th:onclick="onclickMemberStatusUpdateApi()" type="submit" class="btn btn-info">수정</button>
+                <button th:onclick="onclickMemberStatusUpdateClose()" type="submit" class="btn btn-light ms-2">닫기</button>
+            </div>
+        </div>
+    </div>
+</th:block>
+<!-- custom-popup end -->
+
 <!-- javaScript 파일-->
 <th:block layout:fragment="scripts">
-    <script th:src="@{/js/admin/product/new.js}"></script>
+    <script src="/js/admin/member/members.js"></script>
 </th:block>
 </body>
 </html>

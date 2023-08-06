@@ -34,12 +34,17 @@ public class Member extends BaseEntity {
     private Seller seller;
 
     public String getMemberStatus() {
-        return this.memberStatus.toString();
+        return this.memberStatus.getDisplayValue();
     }
 
     public String getGender() {
         if (this.gender == null)
             return null;
-        return this.gender.toString();
+        return this.gender.getDisplayValue();
+    }
+
+    public Member updateStatus(MemberStatus status) {
+        this.memberStatus = status;
+        return this;
     }
 }

@@ -12,9 +12,10 @@ public class MemberResponse {
 
     private Long id;
     private String loginId;
+    private String email;
+    private String createdAt;
     private String phoneCode;
     private String phoneNumber;
-    private String email;
     private String memberStatus;
     private String name;
     private String gender;
@@ -26,9 +27,10 @@ public class MemberResponse {
         return MemberResponse.builder()
                 .id(member.getId())
                 .loginId(member.getLoginId())
+                .email(member.getEmail())
+                .createdAt(member.getCreatedAt())
                 .phoneCode(member.getPhoneCode())
                 .phoneNumber(member.getPhoneNumber())
-                .email(member.getEmail())
                 .memberStatus(member.getMemberStatus())
                 .name(member.getName())
                 .gender(member.getGender())

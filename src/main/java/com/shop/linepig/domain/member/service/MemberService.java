@@ -4,8 +4,12 @@ package com.shop.linepig.domain.member.service;
 import com.shop.linepig.common.util.PasswdEncry;
 import com.shop.linepig.domain.member.dto.request.MemberJoinRequest;
 import com.shop.linepig.domain.member.dto.request.MemberLoginRequest;
+import com.shop.linepig.domain.member.dto.request.MemberUpdateRequest;
+import com.shop.linepig.domain.member.dto.response.GenderResponse;
 import com.shop.linepig.domain.member.dto.response.MemberResponse;
+import com.shop.linepig.domain.member.dto.response.MemberStatusResponse;
 import com.shop.linepig.domain.member.entity.Member;
+import com.shop.linepig.domain.member.entity.enumeration.Gender;
 import com.shop.linepig.domain.member.entity.enumeration.MemberStatus;
 import com.shop.linepig.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Slf4j
@@ -24,7 +30,6 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final ModelMapper modelMapper;
-
 
     public Long join(MemberJoinRequest memberJoinRequest){
 
@@ -68,13 +73,12 @@ public class MemberService {
         }
 
         //암호화된 비밀번호찾기
-        String SHA256Pw = this.getString(memberLoginRequest, findByLoginId);
+        String SHA256Pw = this.getSHA256Pw(memberLoginRequest, findByLoginId);
         //회원 찾음
         Member findMember = memberRepository.findByloginIdAndPassword(loginId, SHA256Pw);
 
         return MemberResponse.fromEntity(findMember);
     }
-
 
     public boolean isLoginIdDuplicate(String loginId) {
         boolean isExist = memberRepository.existsByLoginId(loginId);
@@ -92,11 +96,32 @@ public class MemberService {
                 .collect(Collectors.toList());
     }
 
+    public MemberResponse update(Long id, MemberUpdateRequest request) {
+        Member findMember = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Session에서 꺼낸 id에 해당하는 회원이 없습니다."));
+        return MemberResponse.fromEntity(
+                findMember.updateStatus(MemberStatus.fromCode(request.getStatus())));
+    }
 
+    public List<GenderResponse> getGenders() {
+        return Stream.of(Gender.values())
+                .sorted(Comparator.comparing(
+                        Gender::getSequence,
+                        Comparator.naturalOrder()))
+                .map(GenderResponse::fromEnum)
+                .collect(Collectors.toList());
+    }
 
+    public List<MemberStatusResponse> getStatuses() {
+        return Stream.of(MemberStatus.values())
+                .filter(memberStatus -> memberStatus != MemberStatus.SELLER)
+                .sorted(Comparator.comparing(
+                        MemberStatus::getSequence,
+                        Comparator.naturalOrder()))
+                .map(MemberStatusResponse::fromEnum)
+                .collect(Collectors.toList());
+    }
 
-
-    private String getString(MemberLoginRequest memberLoginRequest, Member findByLoginId) {
+    private String getSHA256Pw(MemberLoginRequest memberLoginRequest, Member findByLoginId) {
         //난수
         String salt = findByLoginId.getSalt();
         //비밀번호 암호화

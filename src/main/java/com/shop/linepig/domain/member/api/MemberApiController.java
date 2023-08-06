@@ -1,6 +1,8 @@
 package com.shop.linepig.domain.member.api;
 
 
+import com.shop.linepig.domain.member.dto.request.MemberUpdateRequest;
+import com.shop.linepig.domain.member.dto.response.MemberResponse;
 import com.shop.linepig.domain.member.service.MemberService;
 import com.shop.linepig.domain.member.service.SnsService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +19,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/api/members")
 @RestController
-public class MemberAPIController {
+public class MemberApiController {
 
     private final MemberService memberService;
 
@@ -35,6 +37,12 @@ public class MemberAPIController {
                 ResponseEntity.status(HttpStatus.CONFLICT).build() :
                 ResponseEntity.status(HttpStatus.OK).build();
 
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity update(@PathVariable Long id, @RequestBody MemberUpdateRequest request) {
+        MemberResponse update = memberService.update(id, request);
+        return null;
     }
 
     //카카오톡에 등록한 콜백경로

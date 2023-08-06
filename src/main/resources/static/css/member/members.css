@@ -1,0 +1,23 @@
+#memberStatusUpdatePopup{
+    position: fixed;
+    top:20%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    /*min-width: 80%;*/
+    /*height:80vh;*/
+    width:35%;
+    padding:5px;
+    /*box-shadow: 0 5px 30px rgba(0, 0, 0, .30);*/
+    background-color:black;
+    visibility: hidden;
+    opacity: 0;
+    /*visibility: visible;*/
+    /*opacity: 1;*/
+    transition:0.5s;
+    z-index: 99999;
+}
+#memberStatusUpdatePopup.active{
+    top:45%;
+    visibility: visible;
+    opacity: 1;
+}
