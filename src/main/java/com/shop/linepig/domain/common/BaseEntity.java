@@ -2,9 +2,7 @@ package com.shop.linepig.domain.common;
 
 import lombok.Getter;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @ToString
@@ -40,6 +39,9 @@ public class BaseEntity {
     @Column(nullable = true, length = 100)
     protected Long modifiedBy; // 수정자
 
-
+    public String getCreatedAt() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초");
+        return this.createdAt.format(formatter);
+    }
 
 }
