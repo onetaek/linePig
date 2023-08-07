@@ -30,7 +30,7 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MemberStatus memberStatus;//회원 상태
     private String salt;//난수
-    @OneToOne
+    @OneToOne(mappedBy = "member")
     private Seller seller;
 
     public String getMemberStatus() {

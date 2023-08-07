@@ -2,13 +2,17 @@ package com.shop.linepig.domain.member.api;
 
 
 import com.shop.linepig.domain.member.dto.request.MemberUpdateRequest;
+import com.shop.linepig.domain.member.dto.request.SellerCreateRequest;
+import com.shop.linepig.domain.member.dto.request.SellerUpdateRequest;
 import com.shop.linepig.domain.member.dto.response.MemberResponse;
+import com.shop.linepig.domain.member.dto.response.SellerResponse;
 import com.shop.linepig.domain.member.service.MemberService;
 import com.shop.linepig.domain.member.service.SnsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +21,6 @@ import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/api/members")
 @RestController
 public class MemberApiController {
 
@@ -25,7 +28,7 @@ public class MemberApiController {
 
     private final SnsService snsService;
 
-    @PostMapping("/check-loginId")
+    @PostMapping("/api/members/check-loginId")
     public ResponseEntity checkLoginId(@RequestBody Map<String,String> map){
 
         String loginId = map.get("loginId");
@@ -36,17 +39,28 @@ public class MemberApiController {
         return idDuplicate ?
                 ResponseEntity.status(HttpStatus.CONFLICT).build() :
                 ResponseEntity.status(HttpStatus.OK).build();
-
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity update(@PathVariable Long id, @RequestBody MemberUpdateRequest request) {
-        MemberResponse update = memberService.update(id, request);
-        return null;
+    @PatchMapping("/api/admins/members/{id}")
+    public ResponseEntity update(@PathVariable Long id,@Validated @RequestBody MemberUpdateRequest request) {
+        MemberResponse memberResponse = memberService.update(id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(memberResponse);
+    }
+
+    @PostMapping("/api/admins/members/{id}/seller")
+    public ResponseEntity createSeller(@PathVariable Long id,@Validated @RequestBody SellerCreateRequest request) {
+        SellerResponse sellerResponse = memberService.createSeller(id, request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(sellerResponse);
+    }
+
+    @PatchMapping("/api/admins/sellers/{id}")
+    public ResponseEntity updateSeller(@PathVariable Long id,@Validated @RequestBody SellerUpdateRequest request) {
+        SellerResponse sellerResponse = memberService.updateSeller(id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(sellerResponse);
     }
 
     //카카오톡에 등록한 콜백경로
-    @GetMapping("/kakao/callback")//redirect에서 설정해준 url을 여기 입력
+    @GetMapping("/api/members/kakao/callback")//redirect에서 설정해준 url을 여기 입력
     public String kakaoLogin(@RequestParam(value = "code", required = false) String code,
                              @RequestParam(defaultValue = "/") String redirectURL,
                              HttpServletRequest request) throws Throwable {
