@@ -6,6 +6,7 @@ import com.shop.linepig.domain.admin.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ public class AdminApiController {
     private final AdminService adminService;
 
     @PostMapping("/admins/login")
-    public ResponseEntity<?> login(@RequestBody AdminLoginRequest request, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<?> login(@Validated @RequestBody AdminLoginRequest request, HttpServletRequest httpServletRequest) {
 
         Long AdminId = adminService.login(request);
 

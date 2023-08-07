@@ -20,17 +20,19 @@ public class SellerResponse {
     private String telecommunicationNumber;//통신 판매어 신고번호
 
     public static SellerResponse fromEntity(Seller seller) {
-        if(seller == null)
+        if (seller == null)
             return null;
-        return SellerResponse.builder()
-                .id(seller.getId())
-                .company(seller.getCompany())
-                .representative(seller.getRepresentative())
-                .companyAddress(seller.getCompanyAddress())
-                .email(seller.getEmail())
-                .phoneNumber(seller.getPhoneNumber())
-                .companyNumber(seller.getCompanyNumber())
-                .telecommunicationNumber(seller.getTelecommunicationNumber())
-                .build();
+        return null;
+//        return SellerResponse.builder()
+//                .id(seller.getId())
+//                .company(seller.getCompany())
+//                .representative(seller.getRepresentative())
+//                .companyAddress(seller.getCompanyAddress())
+//                .email(seller.getEmail())
+//                .phoneNumber(seller.getPhoneNumber())
+//                .companyNumber(seller.getCompanyNumber())
+//                .telecommunicationNumber(seller.getTelecommunicationNumber())
+//                .build();
+//    }
     }
 }

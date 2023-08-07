@@ -2,21 +2,24 @@ package com.shop.linepig.domain.member.service;
 
 
 import com.shop.linepig.common.util.PasswdEncry;
-import com.shop.linepig.domain.member.dto.request.MemberJoinRequest;
-import com.shop.linepig.domain.member.dto.request.MemberLoginRequest;
-import com.shop.linepig.domain.member.dto.request.MemberUpdateRequest;
+import com.shop.linepig.domain.member.dto.request.*;
 import com.shop.linepig.domain.member.dto.response.GenderResponse;
 import com.shop.linepig.domain.member.dto.response.MemberResponse;
 import com.shop.linepig.domain.member.dto.response.MemberStatusResponse;
+import com.shop.linepig.domain.member.dto.response.SellerResponse;
 import com.shop.linepig.domain.member.entity.Member;
+import com.shop.linepig.domain.member.entity.Seller;
+import com.shop.linepig.domain.member.entity.SellerExtend;
 import com.shop.linepig.domain.member.entity.enumeration.Gender;
 import com.shop.linepig.domain.member.entity.enumeration.MemberStatus;
 import com.shop.linepig.domain.member.repository.MemberRepository;
+import com.shop.linepig.domain.member.repository.SellerExtendRepository;
+import com.shop.linepig.domain.member.repository.SellerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,25 +28,33 @@ import java.util.stream.Stream;
 
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final ModelMapper modelMapper;
+    private final SellerRepository sellerRepository;
+    private final SellerExtendRepository sellerExtendRepository;
 
-    public Long join(MemberJoinRequest memberJoinRequest){
+    public Long join(MemberJoinRequest request){
 
         //비밀번호 암호화
-        memberJoinRequest.setPassword(getPasswdEncry(memberJoinRequest));
-
-        //회원 등급 NORMAL로 설정
-        memberJoinRequest.setMemberStatus(MemberStatus.NORMAL);
+        request.setPassword(this.getPasswdEncry(request));
 
         //dto를 entity로 변환
-        Member mappedMember = modelMapper.map(memberJoinRequest, Member.class);
-
+//        Member mappedMember = modelMapper.map(request, Member.class);
+        Member member = Member.builder()
+                .loginId(request.getLoginId())
+                .password(request.getPassword())
+                .name(request.getName())
+                .phoneCode(request.getPhoneCode())
+                .phoneNumber(request.getPhoneNumber())
+                .email(request.getEmail())
+                .memberStatus(MemberStatus.NORMAL)
+                .salt(request.getSalt())
+                .build();
         //db에 저장
-        Member savedMember = memberRepository.save(mappedMember);
+        Member savedMember = memberRepository.save(member);
 
         //정장 로직이면 true를 리턴
         return savedMember.getId();
@@ -98,8 +109,45 @@ public class MemberService {
 
     public MemberResponse update(Long id, MemberUpdateRequest request) {
         Member findMember = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Session에서 꺼낸 id에 해당하는 회원이 없습니다."));
-        return MemberResponse.fromEntity(
-                findMember.updateStatus(MemberStatus.fromCode(request.getStatus())));
+        Member updateedMember = findMember.updateStatus(MemberStatus.fromCode(request.getStatus()));
+        return MemberResponse.fromEntity(updateedMember);
+    }
+
+    public SellerResponse createSeller(Long id, SellerCreateRequest request) {
+
+        Member findMember = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 회원을 찾을 수 없습니다."));
+
+        Seller seller = Seller.builder()
+                .member(findMember)
+                .build();
+
+        Seller savedSeller = sellerRepository.save(seller);
+
+
+        List<SellerExtendCreateRequest> sellerExtends = request.getSellerExtends();
+        for(SellerExtendCreateRequest sellerExtendRequest : sellerExtends) {
+            SellerExtend sellerExtend = SellerExtend.builder()
+                    .property(sellerExtendRequest.getProperty())
+                    .value(sellerExtendRequest.getValue())
+                    .seller(savedSeller)
+                    .build();
+            sellerExtendRepository.save(sellerExtend);
+        }
+
+        return SellerResponse.fromEntity(seller);
+    }
+
+    public SellerResponse updateSeller(Long id, SellerUpdateRequest request) {
+        Seller findSeller = sellerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 판매자가 없습니다."));
+//        Seller updatedSeller = findSeller.update(
+//                request.getCompany(),
+//                request.getRepresentative(),
+//                request.getCompanyAddress(),
+//                request.getEmail(),
+//                request.getPhoneNumber(),
+//                request.getCompanyNumber(),
+//                request.getTelecommunicationNumber());
+        return SellerResponse.fromEntity(null);
     }
 
     public List<GenderResponse> getGenders() {
