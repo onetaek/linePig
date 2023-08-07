@@ -26,6 +26,7 @@ function createSelectedMember() {
     console.log("selectedMemberId=",selectedMemberId)
     console.log("selectedMemberLoginId=",selectedMemberLoginId)
     console.log("selectedMemberName=",selectedMemberName)
+    console.log("updateMemberStatus = ",updateMemberStatus)
 
     updateMemberLoginId.value = selectedMemberLoginId.textContent;
     updateMemberName.value = selectedMemberName.textContent;
@@ -43,9 +44,31 @@ function onclickMemberStatusUpdateClose() {
 
 function onclickMemberStatusUpdateApi() {
     if(confirm("선택하신 회원의 상태를 수정하시겠습니까?")) {
-
+        const url = `/api/admins/members/${selectedMemberId}`;
+        const requestBody = {
+            "status":updateMemberStatus.value
+        }
+        fetch(url,{
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestBody)
+        }).then((response) => {
+            if(response.ok){
+                return response.json()
+            }
+        }).then((data) =>{
+            console.log("data :",data);
+            alert("선택하신 회원의 상태를 변경하는데 성공하였습니다");
+            window.location.reload();
+        }).catch(error => {
+            console.log("error :",error);
+        })
     }
 }
+
+
 
 function selectFirstRadioButton() {
     const firstRadioButton = document.querySelector('input[name="selectMember"]');
