@@ -25,14 +25,14 @@ public class AdminApiController {
     @PostMapping("/admins/login")
     public ResponseEntity<?> login(@Validated @RequestBody AdminLoginRequest request, HttpServletRequest httpServletRequest) {
 
-        Long AdminId = adminService.login(request);
+        Long adminId = adminService.login(request);
 
-        if (AdminId == null) {
+        if (adminId == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
         HttpSession session = httpServletRequest.getSession();
-        session.setAttribute(SessionConst.ADMIN_ID,AdminId);
+        session.setAttribute(SessionConst.ADMIN_ID, adminId);
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }

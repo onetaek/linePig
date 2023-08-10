@@ -16,6 +16,7 @@ public class ProductImage {
     private Long id;
     @Embedded
     private UploadFile uploadFile;
+    private int sequence = 0;//순서
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 }

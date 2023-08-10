@@ -9,12 +9,13 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Entity
-public class SellerExtend {
+public class SellerExtend {//판매자의 정보들
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String property;
+    private String name;
     private String value;
+    private int sequence;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Seller seller;

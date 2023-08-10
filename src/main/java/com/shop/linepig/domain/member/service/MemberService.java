@@ -2,14 +2,13 @@ package com.shop.linepig.domain.member.service;
 
 
 import com.shop.linepig.common.util.PasswdEncry;
-import com.shop.linepig.domain.member.dto.request.*;
+import com.shop.linepig.domain.member.dto.request.MemberJoinRequest;
+import com.shop.linepig.domain.member.dto.request.MemberLoginRequest;
+import com.shop.linepig.domain.member.dto.request.MemberUpdateRequest;
 import com.shop.linepig.domain.member.dto.response.GenderResponse;
 import com.shop.linepig.domain.member.dto.response.MemberResponse;
 import com.shop.linepig.domain.member.dto.response.MemberStatusResponse;
-import com.shop.linepig.domain.member.dto.response.SellerResponse;
 import com.shop.linepig.domain.member.entity.Member;
-import com.shop.linepig.domain.member.entity.Seller;
-import com.shop.linepig.domain.member.entity.SellerExtend;
 import com.shop.linepig.domain.member.entity.enumeration.Gender;
 import com.shop.linepig.domain.member.entity.enumeration.MemberStatus;
 import com.shop.linepig.domain.member.repository.MemberRepository;
@@ -61,18 +60,6 @@ public class MemberService {
     }
 
 
-    private String getPasswdEncry(MemberJoinRequest memberJoinRequest) {
-        /* 비밀번호 암호화 */
-        PasswdEncry passwdEncry = new PasswdEncry();
-        // 난수 생성 및 dto에 세팅
-        String salt = passwdEncry.getSalt();
-        memberJoinRequest.setSalt(salt);
-        // 입력받은 비밀번호 + 난수 => 암호화
-        String SHA256Pw = passwdEncry.getEncry(memberJoinRequest.getPassword(), salt);
-        return SHA256Pw;
-    }
-
-
     public MemberResponse login(MemberLoginRequest memberLoginRequest) {
 
         String loginId = memberLoginRequest.getLoginId();
@@ -87,14 +74,13 @@ public class MemberService {
         String SHA256Pw = this.getSHA256Pw(memberLoginRequest, findByLoginId);
         //회원 찾음
         Member findMember = memberRepository.findByloginIdAndPassword(loginId, SHA256Pw);
-
         return MemberResponse.fromEntity(findMember);
     }
 
     public boolean isLoginIdDuplicate(String loginId) {
-        boolean isExist = memberRepository.existsByLoginId(loginId);
-        return isExist;
+        return memberRepository.existsByLoginId(loginId);
     }
+
     public MemberResponse findById(Long id) {
         Member findMember = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Session에서 꺼낸 id에 해당하는 회원이 없습니다."));
         return MemberResponse.fromEntity(findMember);
@@ -111,43 +97,6 @@ public class MemberService {
         Member findMember = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Session에서 꺼낸 id에 해당하는 회원이 없습니다."));
         Member updateedMember = findMember.updateStatus(MemberStatus.fromCode(request.getStatus()));
         return MemberResponse.fromEntity(updateedMember);
-    }
-
-    public SellerResponse createSeller(Long id, SellerCreateRequest request) {
-
-        Member findMember = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 회원을 찾을 수 없습니다."));
-
-        Seller seller = Seller.builder()
-                .member(findMember)
-                .build();
-
-        Seller savedSeller = sellerRepository.save(seller);
-
-
-        List<SellerExtendCreateRequest> sellerExtends = request.getSellerExtends();
-        for(SellerExtendCreateRequest sellerExtendRequest : sellerExtends) {
-            SellerExtend sellerExtend = SellerExtend.builder()
-                    .property(sellerExtendRequest.getProperty())
-                    .value(sellerExtendRequest.getValue())
-                    .seller(savedSeller)
-                    .build();
-            sellerExtendRepository.save(sellerExtend);
-        }
-
-        return SellerResponse.fromEntity(seller);
-    }
-
-    public SellerResponse updateSeller(Long id, SellerUpdateRequest request) {
-        Seller findSeller = sellerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 판매자가 없습니다."));
-//        Seller updatedSeller = findSeller.update(
-//                request.getCompany(),
-//                request.getRepresentative(),
-//                request.getCompanyAddress(),
-//                request.getEmail(),
-//                request.getPhoneNumber(),
-//                request.getCompanyNumber(),
-//                request.getTelecommunicationNumber());
-        return SellerResponse.fromEntity(null);
     }
 
     public List<GenderResponse> getGenders() {
@@ -177,6 +126,17 @@ public class MemberService {
         //입력받은 비번 + 난수 => 암호화
         String SHA256Pw = memberLoginRequest.getPassword() != null ?
                 passwdEncry.getEncry(memberLoginRequest.getPassword(), salt) : null;
+        return SHA256Pw;
+    }
+
+    private String getPasswdEncry(MemberJoinRequest memberJoinRequest) {
+        /* 비밀번호 암호화 */
+        PasswdEncry passwdEncry = new PasswdEncry();
+        // 난수 생성 및 dto에 세팅
+        String salt = passwdEncry.getSalt();
+        memberJoinRequest.setSalt(salt);
+        // 입력받은 비밀번호 + 난수 => 암호화
+        String SHA256Pw = passwdEncry.getEncry(memberJoinRequest.getPassword(), salt);
         return SHA256Pw;
     }
 }

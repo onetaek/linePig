@@ -15,7 +15,7 @@ public class ProductDetail extends BaseEntity {
     private Long id;
     private String name;//상세정보 항목 이름
     private String value;//상세 정보 항목 값
-
+    private int sequence = 0;// 순서
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;//제품
 }
