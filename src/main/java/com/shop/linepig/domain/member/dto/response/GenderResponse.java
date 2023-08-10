@@ -16,6 +16,8 @@ public class GenderResponse {
     private String description;
 
     public static GenderResponse fromEnum(Gender gender) {
+        if (gender == null)
+            return null;
         return new GenderResponse(
                 gender.getCode(),
                 gender.getDescription(),

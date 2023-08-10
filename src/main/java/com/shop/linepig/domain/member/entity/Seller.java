@@ -13,12 +13,18 @@ import java.util.List;
 @Getter
 @Entity
 public class Seller extends BaseEntity {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToMany(mappedBy = "seller")
-    private List<SellerExtend> sellers = new ArrayList<>();
+    private List<SellerExtend> sellerExtends = new ArrayList<>();
 
     @OneToOne
     private Member member;
+
+    public Seller update(List<SellerExtend> sellerExtends) {
+        this.sellerExtends = sellerExtends;
+        return this;
+    }
 }

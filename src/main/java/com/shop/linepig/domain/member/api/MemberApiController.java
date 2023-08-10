@@ -2,10 +2,7 @@ package com.shop.linepig.domain.member.api;
 
 
 import com.shop.linepig.domain.member.dto.request.MemberUpdateRequest;
-import com.shop.linepig.domain.member.dto.request.SellerCreateRequest;
-import com.shop.linepig.domain.member.dto.request.SellerUpdateRequest;
 import com.shop.linepig.domain.member.dto.response.MemberResponse;
-import com.shop.linepig.domain.member.dto.response.SellerResponse;
 import com.shop.linepig.domain.member.service.MemberService;
 import com.shop.linepig.domain.member.service.SnsService;
 import lombok.RequiredArgsConstructor;
@@ -47,17 +44,7 @@ public class MemberApiController {
         return ResponseEntity.status(HttpStatus.OK).body(memberResponse);
     }
 
-    @PostMapping("/api/admins/members/{id}/seller")
-    public ResponseEntity createSeller(@PathVariable Long id,@Validated @RequestBody SellerCreateRequest request) {
-        SellerResponse sellerResponse = memberService.createSeller(id, request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(sellerResponse);
-    }
 
-    @PatchMapping("/api/admins/sellers/{id}")
-    public ResponseEntity updateSeller(@PathVariable Long id,@Validated @RequestBody SellerUpdateRequest request) {
-        SellerResponse sellerResponse = memberService.updateSeller(id, request);
-        return ResponseEntity.status(HttpStatus.OK).body(sellerResponse);
-    }
 
     //카카오톡에 등록한 콜백경로
     @GetMapping("/api/members/kakao/callback")//redirect에서 설정해준 url을 여기 입력

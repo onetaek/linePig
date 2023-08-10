@@ -11,10 +11,10 @@ import javax.persistence.*;
 @Entity
 public class ProductSpecial {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String value;
+    private int sequence = 0;//순서
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
