@@ -9,9 +9,37 @@
 
 <!-- 상품등록 start -->
 <div layout:fragment="content" class="container-fluid pt-4 px-4">
-    <div class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0">
-        <div class="col-md-6 text-center">
-            <h3>This is blank page</h3>
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">회원목록</h6>
+                <div class="form-floating mb-3">
+                    <select  class="form-select" id="memberSelect"
+                            aria-label="Floating label select example">
+                        <option value="">판매자로 등록할 회원을 선택하시오</option>
+                        <th:block th:each="member : ${members}">
+                            <option th:value="${member.id}"
+                                    th:text="|아이디:${member.loginId} 이름:${member.name} 이메일:${member.email} 연락처:${member.phoneNumber} 가입일:${member.createdAt} 성별:${member.gender}|"
+                                    th:selected="${member.id == selectedMember?.id}">회원정보</option>
+                        </th:block>
+                    </select>
+                    <label for="memberSelect">회원정보</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">판매자 속성</h6>
+                <form id="sellerExtendsBox">
+                    <!-- js로 동적으로 추가 -->
+                </form>
+                <button th:onclick="createSellerExtendBox()" class="btn btn-outline-primary w-100 m-2" type="button">판매자 속성 추가하기</button>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <button th:onclick="submitSellerBtn()" class="btn btn-outline-primary w-100 m-2" type="button">판매자등록하기</button>
+            </div>
         </div>
     </div>
 </div>
@@ -19,7 +47,7 @@
 
 <!-- javaScript 파일-->
 <th:block layout:fragment="scripts">
-
+    <script th:src="@{/js/admin/seller/seller.js}"></script>
 </th:block>
 </body>
 </html>
