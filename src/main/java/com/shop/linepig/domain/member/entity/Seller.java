@@ -27,4 +27,18 @@ public class Seller extends BaseEntity {
         this.sellerExtends = sellerExtends;
         return this;
     }
+
+    public void addSellerExtends(List<SellerExtend> sellerExtends) {
+        this.sellerExtends = sellerExtends;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Seller{" +
+                "id=" + id +
+                ", sellerExtends=" + (sellerExtends != null ? sellerExtends.toString() : "null") +
+                ", member=" + (member != null ? member.toString() : "null") +
+                '}';
+    }
 }
