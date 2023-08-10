@@ -34,7 +34,8 @@ public class SellerService {
                 .member(findMember)
                 .build();
         Seller savedSeller = sellerRepository.save(seller);
-        sellerExtendRepository.saveAll(this.getSellerExtends(request, savedSeller));
+        List<SellerExtend> sellerExtends = this.getSellerExtends(request, savedSeller);
+        savedSeller.addSellerExtends(sellerExtends);
         return SellerResponse.fromEntity(savedSeller);
     }
 
