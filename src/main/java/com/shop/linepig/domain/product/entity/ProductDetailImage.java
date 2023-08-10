@@ -11,11 +11,11 @@ import javax.persistence.*;
 @Getter
 @Entity
 public class ProductDetailImage {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Embedded
     private UploadFile uploadFile;
+    private int sequence = 0;//순서
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 }

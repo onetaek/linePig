@@ -40,3 +40,4 @@ out/
 ### custom ###
 application-dba.properties
 sql/data.sql
+serviceAccountKey.json

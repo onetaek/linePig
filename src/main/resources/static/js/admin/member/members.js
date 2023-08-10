@@ -42,6 +42,16 @@ function onclickMemberStatusUpdateClose() {
     removeSelectedMember();
 }
 
+function onClickSellerCreate() {
+    const selectedMemberRadioBtn = document.querySelector('input[name="selectMember"]:checked');
+    const memberInfo = selectedMemberRadioBtn.closest('.memberInfo');
+    const memberName = memberInfo.querySelector('.name').textContent;
+    const memberId = selectedMemberRadioBtn.getAttribute("data-id");
+    if(confirm(`${memberName}님을(를) 판매자로 등록하시겠습니까?(판매자 등록페이지로 이동)`)) {
+        window.location.href = `/admins/sellers/new?memberId=${memberId}`;
+    }
+}
+
 function onclickMemberStatusUpdateApi() {
     if(confirm("선택하신 회원의 상태를 수정하시겠습니까?")) {
         const url = `/api/admins/members/${selectedMemberId}`;

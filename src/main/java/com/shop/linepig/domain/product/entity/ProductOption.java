@@ -16,7 +16,8 @@ public class ProductOption extends BaseEntity {
 
     @Id @GeneratedValue
     private Long id;
-    private String optionName;
+    private String optionName;//옵션명
+    private int sequence = 0;//순서
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
