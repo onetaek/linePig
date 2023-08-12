@@ -32,6 +32,15 @@ public class Seller extends BaseEntity {
         this.sellerExtends = sellerExtends;
     }
 
+    public Seller addSellerExtend(SellerExtend sellerExtend) {
+        this.sellerExtends.add(sellerExtend);
+        if (sellerExtend.getSeller() != this) {
+            sellerExtend.setSeller(this);
+        }
+        return this;
+    }
+
+
 
     @Override
     public String toString() {
