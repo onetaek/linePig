@@ -12,8 +12,6 @@ import com.shop.linepig.domain.member.entity.Member;
 import com.shop.linepig.domain.member.entity.enumeration.Gender;
 import com.shop.linepig.domain.member.entity.enumeration.MemberStatus;
 import com.shop.linepig.domain.member.repository.MemberRepository;
-import com.shop.linepig.domain.member.repository.SellerExtendRepository;
-import com.shop.linepig.domain.member.repository.SellerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,8 +30,6 @@ import java.util.stream.Stream;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final SellerRepository sellerRepository;
-    private final SellerExtendRepository sellerExtendRepository;
 
     public Long join(MemberJoinRequest request){
 
