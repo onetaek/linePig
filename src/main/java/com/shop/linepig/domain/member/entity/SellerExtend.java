@@ -19,4 +19,9 @@ public class SellerExtend {//판매자의 정보들
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Seller seller;
+
+    public SellerExtend setSeller(Seller seller) {
+        this.seller = seller;
+        return this;
+    }
 }

@@ -8,7 +8,6 @@ import com.shop.linepig.domain.member.entity.Member;
 import com.shop.linepig.domain.member.entity.Seller;
 import com.shop.linepig.domain.member.entity.SellerExtend;
 import com.shop.linepig.domain.member.repository.MemberRepository;
-import com.shop.linepig.domain.member.repository.SellerExtendRepository;
 import com.shop.linepig.domain.member.repository.SellerRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,20 +25,19 @@ public class SellerService {
 
     private final MemberRepository memberRepository;
     private final SellerRepository sellerRepository;
-    private final SellerExtendRepository sellerExtendRepository;
 
-    public SellerResponse createSeller(Long id, SellerCreateRequest request) {
+    public SellerResponse create(Long id, SellerCreateRequest request) {
         Member findMember = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 회원을 찾을 수 없습니다."));
         Seller seller = Seller.builder()
                 .member(findMember)
                 .build();
         Seller savedSeller = sellerRepository.save(seller);
         List<SellerExtend> sellerExtends = this.getSellerExtends(request, savedSeller);
-        savedSeller.addSellerExtends(sellerExtends);
+        sellerExtends.forEach(seller::addSellerExtend);
         return SellerResponse.fromEntity(savedSeller);
     }
 
-    public SellerResponse updateSeller(Long id, SellerUpdateRequest request) {
+    public SellerResponse update(Long id, SellerUpdateRequest request) {
         Seller findSeller = sellerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 판매자가 없습니다."));
         List<SellerExtend> sellerExtends = this.getSellerExtends(request, findSeller);
         Seller update = findSeller.update(sellerExtends);
