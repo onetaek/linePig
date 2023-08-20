@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductApiController {
 
     @PostMapping("/admins/products")
-    public ResponseEntity<?> create(@RequestBody ProductCreateRequest productCreateRequest, @AdminLogin Long id) {
+    public ResponseEntity create(@RequestBody ProductCreateRequest productCreateRequest, @AdminLogin Long id) {
         System.out.println("productCreateRequest = " + productCreateRequest);
-
 
 
         return null;

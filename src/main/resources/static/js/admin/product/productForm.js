@@ -57,13 +57,13 @@ const productDetailInputElement = `<div class="productDetailBox row d-flex justi
                         <div class="row col-xl-4">
                             <label for="name" class="col-sm-3 col-form-label">속성명</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control productDetailName">
                             </div>
                         </div>
                         <div class="row col-xl-7">
                             <label for="nameDescription" class="col-sm-2 col-form-label">속성값</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control productDetailValue">
                             </div>
                         </div>
                         <button onclick="removeProductDetailBox(this)" type="button" class="btn btn-sm btn-sm-square btn-outline-primary col-xl-1">
@@ -147,28 +147,38 @@ function removeProductDetailBox(obj) {
     productDetailBox.remove();
 }
 
-function createFormData() {
-    const formData = new FormData();
+async function createFormData() {
+    let requestBody = {
+        productImages:undefined,
+        name:undefined,
+        nameDescription:undefined,
+        price:undefined,
+        priceDescription:undefined,
+        productOptions:undefined,
+        productSpecials:undefined,
+        productDetails:undefined,
+        productDetailImages:undefined,
+        sellerId:undefined,
+    }
 
     //제품 이미지
     const productImageInputs = productImagesBox.querySelectorAll('.productImageInput');
-    productImageInputs.forEach(input => {
-        const file = input.files[0];
-        formData.append('productImages',file);
-    })
+    requestBody.productImages = await createUploadFiles(productImageInputs)
 
     //제품 정보
     const productName = document.querySelector('#productName');//제품명
     const productNameDescription = document.querySelector('#productNameDescription');//부재
     const productPrice = document.querySelector('#productPrice');//가격
     const productPriceDescription = document.querySelector('#productPriceDescription');//가격설명
-    formData.append('name',productName.value);
-    formData.append('nameDescription',productNameDescription.value);
-    formData.append('price',productPrice.value);
-    formData.append('priceDescription',productPriceDescription.value);
+
+    requestBody.name = productName.value;
+    requestBody.nameDescription = productNameDescription.value;
+    requestBody.price = productPrice.value;
+    requestBody.priceDescription = productPriceDescription.value;
 
     //제품 옵션명
     const productOptionBoxes = productOptionMainBox.querySelectorAll('.productOptionBox');
+    let productOptionObjects = []
     productOptionBoxes.forEach(productOptionBox => {
         const productOptionNameInput = productOptionBox.querySelector('.productOptionNameInput');
         let optionObject = {
@@ -182,62 +192,73 @@ function createFormData() {
             const optionValue = productOptionValueInput.value;
             optionObject.productOptionItems.push(optionValue);
         });
-        formData.append('productOptions',JSON.stringify(optionObject))
+        productOptionObjects.push(optionObject)
     })
+    requestBody.productOptions = productOptionObjects;
 
     //특이사항
-    const productSpecialTextAreas = productImagesBox.querySelectorAll('.productSpecial');
+    const productSpecialTextAreas = document.querySelectorAll('.productSpecial');
+    let productSpecialObjects = []
     productSpecialTextAreas.forEach(textArea => {
         const productSpecialObject = {
             value : textArea.value
         }
-        formData.append('productImages',JSON.stringify(productSpecialObject));
+        productSpecialObjects.push(productSpecialObject)
     })
+    requestBody.productSpecials = productSpecialObjects;
 
     //세부정보
-    const productDetailBoxes = productImagesBox.querySelectorAll('.productDetailBox');
-    productSpecialTextAreas.forEach(textArea => {
-        const productSpecialObject = {
-            value : textArea.value
+    const productDetailBoxes = document.querySelectorAll('.productDetailBox');
+    console.log("productDetailBoxes =",productDetailBoxes)
+    let productDetailObjects = []
+    productDetailBoxes.forEach(productDetail => {
+        const productDetailName = productDetail.querySelector('.productDetailName');
+        const productDetailValue = productDetail.querySelector('.productDetailValue');
+        console.log("productDetail =",productDetail)
+        const productDetailObject = {
+            name : productDetailName.value,
+            value : productDetailValue.value,
         }
-        formData.append('productImages',JSON.stringify(productSpecialObject));
+        productDetailObjects.push(productDetailObject)
     })
+    console.log("productDetailObjects =",productDetailObjects)
+    requestBody.productDetails = productDetailObjects;
+
 
     //제품 상세이미지
-    const productDetailImageInputs = productImagesBox.querySelectorAll('.productDetailImageInput');
-    productDetailImageInputs.forEach(input => {
-        const file = input.files[0];
-        formData.append('productDetailImages',file);
-    })
+    const productImages = document.querySelectorAll('.productImage');
+    console.log("productImages =",productImages)
+    requestBody.productDetailImages = await createUploadFiles(productImages)
 
-    // FormData 내용 확인 (개발자 도구의 Network 탭에서 확인 가능)
-    for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1]);
-    }
+    //판매자 정보
+    const productSellerSelect = document.querySelector('#productSellerSelect');
+    requestBody.sellerId = productSellerSelect.value
 
-    return formData;
+    return requestBody;
 }
 
 function submitProductBtn() {
     if (confirm("제품을 등록하시겠습니까?")) {
-        const formData = createFormData();
+        const requestBody = createFormData();
+
+        console.log("requestbody =",requestBody);
+
         const uri = `/api/admins/products`;
 
-        fetch(uri,{
-            method : 'POST',
-            body: formData,
-        }).then(response => {
-            if(response.ok) {
-                alert('서버와 통신에 성공했습니다.');
-                return response.json();
-            } else {
-                throw new Error('Network response was not ok');
-            }
-        }).then(data => {
-            console.log(data);
-        }).catch(error => {
-            console.log('error : ',error);
-        })
-
+        // fetch(uri,{
+        //     method : 'POST',
+        //     body: JSON.stringify(requestBody),
+        // }).then(response => {
+        //     if(response.ok) {
+        //         alert('서버와 통신에 성공했습니다.');
+        //         return response.json();
+        //     } else {
+        //         throw new Error('Network response was not ok');
+        //     }
+        // }).then(data => {
+        //     console.log(data);
+        // }).catch(error => {
+        //     console.log('error : ',error);
+        // })
     }
 }

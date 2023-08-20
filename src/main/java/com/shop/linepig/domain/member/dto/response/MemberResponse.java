@@ -19,7 +19,6 @@ public class MemberResponse {
     private String memberStatus;
     private String name;
     private String gender;
-    private SellerResponse seller;
 
     public static MemberResponse fromEntity(Member member) {
         if(member == null)
@@ -34,7 +33,6 @@ public class MemberResponse {
                 .memberStatus(member.getMemberStatus())
                 .name(member.getName())
                 .gender(member.getGender())
-                .seller(SellerResponse.fromEntity(member.getSeller()))
                 .build();
     }
 }

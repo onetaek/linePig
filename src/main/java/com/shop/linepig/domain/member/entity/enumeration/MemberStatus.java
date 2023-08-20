@@ -17,9 +17,9 @@ public enum MemberStatus {
     private final Integer sequence;
     private final String description;
 
-    MemberStatus(String displayvalue, Integer sequence, String description) {
+    MemberStatus(String displayValue, Integer sequence, String description) {
         this.code = this.name();
-        this.displayValue = displayvalue;
+        this.displayValue = displayValue;
         this.sequence = sequence;
         this.description = description;
     }

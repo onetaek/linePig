@@ -1,5 +1,6 @@
+function onSubmitBtn(event){
+    event.preventDefault();
 
-function onClickSubmitBtn(){
     const loginIdInput = document.querySelector('#loginId');
     const passwordInput = document.querySelector('#password');
 

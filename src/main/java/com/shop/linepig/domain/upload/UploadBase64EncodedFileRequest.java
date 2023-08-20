@@ -1,9 +1,14 @@
 package com.shop.linepig.domain.upload;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@Builder
 public class UploadBase64EncodedFileRequest {
+    private int sequence;
     private String fileBase64;
     private String fileName;
     private String contentType;

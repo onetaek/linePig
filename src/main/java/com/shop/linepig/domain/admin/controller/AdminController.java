@@ -1,6 +1,7 @@
 package com.shop.linepig.domain.admin.controller;
 
 import com.shop.linepig.domain.member.service.MemberService;
+import com.shop.linepig.domain.member.service.SellerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -11,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-public class AdminController {//AdminModelAttributeAdvice를 통해서 로그인중인 admin객체를 model에 담음
+public class AdminController {//AdminModelAttributeAdvice를 통해서 로그인중인 admin객체를 model에 담음(login 페이지 제외)
 
     private final MemberService memberService;
+    private final SellerService sellerService;
 
     @GetMapping("/admins/login")//로그인 페이지 이동
     public String loginPage() {
@@ -32,8 +34,8 @@ public class AdminController {//AdminModelAttributeAdvice를 통해서 로그인
 
     @GetMapping("/admins/products/new")//상품 등록 페이지 이동
     public String productNewPage(Model model) {
-        model.addAttribute("members", memberService.findAll());
-        return "/admins/products/new";
+        model.addAttribute("sellers", sellerService.findAll());
+        return "/admins/products/productForm";
     }
 
     @GetMapping("/admins/members")//회원 목록 페이지 이동
@@ -49,7 +51,13 @@ public class AdminController {//AdminModelAttributeAdvice를 통해서 로그인
         if(memberId != null)
             model.addAttribute("selectedMember",memberService.findById(memberId));
         model.addAttribute("members", memberService.findAll());
-        return "/admins/sellers/new";
+        return "/admins/sellers/sellerForm";
+    }
+
+    @GetMapping("/admins/sellers")
+    public String sellersPage(Model model) {//판매자 목록 페이지 이동
+        model.addAttribute("sellers", sellerService.findAll());
+        return "/admins/sellers/sellers";
     }
 
     @GetMapping("/admins/orders")//주문목록 페이지 (개발x)

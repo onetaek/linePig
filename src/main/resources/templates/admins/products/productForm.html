@@ -91,10 +91,11 @@
                 <div class="form-floating mb-3">
                     <select class="form-select" id="productSellerSelect"
                             aria-label="Floating label select example">
-                        <option>없음</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option>판매자를 선택하시오</option>
+                        <th:block th:each="seller:${sellers}">
+                            <option th:value="${seller.id}"
+                                    th:text="|아이디:${seller.member.loginId} 이름:${seller.member.name}|"></option>
+                        </th:block>
                     </select>
                     <label for="productSellerSelect">판매자</label>
                 </div>
@@ -112,7 +113,7 @@
 <!-- javaScript 파일-->
 <th:block layout:fragment="scripts">
     <script th:src="@{/js/common/common.js}"></script>
-    <script th:src="@{/js/admin/product/new.js}"></script>
+    <script th:src="@{/js/admin/product/productForm.js}"></script>
 </th:block>
 </body>
 </html>

@@ -17,7 +17,7 @@ public class Seller extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "seller")
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SellerExtend> sellerExtends = new ArrayList<>();
 
     @OneToOne
@@ -28,15 +28,8 @@ public class Seller extends BaseEntity {
         return this;
     }
 
-    public void addSellerExtends(List<SellerExtend> sellerExtends) {
+    public Seller setSellerExtends(List<SellerExtend> sellerExtends) {
         this.sellerExtends = sellerExtends;
-    }
-
-    public Seller addSellerExtend(SellerExtend sellerExtend) {
-        this.sellerExtends.add(sellerExtend);
-        if (sellerExtend.getSeller() != this) {
-            sellerExtend.setSeller(this);
-        }
         return this;
     }
 

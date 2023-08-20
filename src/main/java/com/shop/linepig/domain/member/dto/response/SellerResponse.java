@@ -20,7 +20,6 @@ public class SellerResponse {
     public static SellerResponse fromEntity(Seller seller) {
         if (seller == null)
             return null;
-
         return SellerResponse.builder()
                 .id(seller.getId())
                 .member(MemberResponse.fromEntity(seller.getMember()))
