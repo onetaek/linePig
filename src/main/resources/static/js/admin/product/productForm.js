@@ -209,56 +209,55 @@ async function createFormData() {
 
     //세부정보
     const productDetailBoxes = document.querySelectorAll('.productDetailBox');
-    console.log("productDetailBoxes =",productDetailBoxes)
     let productDetailObjects = []
     productDetailBoxes.forEach(productDetail => {
         const productDetailName = productDetail.querySelector('.productDetailName');
         const productDetailValue = productDetail.querySelector('.productDetailValue');
-        console.log("productDetail =",productDetail)
         const productDetailObject = {
             name : productDetailName.value,
             value : productDetailValue.value,
         }
         productDetailObjects.push(productDetailObject)
     })
-    console.log("productDetailObjects =",productDetailObjects)
     requestBody.productDetails = productDetailObjects;
 
 
     //제품 상세이미지
     const productImages = document.querySelectorAll('.productImage');
-    console.log("productImages =",productImages)
     requestBody.productDetailImages = await createUploadFiles(productImages)
 
     //판매자 정보
     const productSellerSelect = document.querySelector('#productSellerSelect');
     requestBody.sellerId = productSellerSelect.value
 
+    console.log("requestBody =",requestBody);
     return requestBody;
 }
 
-function submitProductBtn() {
+async function submitProductBtn() {
     if (confirm("제품을 등록하시겠습니까?")) {
-        const requestBody = createFormData();
+        try {
+            const requestBody = await createFormData();
+            console.log("requestbody =", requestBody);
 
-        console.log("requestbody =",requestBody);
+            const response =
+                await fetch(`/api/admins/products`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestBody)
+            });
 
-        const uri = `/api/admins/products`;
-
-        // fetch(uri,{
-        //     method : 'POST',
-        //     body: JSON.stringify(requestBody),
-        // }).then(response => {
-        //     if(response.ok) {
-        //         alert('서버와 통신에 성공했습니다.');
-        //         return response.json();
-        //     } else {
-        //         throw new Error('Network response was not ok');
-        //     }
-        // }).then(data => {
-        //     console.log(data);
-        // }).catch(error => {
-        //     console.log('error : ',error);
-        // })
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+                alert('서버와 통신에 성공했습니다.');
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        } catch (error) {
+            console.log('error : ', error);
+        }
     }
 }

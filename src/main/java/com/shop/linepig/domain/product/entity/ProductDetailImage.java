@@ -4,6 +4,8 @@ import com.shop.linepig.domain.product.entity.embeddable.UploadFile;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
@@ -18,4 +20,14 @@ public class ProductDetailImage {
     private int sequence = 0;//순서
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
+
+    public static List<ProductDetailImage> createEntities(List<UploadFile> uploadFiles, Product savedProduct) {
+        return uploadFiles
+                .stream()
+                .map(uploadfile -> ProductDetailImage.builder()
+                        .uploadFile(uploadfile)
+                        .product(savedProduct)
+                        .build()
+                ).collect(Collectors.toList());
+    }
 }

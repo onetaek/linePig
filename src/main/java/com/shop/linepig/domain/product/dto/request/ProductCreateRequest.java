@@ -1,5 +1,10 @@
 package com.shop.linepig.domain.product.dto.request;
 
+import com.shop.linepig.domain.admin.entity.Admin;
+import com.shop.linepig.domain.member.entity.Seller;
+import com.shop.linepig.domain.product.entity.Product;
+import com.shop.linepig.domain.product.entity.enumeration.ProductCategory;
+import com.shop.linepig.domain.product.entity.enumeration.ProductSellStatus;
 import com.shop.linepig.domain.upload.UploadBase64EncodedFileRequest;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,4 +25,20 @@ public class ProductCreateRequest {
     private List<ProductDetailCreateRequest> productDetails;//세부정보
     private List<UploadBase64EncodedFileRequest> productDetailImages;//제품 상세이미지
     private Long sellerId;//판매자
+
+    public static Product toEntity(ProductCreateRequest productCreateRequest, Admin admin, Seller seller) {
+        return Product.builder()
+                .name(productCreateRequest.getName())
+                .nameDescription(productCreateRequest.getNameDescription())
+                .price(productCreateRequest.getPrice())
+                .priceDescription(productCreateRequest.getPriceDescription())
+                .sequence(0)
+                .stockNumber(productCreateRequest.getStockNumber())
+                .status(ProductSellStatus.Sell)
+                .category(ProductCategory.DEFAULT)
+                .admin(admin)
+                .seller(seller)
+                .build();
+    }
+
 }

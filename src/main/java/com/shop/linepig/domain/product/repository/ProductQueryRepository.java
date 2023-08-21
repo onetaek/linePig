@@ -25,29 +25,35 @@ public class ProductQueryRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
 
-    public Optional<Product> findOne(BooleanExpression... expressions) {
+    /**
+     * 중복 결과를 제거하면서 페치 조인(fetch joins)을 사용하여 단일 제품 엔터티를 검색합니다.
+     *
+     * @param expressions
+     * @return 하나의 Optional 객체를 반환하는 Product entity
+     */
+    public Optional<Product> findDistinctOneWithFetchJoin(BooleanExpression... expressions) {
         return Optional.ofNullable(
                 jpaQueryFactory.selectFrom(product)
-                        .join(product.productImages, productImage)
-                        .join(product.productOptions, productOption)
-                        .join(productOption.productOptionItems, productOptionItem)
-                        .join(product.productSpecials, productSpecial)
-                        .join(product.productDetails, productDetail)
-                        .join(product.productDetailImages, productDetailImage)
-                        .fetchJoin()
+                        .distinct()
+                        .join(product.productImages, productImage).fetchJoin()
+                        .join(product.productOptions, productOption).fetchJoin()
+                        .join(productOption.productOptionItems, productOptionItem).fetchJoin()
+                        .join(product.productSpecials, productSpecial).fetchJoin()
+                        .join(product.productDetails, productDetail).fetchJoin()
+                        .join(product.productDetailImages, productDetailImage).fetchJoin()
                         .where(expressions)
                         .fetchOne());
     }
 
-    public List<Product> findAll(BooleanExpression... expressions) {
+    public List<Product> findAllWithFetchJoin(BooleanExpression... expressions) {
         return jpaQueryFactory.selectFrom(product)
-                .join(product.productImages, productImage)
-                .join(product.productOptions, productOption)
-                .join(productOption.productOptionItems, productOptionItem)
-                .join(product.productSpecials, productSpecial)
-                .join(product.productDetails, productDetail)
-                .join(product.productDetailImages, productDetailImage)
-                .fetchJoin()
+                .distinct()
+                .join(product.productImages, productImage).fetchJoin()
+                .join(product.productOptions, productOption).fetchJoin()
+                .join(productOption.productOptionItems, productOptionItem).fetchJoin()
+                .join(product.productSpecials, productSpecial).fetchJoin()
+                .join(product.productDetails, productDetail).fetchJoin()
+                .join(product.productDetailImages, productDetailImage).fetchJoin()
                 .where(expressions)
                 .fetch();
     }

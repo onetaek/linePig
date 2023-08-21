@@ -6,14 +6,10 @@ import com.shop.linepig.domain.member.entity.Seller;
 import com.shop.linepig.domain.member.repository.SellerRepository;
 import com.shop.linepig.domain.product.dto.request.*;
 import com.shop.linepig.domain.product.dto.response.ProductResponse;
-import com.shop.linepig.domain.product.entity.Product;
-import com.shop.linepig.domain.product.entity.ProductDetail;
-import com.shop.linepig.domain.product.entity.ProductSpecial;
+import com.shop.linepig.domain.product.entity.*;
 import com.shop.linepig.domain.product.entity.embeddable.UploadFile;
-import com.shop.linepig.domain.product.entity.enumeration.ProductCategory;
-import com.shop.linepig.domain.product.entity.enumeration.ProductSellStatus;
 import com.shop.linepig.domain.product.repository.*;
-import com.shop.linepig.domain.upload.UploadBase64EncodedFileRequest;
+import com.shop.linepig.domain.product.repository.expression.ProductQueryExpression;
 import com.shop.linepig.domain.upload.UploadFirebaseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +25,7 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductQueryRepository productQueryRepository;
     private final ProductImageRepository productImageRepository;
     private final ProductOptionRepository productOptionRepository;
     private final ProductOptionItemRepository productOptionItemRepository;
@@ -39,50 +36,48 @@ public class ProductService {
     private final SellerRepository sellerRepository;
     private final AdminRepository adminRepository;
 
-    public ProductResponse create(ProductCreateRequest request, Long adminId) {
+    public ProductResponse create(ProductCreateRequest productCreateRequest, Long adminId) {
 
-        List<UploadBase64EncodedFileRequest> productImages = request.getProductImages();//제품 이미지
-        String name = request.getName();//제품이름
-        String nameDescription = request.getNameDescription();//부재
-        int price = request.getPrice();//가격
-        String priceDescription = request.getPriceDescription();//가격설명
-        int stockNumber = request.getStockNumber();
-        List<ProductOptionCreateRequest> productOptions = request.getProductOptions();//옵션
-        List<ProductSpecialCreateRequest> productSpecials = request.getProductSpecials();//특이사항
-        List<ProductDetailCreateRequest> productDetails = request.getProductDetails();//세부정보
-        List<UploadBase64EncodedFileRequest> productDetailImages = request.getProductDetailImages();//제품 상세이미지
-        Long sellerId = request.getSellerId();//판매자
-
-        //이미지 firebase에 등록
-        List<UploadFile> uploadedProductImages = uploadFirebaseService.uploadFiles(productImages);
-        List<UploadFile> uploadedProductDetailImages = uploadFirebaseService.uploadFiles(productDetailImages);
-
-        Seller findSeller = sellerRepository.findById(sellerId).orElseThrow(() -> new IllegalArgumentException("판매자를 찾을 수 없습니다."));
+        Seller findSeller = sellerRepository.findById(productCreateRequest.getSellerId()).orElseThrow(() -> new IllegalArgumentException("판매자를 찾을 수 없습니다."));
         Admin findAdmin = adminRepository.findById(adminId).orElseThrow(() -> new IllegalArgumentException("관리자를 찾을 수 없습니다."));
 
+        //제품 생성 및 저장
+        Product unsavedProduct = ProductCreateRequest.toEntity(productCreateRequest, findAdmin, findSeller);
+        Product savedProduct = productRepository.save(unsavedProduct);
 
-        Product product = Product.builder()
-                .name(name)
-                .nameDescription(nameDescription)
-                .price(price)
-                .priceDescription(priceDescription)
-                .sequence(0)//순서 커스텀 할 수있도록 요구사항이 있으면 수정
-                .stockNumber(stockNumber)
-                .status(ProductSellStatus.Sell)
-                .category(ProductCategory.DEFAULT)
-                .admin(findAdmin)
-                .seller(findSeller)
-                .build();
+        //특이사항 생성 및 저장
+        List<ProductSpecial> unsavedProductSpecials = ProductSpecialCreateRequest.toEntities(productCreateRequest.getProductSpecials(), savedProduct);
+        productSpecialRepository.saveAll(unsavedProductSpecials);
 
-        Product savedProduct = productRepository.save(product);
+        //제품 세부정보 생성 및 저장
+        List<ProductDetail> unsavedProductDetails = ProductDetailCreateRequest.toEntities(productCreateRequest.getProductDetails(), savedProduct);
+        productDetailRepository.saveAll(unsavedProductDetails);
 
-        List<ProductSpecial> toSaveProductSpecials = ProductSpecialCreateRequest.toEntities(productSpecials, savedProduct);
-        productSpecialRepository.saveAll(toSaveProductSpecials);
+        //제품 옵션 생성 및 저장
+        productCreateRequest.getProductOptions().forEach(productOption -> {
+            ProductOption unsavedProductionOption = ProductOptionCreateRequest.toEntity(productOption, savedProduct);
+            ProductOption savedProductOption = productOptionRepository.save(unsavedProductionOption);
+            List<ProductOptionItemCreateRequest> productOptionItemCreateRequests = productOption.getProductOptionItems();
+            List<ProductOptionItem> unsavedProductionOptionItems = ProductOptionItemCreateRequest.toEntities(productOptionItemCreateRequests, savedProductOption);
+            productOptionItemRepository.saveAll(unsavedProductionOptionItems);
+        });
 
-        List<ProductDetail> toSaveProductDetails = ProductDetailCreateRequest.toEntities(productDetails, savedProduct);
-        productDetailRepository.saveAll(toSaveProductDetails);
+        //Firebase Storage에 저장 이미지 저장
+        List<UploadFile> uploadedProductImages = uploadFirebaseService.uploadFiles(productCreateRequest.getProductImages());
+        List<UploadFile> uploadedProductDetailImages = uploadFirebaseService.uploadFiles(productCreateRequest.getProductDetailImages());
 
+        //제품 이미지 생성 및 저장
+        List<ProductImage> toSaveProductImages = ProductImage.createEntities(uploadedProductImages, savedProduct);
+        productImageRepository.saveAll(toSaveProductImages);
 
+        //제품 상세 이미지 생성 및 저장
+        List<ProductDetailImage> toSaveProductDetailImages = ProductDetailImage.createEntities(uploadedProductDetailImages, savedProduct);
+        productDetailImageRepository.saveAll(toSaveProductDetailImages);
+
+        Product findProduct = productQueryRepository.findDistinctOneWithFetchJoin(ProductQueryExpression.eqId(savedProduct.getId()))
+                .orElseThrow(() -> new IllegalArgumentException("제품을 찾을 수 없습니다."));
+
+        System.out.println("findProduct = " + findProduct);
 
         return null;
     }

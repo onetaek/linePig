@@ -21,7 +21,7 @@ public class UploadFirebaseService {
     @Value("${app.firebase-root}")
     private String rootPath;
 
-    public List<UploadFile> uploadFiles(List<UploadBase64EncodedFileRequest> files) {
+    public List<UploadFile> uploadFiles(List<? extends UploadBase64EncodedFileRequest> files) {
         return files.stream()
                 .map(this::uploadFile)
                 .collect(Collectors.toList());
