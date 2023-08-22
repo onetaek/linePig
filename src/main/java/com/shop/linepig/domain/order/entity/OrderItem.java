@@ -11,14 +11,18 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Entity
-public class OrderDetail extends BaseEntity {
+public class OrderItem extends BaseEntity {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int price;//가격
-    private int cnt;//개수
 
-    @ManyToOne
-    private TotalOrder totalOrder;//주문
-    @ManyToOne
+    private int price;//가격
+
+    private int count;//개수
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Order order;//주문
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Product product;//제품
 }

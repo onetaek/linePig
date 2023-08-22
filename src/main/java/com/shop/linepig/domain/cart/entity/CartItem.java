@@ -1,5 +1,6 @@
-package com.shop.linepig.domain.product.entity;
+package com.shop.linepig.domain.cart.entity;
 
+import com.shop.linepig.domain.product.entity.Product;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,15 +10,18 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Entity
-public class ProductSpecial {
+public class CartItem {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String value;
+    private int count;
 
-    private Integer sequence = 0;//순서
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Cart cart;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
+
+
 }

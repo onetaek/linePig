@@ -14,8 +14,11 @@ public class ProductOptionItem extends BaseEntity {
 
     @Id @GeneratedValue
     private Long id;
+
     private String optionValue;//옵션 값
-    private int sequence = 0;//순서
+
+    private Integer sequence = 0;//순서
+
     @ManyToOne(fetch = FetchType.LAZY)
     private ProductOption productOption;//제품옵션
 }

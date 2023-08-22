@@ -34,7 +34,7 @@ public class ProductCreateRequest {
                 .priceDescription(productCreateRequest.getPriceDescription())
                 .sequence(0)
                 .stockNumber(productCreateRequest.getStockNumber())
-                .status(ProductSellStatus.Sell)
+                .status(ProductSellStatus.SELL)
                 .category(ProductCategory.DEFAULT)
                 .admin(admin)
                 .seller(seller)

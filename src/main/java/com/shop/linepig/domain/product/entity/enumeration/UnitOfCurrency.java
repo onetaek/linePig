@@ -4,18 +4,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 
 import java.util.stream.Stream;
-
 @Getter
-public enum ProductSellStatus {
-    SELL("판매중",0,""),
-    SOLD_OUT("재고 소진", 10,"");
+public enum UnitOfCurrency {
+    KRW("원",0,"대한민국: 원"),
+    USD("$",10,"미국: 달러"),
+    CNY("¥",20,"중국: 위안화"),
+    JPY("¥",30,"일본: 엔화");
 
     private final String code;
     private final String displayValue;
     private final Integer sequence;
     private final String description;
 
-    ProductSellStatus(String displayValue, Integer sequence, String description) {
+    UnitOfCurrency(String displayValue, Integer sequence, String description) {
         this.code = this.name();
         this.displayValue = displayValue;
         this.sequence = sequence;
@@ -23,7 +24,7 @@ public enum ProductSellStatus {
     }
 
     @JsonCreator
-    public static ProductSellStatus fromCode(String code) {
+    public static UnitOfCurrency fromCode(String code) {
         return Stream.of(values())
                 .filter(enumType -> code.equalsIgnoreCase(enumType.code))
                 .findFirst()

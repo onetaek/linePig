@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Setter
 public class ProductImageCreateRequest {
 
-    private int sequence;
+    private Integer sequence;
     private String fileBase64;
     private String fileName;
     private String contentType;

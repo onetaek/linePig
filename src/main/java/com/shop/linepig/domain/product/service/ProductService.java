@@ -5,6 +5,7 @@ import com.shop.linepig.domain.admin.repository.AdminRepository;
 import com.shop.linepig.domain.member.entity.Seller;
 import com.shop.linepig.domain.member.repository.SellerRepository;
 import com.shop.linepig.domain.product.dto.request.*;
+import com.shop.linepig.domain.product.dto.response.ProductBasicResponse;
 import com.shop.linepig.domain.product.dto.response.ProductResponse;
 import com.shop.linepig.domain.product.entity.*;
 import com.shop.linepig.domain.product.entity.embeddable.UploadFile;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -35,6 +37,21 @@ public class ProductService {
     private final UploadFirebaseService uploadFirebaseService;
     private final SellerRepository sellerRepository;
     private final AdminRepository adminRepository;
+    private final ProductOptionService productOptionService;
+
+    public ProductResponse findById(Long id) {
+        Product findProduct = productQueryRepository.findDistinctOneWithFetchJoin(ProductQueryExpression.eqId(id)).orElseThrow(() -> new IllegalArgumentException("제품을 찾을 수 없습니다."));
+        ProductResponse productResponse = ProductResponse.fromEntity(findProduct);
+        return productResponse;
+    }
+
+    public List<ProductBasicResponse> findAll() {
+        List<Product> findProducts = productQueryRepository.findAll();
+        return findProducts
+                .stream()
+                .map(ProductBasicResponse::fromEntity)
+                .collect(Collectors.toList());
+    }
 
     public ProductResponse create(ProductCreateRequest productCreateRequest, Long adminId) {
 
@@ -81,4 +98,6 @@ public class ProductService {
 
         return null;
     }
+
+
 }
