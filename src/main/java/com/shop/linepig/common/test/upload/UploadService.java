@@ -3,7 +3,7 @@ package com.shop.linepig.common.test.upload;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
 import com.google.firebase.cloud.StorageClient;
-import com.shop.linepig.domain.product.entity.embeddable.UploadFile;
+import com.shop.linepig.domain.common.embeddable.UploadFile;
 import com.shop.linepig.domain.upload.UploadBase64EncodedFileRequest;
 import com.shop.linepig.domain.upload.UploadFirebaseService;
 import lombok.RequiredArgsConstructor;

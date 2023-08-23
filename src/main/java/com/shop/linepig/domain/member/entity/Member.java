@@ -1,12 +1,13 @@
 package com.shop.linepig.domain.member.entity;
 
-import com.shop.linepig.domain.common.BaseEntity;
+import com.shop.linepig.domain.common.mappedsuperclass.BaseEntity;
 import com.shop.linepig.domain.member.entity.enumeration.Gender;
 import com.shop.linepig.domain.member.entity.enumeration.MemberStatus;
 import lombok.*;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
@@ -35,15 +36,22 @@ public class Member extends BaseEntity {
     private Gender gender;//성별
 
     @Enumerated(EnumType.STRING)
-    private MemberStatus memberStatus;//회원 상태
+    private MemberStatus status;//회원 상태
 
     private String salt;//난수
+
+    private LocalDateTime joinOn;//회원가입 시각
 
     @OneToOne(mappedBy = "member")
     private Seller seller;
 
-    public String getMemberStatus() {
-        return this.memberStatus.getDisplayValue();
+    public Member setStatus(MemberStatus status) {
+        this.status = status;
+        return this;
+    }
+
+    public String getStatus() {
+        return this.status.getDisplayValue();
     }
 
     public String getGender() {
@@ -53,7 +61,7 @@ public class Member extends BaseEntity {
     }
 
     public Member updateStatus(MemberStatus status) {
-        this.memberStatus = status;
+        this.status = status;
         return this;
     }
 }

@@ -1,0 +1,2 @@
+INSERT INTO linepig.seller_extend (id, name, sequence, value, seller_id) VALUES (4, '회사명', 0, '롯데화학', 2);
+INSERT INTO linepig.seller_extend (id, name, sequence, value, seller_id) VALUES (5, '회사위치', 0, '울산광역시 어딘가', 2);

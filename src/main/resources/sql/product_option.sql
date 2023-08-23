@@ -1,0 +1,2 @@
+INSERT INTO linepig.product_option (id, created_by, created_on, deleted, deleted_on, modified_by, modified_on, option_name, sequence, product_id) VALUES (1, null, '2023-08-24 01:58:28.725000', false, '2023-08-24 01:58:28.719000', null, '2023-08-24 01:58:28.725000', '크기', null, 1);
+INSERT INTO linepig.product_option (id, created_by, created_on, deleted, deleted_on, modified_by, modified_on, option_name, sequence, product_id) VALUES (6, null, '2023-08-24 01:58:28.748000', false, '2023-08-24 01:58:28.748000', null, '2023-08-24 01:58:28.748000', '색상', null, 1);

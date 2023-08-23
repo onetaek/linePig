@@ -1,4 +1,4 @@
-package com.shop.linepig.domain.common;
+package com.shop.linepig.domain.common.controller;
 
 import com.shop.linepig.common.argumentresolver.Login;
 import com.shop.linepig.domain.member.dto.response.MemberResponse;

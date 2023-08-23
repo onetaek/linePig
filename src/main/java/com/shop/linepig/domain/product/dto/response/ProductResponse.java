@@ -25,10 +25,10 @@ public class ProductResponse {
     private String category;
     private SellerResponse seller;
     private List<ProductImageResponse> productImages;
-    private List<ProductOptionResponse> productOptionResponses;
-    private List<ProductSpecialResponse> productSpecialResponses;
-    private List<ProductDetailResponse> productDetailResponses;
-    private List<ProductDetailImageResponse> productDetailImageResponses;
+    private List<ProductOptionResponse> productOptions;
+    private List<ProductSpecialResponse> productSpecials;
+    private List<ProductDetailResponse> productDetails;
+    private List<ProductDetailImageResponse> productDetailImages;
 
     public static ProductResponse fromEntity(Product product) {
         return ProductResponse.builder()
@@ -46,19 +46,19 @@ public class ProductResponse {
                         .stream()
                         .map(ProductImageResponse::fromEntity)
                         .collect(Collectors.toList()))
-                .productOptionResponses(product.getProductOptions()
+                .productOptions(product.getProductOptions()
                         .stream()
                         .map(ProductOptionResponse::fromEntity)
                         .collect(Collectors.toList()))
-                .productSpecialResponses(product.getProductSpecials()
+                .productSpecials(product.getProductSpecials()
                         .stream()
                         .map(ProductSpecialResponse::fromEntity)
                         .collect(Collectors.toList()))
-                .productDetailResponses(product.getProductDetails()
+                .productDetails(product.getProductDetails()
                         .stream()
                         .map(ProductDetailResponse::fromEntity)
                         .collect(Collectors.toList()))
-                .productDetailImageResponses(product.getProductDetailImages()
+                .productDetailImages(product.getProductDetailImages()
                         .stream()
                         .map(ProductDetailImageResponse::fromEntity)
                         .collect(Collectors.toList()))

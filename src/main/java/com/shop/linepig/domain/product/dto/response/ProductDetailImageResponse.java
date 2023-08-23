@@ -2,7 +2,7 @@ package com.shop.linepig.domain.product.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.shop.linepig.domain.product.entity.ProductDetailImage;
-import com.shop.linepig.domain.product.entity.embeddable.UploadFile;
+import com.shop.linepig.domain.common.embeddable.UploadFile;
 import lombok.Builder;
 import lombok.Getter;
 

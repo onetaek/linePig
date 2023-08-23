@@ -2,6 +2,7 @@ package com.shop.linepig.domain.admin.controller;
 
 import com.shop.linepig.domain.member.service.MemberService;
 import com.shop.linepig.domain.member.service.SellerService;
+import com.shop.linepig.domain.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ public class AdminController {//AdminModelAttributeAdvice를 통해서 로그인
 
     private final MemberService memberService;
     private final SellerService sellerService;
+    private final ProductService productService;
 
     @GetMapping("/admins/login")//로그인 페이지 이동
     public String loginPage() {
@@ -35,6 +37,7 @@ public class AdminController {//AdminModelAttributeAdvice를 통해서 로그인
     @GetMapping("/admins/products/new")//상품 등록 페이지 이동
     public String productNewPage(Model model) {
         model.addAttribute("sellers", sellerService.findAll());
+        model.addAttribute("unitOfCurrencies",productService.getUnitOfCurrencies());
         return "/admins/products/productForm";
     }
 

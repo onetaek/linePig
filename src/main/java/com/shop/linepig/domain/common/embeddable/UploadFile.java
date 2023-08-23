@@ -1,4 +1,4 @@
-package com.shop.linepig.domain.product.entity.embeddable;
+package com.shop.linepig.domain.common.embeddable;
 
 import lombok.*;
 

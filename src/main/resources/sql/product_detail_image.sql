@@ -1,0 +1,2 @@
+INSERT INTO linepig.product_detail_image (id, sequence, origin_file_name, upload_file_link, product_id) VALUES (1, null, '막걸리잔.png', 'https://storage.googleapis.com/linepig-81fdb.appspot.com/e66f125e-1bc8-4df5-be4f-95be507c3ee6.png', 1);
+INSERT INTO linepig.product_detail_image (id, sequence, origin_file_name, upload_file_link, product_id) VALUES (2, null, '막걸리.png', 'https://storage.googleapis.com/linepig-81fdb.appspot.com/0fe5b9e3-6dad-4366-9bbd-7f2901416e1d.png', 1);

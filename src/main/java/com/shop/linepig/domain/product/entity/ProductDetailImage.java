@@ -1,6 +1,6 @@
 package com.shop.linepig.domain.product.entity;
 
-import com.shop.linepig.domain.product.entity.embeddable.UploadFile;
+import com.shop.linepig.domain.common.embeddable.UploadFile;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,11 +13,15 @@ import java.util.stream.Collectors;
 @Getter
 @Entity
 public class ProductDetailImage {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Embedded
     private UploadFile uploadFile;
+
     private Integer sequence = 0;//순서
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 

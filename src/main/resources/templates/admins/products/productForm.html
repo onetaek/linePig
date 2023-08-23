@@ -38,7 +38,7 @@
                     <div class="row mb-3">
                         <label for="productPrice" class="col-sm-2 col-form-label">가격</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="productPrice">
+                            <input type="number" class="form-control" id="productPrice">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -46,6 +46,21 @@
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="productPriceDescription">
                         </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="productStockNumber" class="col-sm-2 col-form-label">재고수량</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="productStockNumber">
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="productUnitOfCurrency"
+                                aria-label="통화 단위" >
+                            <th:block th:each="unitOfCurrency:${unitOfCurrencies}">
+                                <option th:value="${unitOfCurrency.code}" th:text="|${unitOfCurrency.description}(${unitOfCurrency.displayValue})|">sample status</option>
+                            </th:block>
+                        </select>
+                        <label for="productUnitOfCurrency">통화 단위를 선택하시오</label>
                     </div>
                 </form>
             </div>

@@ -2,7 +2,7 @@ package com.shop.linepig.domain.upload;
 
 import com.google.cloud.storage.Bucket;
 import com.google.firebase.cloud.StorageClient;
-import com.shop.linepig.domain.product.entity.embeddable.UploadFile;
+import com.shop.linepig.domain.common.embeddable.UploadFile;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

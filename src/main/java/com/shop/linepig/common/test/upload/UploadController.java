@@ -1,6 +1,6 @@
 package com.shop.linepig.common.test.upload;
 
-import com.shop.linepig.domain.product.entity.embeddable.UploadFile;
+import com.shop.linepig.domain.common.embeddable.UploadFile;
 import com.shop.linepig.domain.upload.UploadBase64EncodedFileRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

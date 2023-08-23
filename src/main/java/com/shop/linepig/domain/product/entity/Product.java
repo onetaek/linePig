@@ -1,6 +1,6 @@
 package com.shop.linepig.domain.product.entity;
 
-import com.shop.linepig.domain.common.BaseEntity;
+import com.shop.linepig.domain.common.mappedsuperclass.BaseEntity;
 import com.shop.linepig.domain.admin.entity.Admin;
 import com.shop.linepig.domain.member.entity.Seller;
 import com.shop.linepig.domain.product.entity.enumeration.ProductCategory;

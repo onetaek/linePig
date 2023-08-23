@@ -19,7 +19,7 @@
                         <option value="">판매자로 등록할 회원을 선택하시오</option>
                         <th:block th:each="member : ${members}">
                             <option th:value="${member.id}"
-                                    th:text="|아이디:${member.loginId} 이름:${member.name} 이메일:${member.email} 연락처:${member.phoneNumber} 가입일:${member.createdAt} 성별:${member.gender}|"
+                                    th:text="|아이디:${member.loginId} 이름:${member.name} 이메일:${member.email} 연락처:${member.phoneNumber} 가입일:${member.joinOn} 성별:${member.gender}|"
                                     th:selected="${member.id == selectedMember?.id}">회원정보</option>
                         </th:block>
                     </select>

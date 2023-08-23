@@ -1,6 +1,6 @@
 package com.shop.linepig.domain.order.entity;
 
-import com.shop.linepig.domain.common.BaseEntity;
+import com.shop.linepig.domain.common.mappedsuperclass.BaseEntity;
 import com.shop.linepig.domain.product.entity.Product;
 import lombok.*;
 

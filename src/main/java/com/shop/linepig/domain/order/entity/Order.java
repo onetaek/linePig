@@ -1,7 +1,7 @@
 package com.shop.linepig.domain.order.entity;
 
 
-import com.shop.linepig.domain.common.BaseEntity;
+import com.shop.linepig.domain.common.mappedsuperclass.BaseEntity;
 import com.shop.linepig.domain.member.entity.Member;
 import com.shop.linepig.domain.order.entity.enumeration.OrderStatus;
 import lombok.*;
@@ -25,10 +25,10 @@ public class Order extends BaseEntity {
 
     private String card;//결제카드회사
 
-    private LocalDateTime orderDate;//주문일
+    private LocalDateTime orderOn;//주문일
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;//주문 현황
+    private OrderStatus status;//주문 현황
 
     private String reason;//환불사요
 

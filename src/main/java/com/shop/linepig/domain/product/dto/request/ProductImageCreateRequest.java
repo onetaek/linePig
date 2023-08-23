@@ -2,7 +2,7 @@ package com.shop.linepig.domain.product.dto.request;
 
 import com.shop.linepig.domain.product.entity.Product;
 import com.shop.linepig.domain.product.entity.ProductImage;
-import com.shop.linepig.domain.product.entity.embeddable.UploadFile;
+import com.shop.linepig.domain.common.embeddable.UploadFile;
 import com.shop.linepig.domain.upload.UploadBase64EncodedFileRequest;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
 package com.shop.linepig.domain.product.entity;
 
-import com.shop.linepig.domain.product.entity.embeddable.UploadFile;
+import com.shop.linepig.domain.common.embeddable.UploadFile;
 import lombok.*;
 
 import javax.persistence.*;

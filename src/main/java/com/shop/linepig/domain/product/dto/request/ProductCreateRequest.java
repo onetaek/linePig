@@ -5,6 +5,7 @@ import com.shop.linepig.domain.member.entity.Seller;
 import com.shop.linepig.domain.product.entity.Product;
 import com.shop.linepig.domain.product.entity.enumeration.ProductCategory;
 import com.shop.linepig.domain.product.entity.enumeration.ProductSellStatus;
+import com.shop.linepig.domain.product.entity.enumeration.UnitOfCurrency;
 import com.shop.linepig.domain.upload.UploadBase64EncodedFileRequest;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class ProductCreateRequest {
     private int price;//가격
     private String priceDescription;//가격설명
     private int stockNumber;//재고수량
+    private String unitOfCurrency;//통화단위
     private List<ProductOptionCreateRequest> productOptions;//옵션
     private List<ProductSpecialCreateRequest> productSpecials;//특이사항
     private List<ProductDetailCreateRequest> productDetails;//세부정보
@@ -34,6 +36,7 @@ public class ProductCreateRequest {
                 .priceDescription(productCreateRequest.getPriceDescription())
                 .sequence(0)
                 .stockNumber(productCreateRequest.getStockNumber())
+                .unitOfCurrency(UnitOfCurrency.fromCode(productCreateRequest.getUnitOfCurrency()))
                 .status(ProductSellStatus.SELL)
                 .category(ProductCategory.DEFAULT)
                 .admin(admin)

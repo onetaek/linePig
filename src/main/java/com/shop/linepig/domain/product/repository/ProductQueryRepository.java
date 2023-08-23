@@ -29,7 +29,8 @@ public class ProductQueryRepository {
     public Optional<Product> findDistinctOneWithFetchJoin(BooleanExpression... expressions) {
         return Optional.ofNullable(
                 jpaQueryFactory.selectFrom(product).distinct()
-                        .join(product.productOptions, productOption)
+                        .join(product.productOptions, productOption).fetchJoin()
+                        .join(product.seller,seller).fetchJoin()
                         .where(expressions)
                         .fetchOne());
     }

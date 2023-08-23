@@ -1,9 +1,0 @@
-INSERT INTO linepig.admin (id, created_at, created_by, deleted, deleted_on, modified_at, modified_by, auth, login_id, name, password, salt, profile_img_link) VALUES (1, '2023-07-31 05:04:33.000000', null, null, null, '2023-07-31 05:04:15.000000', null, 10, 'linepig', '관리자1', 'a3f1f4b6670cc8e486a0aff6f1bbc20ef7318582a490c46cecd07e00ddf415fb', 'b1e36c8b7aa43dcee7f9b31d532e729f6b868c50','https://storage.googleapis.com/linepig-81fdb.appspot.com/leejunho.png');
-
-INSERT INTO linepig.member (id, created_at, created_by, deleted, deleted_on, modified_at, modified_by, email, gender, login_id, member_status, name, password, phone_code, phone_number, salt) VALUES (1, '2023-08-03 02:24:07.692000', null, false, '2023-08-03 02:24:07.650000', '2023-08-03 02:24:07.692000', null, 'leeholim@naver.com', null, 'sample', 'NORMAL', '이호림', 'cbce35734c973e2e2154ae84f19e75e459f8cf21a94ee81fd14624d3578df6c0', '233', '01094737517', '588f6242039de45c609e20610e0e63d434636dec');
-INSERT INTO linepig.member (id, created_at, created_by, deleted, deleted_on, modified_at, modified_by, email, gender, login_id, member_status, name, password, phone_code, phone_number, salt) VALUES (2, '2023-08-08 03:03:23.873000', null, false, '2023-08-08 03:03:23.758000', '2023-08-08 03:03:23.873000', null, 'moonsanggi@naver.com', null, 'moongangi', 'NORMAL', '문상기', 'd05f9122937ecfdb95789c6f97b41728b578ec9bb39a88de96918e92718f4805', '241', '01023232323', '265626a00d2dc59821d2819875b0fcba073dbb18');
-
-INSERT INTO linepig.seller (id, created_at, created_by, deleted, deleted_on, modified_at, modified_by, member_id) VALUES (2, '2023-08-20 04:46:22.048000', null, false, '2023-08-20 04:46:22.047000', '2023-08-20 04:46:22.051000', null, 2);
-
-INSERT INTO linepig.seller_extend (id, name, sequence, value, seller_id) VALUES (4, '회사명', 0, '롯데화학', 2);
-INSERT INTO linepig.seller_extend (id, name, sequence, value, seller_id) VALUES (5, '회사위치', 0, '울산광역시 어딘가', 2);

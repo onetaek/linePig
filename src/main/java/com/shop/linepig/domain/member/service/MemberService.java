@@ -35,6 +35,37 @@ public class MemberService {
     private final SellerRepository sellerRepository;
     private final SellerExtendRepository sellerExtendRepository;
 
+    public List<GenderResponse> getGenders() {
+        return Stream.of(Gender.values())
+                .sorted(Comparator.comparing(
+                        Gender::getSequence,
+                        Comparator.naturalOrder()))
+                .map(GenderResponse::fromEnum)
+                .collect(Collectors.toList());
+    }
+
+    public List<MemberStatusResponse> getStatuses() {
+        return Stream.of(MemberStatus.values())
+                .filter(memberStatus -> memberStatus != MemberStatus.SELLER)
+                .sorted(Comparator.comparing(
+                        MemberStatus::getSequence,
+                        Comparator.naturalOrder()))
+                .map(MemberStatusResponse::fromEnum)
+                .collect(Collectors.toList());
+    }
+
+    public MemberResponse findById(Long id) {
+        Member findMember = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Session에서 꺼낸 id에 해당하는 회원이 없습니다."));
+        return MemberResponse.fromEntity(findMember);
+    }
+
+    public List<MemberResponse> findAll() {
+        List<Member> findMembers = memberRepository.findAll();
+        return findMembers.stream()
+                .map(MemberResponse::fromEntity)
+                .collect(Collectors.toList());
+    }
+
     public Long join(MemberJoinRequest request){
 
         //비밀번호 암호화
@@ -42,18 +73,10 @@ public class MemberService {
 
         //dto를 entity로 변환
 //        Member mappedMember = modelMapper.map(request, Member.class);
-        Member member = Member.builder()
-                .loginId(request.getLoginId())
-                .password(request.getPassword())
-                .name(request.getName())
-                .phoneCode(request.getPhoneCode())
-                .phoneNumber(request.getPhoneNumber())
-                .email(request.getEmail())
-                .memberStatus(MemberStatus.NORMAL)
-                .salt(request.getSalt())
-                .build();
+        Member unsavedMember = MemberJoinRequest.toEntity(request);
+
         //db에 저장
-        Member savedMember = memberRepository.save(member);
+        Member savedMember = memberRepository.save(unsavedMember);
 
         //정장 로직이면 true를 리턴
         return savedMember.getId();
@@ -81,17 +104,7 @@ public class MemberService {
         return memberRepository.existsByLoginId(loginId);
     }
 
-    public MemberResponse findById(Long id) {
-        Member findMember = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Session에서 꺼낸 id에 해당하는 회원이 없습니다."));
-        return MemberResponse.fromEntity(findMember);
-    }
 
-    public List<MemberResponse> findAll() {
-        List<Member> findMembers = memberRepository.findAll();
-        return findMembers.stream()
-                .map(MemberResponse::fromEntity)
-                .collect(Collectors.toList());
-    }
 
     public MemberResponse update(Long id, MemberUpdateRequest request) {
         Member findMember = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Session에서 꺼낸 id에 해당하는 회원이 없습니다."));
@@ -99,24 +112,7 @@ public class MemberService {
         return MemberResponse.fromEntity(updateedMember);
     }
 
-    public List<GenderResponse> getGenders() {
-        return Stream.of(Gender.values())
-                .sorted(Comparator.comparing(
-                        Gender::getSequence,
-                        Comparator.naturalOrder()))
-                .map(GenderResponse::fromEnum)
-                .collect(Collectors.toList());
-    }
 
-    public List<MemberStatusResponse> getStatuses() {
-        return Stream.of(MemberStatus.values())
-                .filter(memberStatus -> memberStatus != MemberStatus.SELLER)
-                .sorted(Comparator.comparing(
-                        MemberStatus::getSequence,
-                        Comparator.naturalOrder()))
-                .map(MemberStatusResponse::fromEnum)
-                .collect(Collectors.toList());
-    }
 
     private String getSHA256Pw(MemberLoginRequest memberLoginRequest, Member findByLoginId) {
         //난수

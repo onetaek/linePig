@@ -154,6 +154,8 @@ async function createFormData() {
         nameDescription:undefined,
         price:undefined,
         priceDescription:undefined,
+        stockNumber:undefined,
+        unitOfCurrency: undefined,
         productOptions:undefined,
         productSpecials:undefined,
         productDetails:undefined,
@@ -170,11 +172,15 @@ async function createFormData() {
     const productNameDescription = document.querySelector('#productNameDescription');//부재
     const productPrice = document.querySelector('#productPrice');//가격
     const productPriceDescription = document.querySelector('#productPriceDescription');//가격설명
+    const productStockNumber = document.querySelector('#productStockNumber');//재고수량
+    const productUnitOfCurrency = document.querySelector('#productUnitOfCurrency');//통화단위
 
     requestBody.name = productName.value;
     requestBody.nameDescription = productNameDescription.value;
     requestBody.price = productPrice.value;
     requestBody.priceDescription = productPriceDescription.value;
+    requestBody.stockNumber = productStockNumber.value;
+    requestBody.unitOfCurrency = productUnitOfCurrency.value;
 
     //제품 옵션명
     const productOptionBoxes = productOptionMainBox.querySelectorAll('.productOptionBox');

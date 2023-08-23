@@ -2,13 +2,15 @@ package com.shop.linepig.domain.product.service;
 
 import com.shop.linepig.domain.admin.entity.Admin;
 import com.shop.linepig.domain.admin.repository.AdminRepository;
+import com.shop.linepig.domain.common.embeddable.UploadFile;
 import com.shop.linepig.domain.member.entity.Seller;
 import com.shop.linepig.domain.member.repository.SellerRepository;
 import com.shop.linepig.domain.product.dto.request.*;
 import com.shop.linepig.domain.product.dto.response.ProductBasicResponse;
 import com.shop.linepig.domain.product.dto.response.ProductResponse;
+import com.shop.linepig.domain.product.dto.response.UnitOfCurrencyResponse;
 import com.shop.linepig.domain.product.entity.*;
-import com.shop.linepig.domain.product.entity.embeddable.UploadFile;
+import com.shop.linepig.domain.product.entity.enumeration.UnitOfCurrency;
 import com.shop.linepig.domain.product.repository.*;
 import com.shop.linepig.domain.product.repository.expression.ProductQueryExpression;
 import com.shop.linepig.domain.upload.UploadFirebaseService;
@@ -17,8 +19,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -37,12 +41,18 @@ public class ProductService {
     private final UploadFirebaseService uploadFirebaseService;
     private final SellerRepository sellerRepository;
     private final AdminRepository adminRepository;
-    private final ProductOptionService productOptionService;
+
+    public List<UnitOfCurrencyResponse> getUnitOfCurrencies() {
+        return Stream.of(UnitOfCurrency.values())
+                .sorted(Comparator.comparing(UnitOfCurrency::getSequence,
+                        Comparator.naturalOrder()))
+                .map(UnitOfCurrencyResponse::fromEnum)
+                .collect(Collectors.toList());
+    }
 
     public ProductResponse findById(Long id) {
         Product findProduct = productQueryRepository.findDistinctOneWithFetchJoin(ProductQueryExpression.eqId(id)).orElseThrow(() -> new IllegalArgumentException("제품을 찾을 수 없습니다."));
-        ProductResponse productResponse = ProductResponse.fromEntity(findProduct);
-        return productResponse;
+        return ProductResponse.fromEntity(findProduct);
     }
 
     public List<ProductBasicResponse> findAll() {
@@ -91,12 +101,8 @@ public class ProductService {
         List<ProductDetailImage> toSaveProductDetailImages = ProductDetailImage.createEntities(uploadedProductDetailImages, savedProduct);
         productDetailImageRepository.saveAll(toSaveProductDetailImages);
 
-        Product findProduct = productQueryRepository.findDistinctOneWithFetchJoin(ProductQueryExpression.eqId(savedProduct.getId()))
-                .orElseThrow(() -> new IllegalArgumentException("제품을 찾을 수 없습니다."));
-
-        System.out.println("findProduct = " + findProduct);
-
-        return null;
+        Product findProduct = productQueryRepository.findDistinctOneWithFetchJoin(ProductQueryExpression.eqId(savedProduct.getId())).orElseThrow(() -> new IllegalArgumentException("제품을 찾을 수 없습니다."));
+        return ProductResponse.fromEntity(findProduct);
     }
 
 
