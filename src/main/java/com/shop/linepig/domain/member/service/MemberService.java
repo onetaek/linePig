@@ -6,14 +6,15 @@ import com.shop.linepig.domain.member.dto.request.MemberJoinRequest;
 import com.shop.linepig.domain.member.dto.request.MemberLoginRequest;
 import com.shop.linepig.domain.member.dto.request.MemberUpdateRequest;
 import com.shop.linepig.domain.member.dto.response.GenderResponse;
+import com.shop.linepig.domain.member.dto.response.MemberBasicResponse;
 import com.shop.linepig.domain.member.dto.response.MemberResponse;
 import com.shop.linepig.domain.member.dto.response.MemberStatusResponse;
 import com.shop.linepig.domain.member.entity.Member;
 import com.shop.linepig.domain.member.entity.enumeration.Gender;
 import com.shop.linepig.domain.member.entity.enumeration.MemberStatus;
+import com.shop.linepig.domain.member.repository.MemberQueryRepository;
 import com.shop.linepig.domain.member.repository.MemberRepository;
-import com.shop.linepig.domain.member.repository.SellerExtendRepository;
-import com.shop.linepig.domain.member.repository.SellerRepository;
+import com.shop.linepig.domain.member.repository.expression.MemberQueryExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,8 +33,7 @@ import java.util.stream.Stream;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final SellerRepository sellerRepository;
-    private final SellerExtendRepository sellerExtendRepository;
+    private final MemberQueryRepository memberQueryRepository;
 
     public List<GenderResponse> getGenders() {
         return Stream.of(Gender.values())
@@ -57,6 +57,10 @@ public class MemberService {
     public MemberResponse findById(Long id) {
         Member findMember = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Session에서 꺼낸 id에 해당하는 회원이 없습니다."));
         return MemberResponse.fromEntity(findMember);
+    }
+
+    public MemberBasicResponse findBasicById(Long id) {
+        return memberQueryRepository.findBasicOne(MemberQueryExpression.eqId(id));
     }
 
     public List<MemberResponse> findAll() {

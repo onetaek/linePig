@@ -2,6 +2,7 @@ package com.shop.linepig.domain.member.api;
 
 
 import com.shop.linepig.domain.member.dto.request.MemberUpdateRequest;
+import com.shop.linepig.domain.member.dto.response.MemberBasicResponse;
 import com.shop.linepig.domain.member.dto.response.MemberResponse;
 import com.shop.linepig.domain.member.service.MemberService;
 import com.shop.linepig.domain.member.service.SnsService;
@@ -44,7 +45,11 @@ public class MemberApiController {
         return ResponseEntity.status(HttpStatus.OK).body(memberResponse);
     }
 
-
+    @GetMapping("/api/members/{id}")
+    public ResponseEntity findBasicById(@PathVariable Long id) {
+        MemberBasicResponse memberResponse = memberService.findBasicById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(memberResponse);
+    }
 
     //카카오톡에 등록한 콜백경로
     @GetMapping("/api/members/kakao/callback")//redirect에서 설정해준 url을 여기 입력
