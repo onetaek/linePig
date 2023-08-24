@@ -13,10 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 @AllArgsConstructor
+@Builder
+@EqualsAndHashCode(of = "id", callSuper = false)
+@DynamicInsert
+@DynamicUpdate
 @Getter
 @Entity
+@SQLDelete(sql = "UPDATE PRODCT SET deleted = 1, deleted_on = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "deleted = false")
 public class Product extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

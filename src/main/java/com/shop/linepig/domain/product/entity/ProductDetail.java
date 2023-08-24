@@ -10,6 +10,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Entity
+@SQLDelete(sql = "UPDATE PRODCT_DETAIL SET deleted = 1, deleted_on = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "deleted = false")
 public class ProductDetail extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

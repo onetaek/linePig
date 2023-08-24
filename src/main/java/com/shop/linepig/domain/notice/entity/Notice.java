@@ -11,6 +11,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Entity
+@SQLDelete(sql = "UPDATE NOTICE SET deleted = 1, deleted_on = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "deleted = false")
 public class Notice extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

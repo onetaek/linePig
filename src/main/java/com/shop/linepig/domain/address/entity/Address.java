@@ -11,6 +11,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Entity
+@SQLDelete(sql = "UPDATE ADDRESS SET deleted = 1, deleted_on = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "deleted = false")
 public class Address extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

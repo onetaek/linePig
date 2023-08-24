@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 @Getter
 @EnableJpaAuditing
 @Entity
+@SQLDelete(sql = "UPDATE MEMBER SET deleted = 1, deleted_on = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "deleted = false")
 public class Member extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

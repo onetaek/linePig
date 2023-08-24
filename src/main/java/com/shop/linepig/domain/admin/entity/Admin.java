@@ -14,6 +14,8 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Getter
 @Entity
+@SQLDelete(sql = "UPDATE ADMIN SET deleted = 1, deleted_on = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "deleted = false")
 public class Admin extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

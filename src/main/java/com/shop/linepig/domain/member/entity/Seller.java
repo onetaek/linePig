@@ -12,6 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Entity
+@SQLDelete(sql = "UPDATE SELLER SET deleted = 1, deleted_on = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "deleted = false")
 public class Seller extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
