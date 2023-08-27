@@ -22,22 +22,29 @@
                 <input type="text" placeholder="검색어를 입력해주세요">
             </div>
             <ul id="nav-auth">
-                <li><a href="/members/login">로그인</a></li>
-                <li><a href="/members/join">회원가입</a></li>
-                <li><a href="#">한글</a></li>
+                <th:block th:if="${loginMember}">
+                    <li><a th:href="|/members/${loginMember.id}|" th:text="${loginMember.name}">이름</a></li>
+                    <li><a href="#" onclick="onClickLogoutBtn()">로그아웃</a></li>
+                    <li><a href="#">한글</a></li>
+                </th:block>
+                <th:block th:unless="${loginMember}">
+                    <li><a href="/members/login">로그인</a></li>
+                    <li><a href="/members/join">회원가입</a></li>
+                    <li><a href="#">한글</a></li>
+                </th:block>
             </ul>
         </div>
         <div id="logo-wrap">
-            <h1>라인 피그</h1>
+            <h1><a href="/">라인 피그</a></h1>
         </div>
     </header>
     <nav>
-        <ul class="nav-menu">
-            <li><h2>쇼핑</h2></li>
-            <li><h2>정보</h2></li>
-            <li><h2>공지</h2></li>
-            <li><h2>연락</h2></li>
-            <li><h2>기사</h2></li>
+        <ul id="nav-menu-wrap">
+            <li><h2><a th:href="|/products|">쇼핑</a></h2></li>
+            <li><h2><a th:href="|/infos|">정보</a></h2></li>
+            <li><h2><a th:href="|/notices|">공지</a></h2></li>
+            <li><h2><a th:href="|/contacts|">연락</a></h2></li>
+            <li><h2><a th:href="|/magazines|">기사</a></h2></li>
         </ul>
     </nav>
 
@@ -49,6 +56,7 @@
     </footer>
 </div>
 
+<script src="/js/common/mainBase.js"></script>
 <th:block layout:fragment="scripts"/>
 </body>
 </html>

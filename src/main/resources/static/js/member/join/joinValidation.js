@@ -14,8 +14,6 @@ const phoneError = document.querySelector("#phone-error");//핸드폰 번호 에
 const emailError = document.querySelector("#email-error");//이메일 에러 메시지
 let loginIdDuplicate = document.querySelector("#loginId-duplicate");
 
-const joinBtn = document.querySelector("#join-btn");
-
 //국제코드 select option 추가
 countryCode.forEach((element)=>{
     // console.log(element["country"])
@@ -148,23 +146,23 @@ emailInput.addEventListener("focusout",()=>{
    emailValidate();
 });
 
-joinBtn.addEventListener("click",()=>{
-    console.log("클릭!");
-    console.log(loginIdValidate());
-    console.log(passwordValidate());
-    console.log(passwordCheckValidate());
-    console.log(nameValidate());
-    console.log(phoneValidate());
-    console.log(emailValidate());
-    if(
-        loginIdValidate()&&
-        passwordValidate()&&
-        passwordCheckValidate()&&
-        nameValidate()&&
-        phoneValidate()&&
-        emailValidate()
-    ){
-        console.log("모두 통과");
-        document.querySelector("#join-form").submit();
-    }
-});
+// joinBtn.addEventListener("click",()=>{
+//     console.log("클릭!");
+//     console.log(loginIdValidate());
+//     console.log(passwordValidate());
+//     console.log(passwordCheckValidate());
+//     console.log(nameValidate());
+//     console.log(phoneValidate());
+//     console.log(emailValidate());
+//     if(
+//         loginIdValidate()&&
+//         passwordValidate()&&
+//         passwordCheckValidate()&&
+//         nameValidate()&&
+//         phoneValidate()&&
+//         emailValidate()
+//     ){
+//         console.log("모두 통과");
+//         document.querySelector("#join-form").submit();
+//     }
+// });

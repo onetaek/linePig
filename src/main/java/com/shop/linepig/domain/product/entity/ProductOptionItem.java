@@ -2,6 +2,8 @@ package com.shop.linepig.domain.product.entity;
 
 import com.shop.linepig.domain.common.mappedsuperclass.BaseEntity;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 

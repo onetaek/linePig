@@ -18,9 +18,10 @@ public class AdminCheckInterceptor implements HandlerInterceptor {
         log.info("관리자 체크 인터셉터 실행 {}",requestURI);
 
         if (requestURI.startsWith("/admins") || requestURI.startsWith("/api/admins")) {
+            log.info("관리자 관련 요청 감지");
             HttpSession session = request.getSession();
             if(session == null || session.getAttribute(SessionConst.ADMIN_ID) == null) {
-                log.info("미인증 사용자 요청");
+                log.info("미인증 관리자 요청");
                 response.sendRedirect("/admins/login");
                 return false;
             }

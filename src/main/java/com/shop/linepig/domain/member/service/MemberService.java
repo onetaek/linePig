@@ -70,7 +70,7 @@ public class MemberService {
                 .collect(Collectors.toList());
     }
 
-    public Long join(MemberJoinRequest request){
+    public MemberResponse join(MemberJoinRequest request){
 
         //비밀번호 암호화
         request.setPassword(this.getPasswdEncry(request));
@@ -83,7 +83,7 @@ public class MemberService {
         Member savedMember = memberRepository.save(unsavedMember);
 
         //정장 로직이면 true를 리턴
-        return savedMember.getId();
+        return MemberResponse.fromEntity(savedMember);
     }
 
 

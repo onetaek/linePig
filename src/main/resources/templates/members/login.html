@@ -17,7 +17,7 @@
 <body>
 <div id="wrapper">
     <div id="content-wrap">
-        <form th:object="${member}" th:id="login-form" th:method="post" action="/members/login">
+        <form th:object="${member}" onsubmit="onSubmitBtn(event)" th:id="login-form">
             <h1 id="logo">linepig</h1>
             <p th:if="${errorMessage != null && #strings.equals(errorMessage,'loginFail')}" class="login-error">아이디 또는 비밀번호가 틀렸습니다.</p>
             <div id="user-info">

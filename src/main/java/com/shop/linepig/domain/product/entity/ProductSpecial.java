@@ -1,6 +1,9 @@
 package com.shop.linepig.domain.product.entity;
 
+import com.shop.linepig.domain.common.mappedsuperclass.BaseEntity;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
@@ -11,7 +14,7 @@ import javax.persistence.*;
 @Entity
 @SQLDelete(sql = "UPDATE PRODCT_SPECIAL SET deleted = 1, deleted_on = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted = false")
-public class ProductSpecial {
+public class ProductSpecial extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

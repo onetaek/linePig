@@ -1,12 +1,16 @@
 package com.shop.linepig.domain.product.entity;
 
-import com.shop.linepig.domain.common.mappedsuperclass.BaseEntity;
 import com.shop.linepig.domain.admin.entity.Admin;
+import com.shop.linepig.domain.common.mappedsuperclass.BaseEntity;
 import com.shop.linepig.domain.member.entity.Seller;
 import com.shop.linepig.domain.product.entity.enumeration.ProductCategory;
 import com.shop.linepig.domain.product.entity.enumeration.ProductSellStatus;
 import com.shop.linepig.domain.product.entity.enumeration.UnitOfCurrency;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.ArrayList;

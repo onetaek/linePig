@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)//이게 있어야 Auditing을 함
 @MappedSuperclass
 public class BaseEntity {
-
     private Boolean deleted = Boolean.FALSE;//삭제 여부
 
     private LocalDateTime deletedOn = LocalDateTime.now();
