@@ -21,18 +21,19 @@
                     <li><img class="product-image-sub-wrap" src="https://storage.googleapis.com/linepig-81fdb.appspot.com/a48902d6-1277-4f36-bb19-03403eebc80e.png" alt=""></li>
                 </ul>
             </div>
-            <div class="product-name-price-option-special-wrap">
-                <div class="product-name-wrap">
+            <div id="product-name-price-option-special-wrap">
+                <div id="product-name-wrap">
                     <h2 class="product-name">제품이름</h2>
                     <h3 class="product-name-description">부재</h3>
                 </div>
-                <div class="product-price-wrap">
-                    <div class="product-price">
+                <div id="product-price-wrap">
+                    <div class="product-price product-info-title">
                         <span>가격</span>:<span>$200</span>
                     </div>
-                    <p>미국(으)로 보낼경우 US달러 배송 및 수입 수수료가 부과됩니다.</p>
+                    <p class="product-price-description product-info-item">미국(으)로 보낼경우 US달러 배송 및 수입 수수료가 부과됩니다.</p>
                 </div>
-                <div class="product-option-wrap">
+                <div id="product-option-wrap">
+                    <h3 class="product-info-title">옵션 선택</h3>
                     <div class="product-option">
                         <label for="a">크기</label>
                         <select name="" id="a">
@@ -50,24 +51,27 @@
                         </select>
                     </div>
                 </div>
-                <div class="product-special">
-                    <h3>특이사항</h3>
-                    <ul>
-                        <li>세트에는 50.8cm(20인치) 기내용 가방*국내 여행이나 가벼운 상태를 유지하려는 사람들을 위한 기내 반입 크기 제한(충족)과 61cm(24인치)스피너...</li>
-                        <li>세트에는 50.8cm(20인치) 기내용 가방*국내 여행이나 가벼운 상태를 유지하려는 사람들을 위한 기내 반입 크기 제한(충족)과 61cm(24인치)스피너...</li>
-                        <li>세트에는 50.8cm(20인치) 기내용 가방*국내 여행이나 가벼운 상태를 유지하려는 사람들을 위한 기내 반입 크기 제한(충족)과 61cm(24인치)스피너...</li>
-                        <li>세트에는 50.8cm(20인치) 기내용 가방*국내 여행이나 가벼운 상태를 유지하려는 사람들을 위한 기내 반입 크기 제한(충족)과 61cm(24인치)스피너...</li>
+                <div id="product-special-wrap">
+                    <h3 class="product-info-title">특이사항</h3>
+                    <ul class="product-special ">
+                        <li class="product-info-item">※ 세트에는 50.8cm(20인치) 기내용 가방*국내 여행이나 가벼운 상태를 유지하려는 사람들을 위한 기내 반입 크기 제한(충족)과 61cm(24인치)스피너...</li>
+                        <li class="product-info-item">※ 세트에는 50.8cm(20인치) 기내용 가방*국내 여행이나 가벼운 상태를 유지하려는 사람들을 위한 기내 반입 크기 제한(충족)과 61cm(24인치)스피너...</li>
+                        <li class="product-info-item">※ 세트에는 50.8cm(20인치) 기내용 가방*국내 여행이나 가벼운 상태를 유지하려는 사람들을 위한 기내 반입 크기 제한(충족)과 61cm(24인치)스피너...</li>
+                        <li class="product-info-item">※ 세트에는 50.8cm(20인치) 기내용 가방*국내 여행이나 가벼운 상태를 유지하려는 사람들을 위한 기내 반입 크기 제한(충족)과 61cm(24인치)스피너...</li>
                     </ul>
                 </div>
-                <ul class="product-button-wrap">
-                    <li><input type="number"/></li>
+                <ul id="product-button-wrap">
+                    <li class="product-count-wrap">
+                        <label for="product-count">수량</label>
+                        <input id="product-count" type="number" value="1"/>
+                    </li>
                     <li><a href="#">장바구니</a></li>
                     <li><a href="#">결제하기</a></li>
                 </ul>
             </div>
         </div>
         <div id="product-info-bottom">
-            <div class="product-detail">
+            <div id="product-detail">
                 <h3>세부정보</h3>
                 <ul>
                     <li>
@@ -96,45 +100,48 @@
                     </li>
                 </ul>
             </div>
-            <div class="product-detail-image-wrap">
-                <ul class="product-detail-image">
-                    <li><img src="https://storage.googleapis.com/linepig-81fdb.appspot.com/e66f125e-1bc8-4df5-be4f-95be507c3ee6.png" alt=""></li>
-                    <li><img src="https://storage.googleapis.com/linepig-81fdb.appspot.com/0fe5b9e3-6dad-4366-9bbd-7f2901416e1d.png" alt=""></li>
-                </ul>
-                <div class="product-name-option-button-wrap">
-                    <div class="product-name">
-                        <h2 class="product-name">제품이름</h2>
-                        <h3 class="product-name-description">부재</h3>
-                    </div>
-                    <div class="product-option-wrap">
-                        <h3>옵션선택</h3>
-                        <div class="product-option">
-                            <label>크기</label>
-                            <select name="">
-                                <option value="">01. 20x20x20</option>
-                                <option value="">02. 30x30x30</option>
-                                <option value="">03. 40x40x40</option>
-                            </select>
+            <div id="product-detail-image-wrap">
+                <h3 id="product-detail-image-content-title">상세 이미지</h3>
+                <div id="product-detail-image-content-wrap">
+                    <ul id="product-detail-image">
+                        <li><img src="https://storage.googleapis.com/linepig-81fdb.appspot.com/e66f125e-1bc8-4df5-be4f-95be507c3ee6.png" alt=""></li>
+                        <li><img src="https://storage.googleapis.com/linepig-81fdb.appspot.com/0fe5b9e3-6dad-4366-9bbd-7f2901416e1d.png" alt=""></li>
+                    </ul>
+                    <div id="product-name-option-button-wrap">
+                        <div class="product-name">
+                            <h2 class="product-name">제품이름</h2>
+                            <h3 class="product-name-description">부재</h3>
                         </div>
-                        <div class="product-option">
-                            <label>옵션 선택</label>
-                            <select name="">
-                                <option value="">빨간색</option>
-                                <option value="">빨간색</option>
-                                <option value="">빨간색</option>
-                            </select>
+                        <div class="product-option-wrap">
+                            <h3>옵션선택</h3>
+                            <div class="product-option">
+                                <label>크기</label>
+                                <select name="">
+                                    <option value="">01. 20x20x20</option>
+                                    <option value="">02. 30x30x30</option>
+                                    <option value="">03. 40x40x40</option>
+                                </select>
+                            </div>
+                            <div class="product-option">
+                                <label>옵션 선택</label>
+                                <select name="">
+                                    <option value="">빨간색</option>
+                                    <option value="">빨간색</option>
+                                    <option value="">빨간색</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="product-button-wrap">
-                        <div class="product-total-price-wrap">
-                            <span>총금액</span>
-                            <span>$300</span>
+                        <div #="product-sub-button-wrap">
+                            <div class="product-total-price-wrap">
+                                <span>총금액</span>
+                                <span>$300</span>
+                            </div>
+                            <ul>
+                                <li><input type="number"/></li>
+                                <li><a href="#">장바구니</a></li>
+                                <li><a href="#">결제하기</a></li>
+                            </ul>
                         </div>
-                        <ul>
-                            <li><input type="number"/></li>
-                            <li><a href="#">장바구니</a></li>
-                            <li><a href="#">결제하기</a></li>
-                        </ul>
                     </div>
                 </div>
             </div>
