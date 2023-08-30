@@ -68,9 +68,22 @@ public class ProductService {
         Seller findSeller = sellerRepository.findById(productCreateRequest.getSellerId()).orElseThrow(() -> new IllegalArgumentException("판매자를 찾을 수 없습니다."));
         Admin findAdmin = adminRepository.findById(adminId).orElseThrow(() -> new IllegalArgumentException("관리자를 찾을 수 없습니다."));
 
+        //Firebase Storage에 저장 이미지 저장
+        List<UploadFile> uploadedProductImages = uploadFirebaseService.uploadFiles(productCreateRequest.getProductImages());
+        List<UploadFile> uploadedProductDetailImages = uploadFirebaseService.uploadFiles(productCreateRequest.getProductDetailImages());
+
         //제품 생성 및 저장
-        Product unsavedProduct = ProductCreateRequest.toEntity(productCreateRequest, findAdmin, findSeller);
+        Product unsavedProduct = ProductCreateRequest.toEntity(productCreateRequest, findAdmin, findSeller,uploadedProductImages.get(0).getUploadFileLink());
         Product savedProduct = productRepository.save(unsavedProduct);
+
+        //제품 이미지 생성 및 저장
+        List<ProductImage> toSaveProductImages = ProductImage.createEntities(uploadedProductImages, savedProduct);
+        productImageRepository.saveAll(toSaveProductImages);
+
+        //제품 상세 이미지 생성 및 저장
+        List<ProductDetailImage> toSaveProductDetailImages = ProductDetailImage.createEntities(uploadedProductDetailImages, savedProduct);
+        productDetailImageRepository.saveAll(toSaveProductDetailImages);
+
 
         //특이사항 생성 및 저장
         List<ProductSpecial> unsavedProductSpecials = ProductSpecialCreateRequest.toEntities(productCreateRequest.getProductSpecials(), savedProduct);
@@ -88,18 +101,6 @@ public class ProductService {
             List<ProductOptionItem> unsavedProductionOptionItems = ProductOptionItemCreateRequest.toEntities(productOptionItemCreateRequests, savedProductOption);
             productOptionItemRepository.saveAll(unsavedProductionOptionItems);
         });
-
-        //Firebase Storage에 저장 이미지 저장
-        List<UploadFile> uploadedProductImages = uploadFirebaseService.uploadFiles(productCreateRequest.getProductImages());
-        List<UploadFile> uploadedProductDetailImages = uploadFirebaseService.uploadFiles(productCreateRequest.getProductDetailImages());
-
-        //제품 이미지 생성 및 저장
-        List<ProductImage> toSaveProductImages = ProductImage.createEntities(uploadedProductImages, savedProduct);
-        productImageRepository.saveAll(toSaveProductImages);
-
-        //제품 상세 이미지 생성 및 저장
-        List<ProductDetailImage> toSaveProductDetailImages = ProductDetailImage.createEntities(uploadedProductDetailImages, savedProduct);
-        productDetailImageRepository.saveAll(toSaveProductDetailImages);
 
         Product findProduct = productQueryRepository.findDistinctOneWithFetchJoin(ProductQueryExpression.eqId(savedProduct.getId())).orElseThrow(() -> new IllegalArgumentException("제품을 찾을 수 없습니다."));
         return ProductResponse.fromEntity(findProduct);

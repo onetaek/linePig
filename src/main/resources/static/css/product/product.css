@@ -135,6 +135,8 @@
 }
 #product-button-wrap .product-count-wrap #product-count {
     width:50px;
+    appearance: textfield;
+    -webkit-appearance: textfield;
 }
 
 /* ----세부정보---- */
@@ -156,6 +158,7 @@
     display: flex;
     flex-wrap: wrap;
 }
+
 #product-detail ul li{
     width: calc( 50% - 20px );
     background: rebeccapurple;
@@ -177,39 +180,115 @@
     margin-top:20px;
     background: #0b6969;
 }
+
 #product-detail-image-content-title {
     font-size: 24px;
 }
-#product-detail-image-content-title{
+
+#product-detail-image-content-title {
     display: flex;
     justify-content: space-between;
 }
-#product-detail-image-content-wrap{
+
+#product-detail-image-content-wrap {
     display: flex;
 }
 
 #product-detail-image-content-wrap #product-detail-image{
-    width:80%;
+    width:75%;
 }
 
 #product-detail-image li {
     width:100%;
 }
 
-#product-detail-image li img{
+#product-detail-image li img {
     width:100%;
 }
 
-#product-name-option-button-wrap{
-    width:20%;
+#product-name-option-button-wrap {
+    margin-top: 50px;
+    width:25%;
     background: darkorange;
+    margin-left:10px;
+    margin-right: 5px;
+    border:1px solid black;
 }
 
-#product-sub-button-wrap{
-    position: fixed; /* 요소를 고정시킵니다. */
-    top: 0; /* 화면 위쪽에 고정됩니다. */
-    right: 0; /* 화면 오른쪽에 고정됩니다. */
-    height: 100%; /* 화면 높이에 맞게 설정합니다. */
-    overflow-y: auto; /* 내용이 화면 크기를 넘어갈 경우 스크롤 표시합니다. */
-    transition: all 0.3s ease; /* 천천히 따라다니도록 애니메이션 효과를 줍니다. */
+#product-name-option-button-wrap .product-name-wrap {
+    position:relative;
+    display: flex;
+    font-size: 20px;
+}
+
+#product-name-option-button-wrap .product-name{
+    position: relative;
+    padding-right:10px;
+}
+
+#product-name-option-button-wrap .product-name-description {
+    margin-left: 10px;
+}
+
+#product-name-option-button-wrap .product-name::after {
+    content:"";
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+    right:0;
+    width:1px;
+    height: 25px;
+    background:#000000;
+}
+
+#product-name-option-button-wrap .product-option-wrap {
+    margin-top:20px;
+}
+
+#product-name-option-button-wrap .product-option-wrap h3 {
+    margin-bottom: 10px;
+}
+
+#product-sub-button-wrap {
+    margin-top:20px;
+}
+
+#product-sub-button-wrap .product-total-price-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+
+}
+
+#product-sub-button-wrap .product-total-price-wrap div {
+    display: flex;
+}
+#product-sub-button-wrap .product-total-price-wrap div label {
+    margin-right:5px;
+}
+
+
+#product-sub-button-wrap .product-total-price-wrap div input {
+    width:30px;
+    appearance: textfield;
+    -webkit-appearance: textfield;
+}
+
+#product-sub-button-wrap .product-total-price-wrap .total-price-name {
+    font-size:16px;
+}
+
+#product-sub-button-wrap .product-total-price-wrap .total-price-value {
+    font-size:32px;
+}
+
+#product-sub-button-wrap ul {
+    display: flex;
+    justify-content: end;
+    margin-top: 10px;
+    color:yellow;
+}
+
+#product-sub-button-wrap ul li:first-child {
+    margin-right: 20px;
 }

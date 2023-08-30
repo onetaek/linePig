@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:placeholder="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/mainBase}">
+<head>
+    <title>제품 목록 페이지</title>
+    <link rel="stylesheet" href="/css/product/products.css">
+</head>
+<body>
+
+<!-- 상품목록페이지 start -->
+<div layout:fragment="content">
+    <div id="main-wrap">
+
+        <th:block th:each="product:${products}">
+            <div class="product-wrap" th:productId="${product.id}" th:onclick="onClickProduct(this.getAttribute('productId'))">
+                <div class="product-image-wrap">
+                    <img class="product-image" th:src="${product.coverImage}" alt="제품이미지">
+                </div>
+                <div class="product-info-wrap">
+                    <div class="product-name-wrap">
+                        <h2 th:text="${product.name}">Class cup</h2>|<h3 th:text="${product.nameDescription}">water & water</h3>
+                    </div>
+                    <p><span>가격 : </span><span th:text="|${product.price}${product.unitOfCurrency}|">20$</span></p>
+                </div>
+            </div>
+        </th:block>
+
+
+    </div>
+</div>
+<!-- 상품목록페이지 end -->
+
+<!-- javaScript 파일-->
+<th:block layout:fragment="scripts">
+    <script th:src="@{/js/product/products.js}"></script>
+</th:block>
+</body>
+</html>

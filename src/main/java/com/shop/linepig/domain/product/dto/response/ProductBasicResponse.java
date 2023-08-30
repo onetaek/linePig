@@ -17,7 +17,9 @@ public class ProductBasicResponse {
     private Integer sequence;
     private int stockNumber;
     private String status;
+    private String unitOfCurrency;
     private String category;
+    private String coverImage;
 
     public static ProductBasicResponse fromEntity(Product product) {
         if(product == null)
@@ -31,7 +33,9 @@ public class ProductBasicResponse {
                 .sequence(product.getSequence())
                 .stockNumber(product.getStockNumber())
                 .status(product.getStatus().getDisplayValue())
+                .unitOfCurrency(product.getUnitOfCurrency().getDisplayValue())
                 .category(product.getCategory().getDisplayValue())
+                .coverImage(product.getCoverImage())
                 .build();
     }
 }

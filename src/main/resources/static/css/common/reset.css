@@ -4,6 +4,7 @@
 
 root {
     --main-yellow-color: #ffd600;
+    --main-width: 1080px;
 }
 
 body {

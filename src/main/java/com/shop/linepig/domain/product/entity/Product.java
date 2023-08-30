@@ -43,6 +43,8 @@ public class Product extends BaseEntity {
 
     private int stockNumber;//재고수량
 
+    private String coverImage;//커버 이미지
+
     @Enumerated(EnumType.STRING)
     private ProductSellStatus status;//상태
 

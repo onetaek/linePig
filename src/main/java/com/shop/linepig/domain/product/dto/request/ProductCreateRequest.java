@@ -22,13 +22,14 @@ public class ProductCreateRequest {
     private String priceDescription;//가격설명
     private int stockNumber;//재고수량
     private String unitOfCurrency;//통화단위
+    private String coverImage;//커버이미지(productImages중 첫번째)
     private List<ProductOptionCreateRequest> productOptions;//옵션
     private List<ProductSpecialCreateRequest> productSpecials;//특이사항
     private List<ProductDetailCreateRequest> productDetails;//세부정보
     private List<UploadBase64EncodedFileRequest> productDetailImages;//제품 상세이미지
     private Long sellerId;//판매자
 
-    public static Product toEntity(ProductCreateRequest productCreateRequest, Admin admin, Seller seller) {
+    public static Product toEntity(ProductCreateRequest productCreateRequest, Admin admin, Seller seller, String coverImage) {
         return Product.builder()
                 .name(productCreateRequest.getName())
                 .nameDescription(productCreateRequest.getNameDescription())
@@ -37,6 +38,7 @@ public class ProductCreateRequest {
                 .sequence(0)
                 .stockNumber(productCreateRequest.getStockNumber())
                 .unitOfCurrency(UnitOfCurrency.fromCode(productCreateRequest.getUnitOfCurrency()))
+                .coverImage(coverImage)
                 .status(ProductSellStatus.SELL)
                 .category(ProductCategory.DEFAULT)
                 .admin(admin)

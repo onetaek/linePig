@@ -23,41 +23,34 @@
             </div>
             <div id="product-name-price-option-special-wrap">
                 <div id="product-name-wrap">
-                    <h2 class="product-name">제품이름</h2>
-                    <h3 class="product-name-description">부재</h3>
+                    <h2 class="product-name" th:text="${product.name}">제품이름</h2>
+                    <h3 class="product-name-description" th:text="${product.nameDescription}">부재</h3>
                 </div>
                 <div id="product-price-wrap">
                     <div class="product-price product-info-title">
-                        <span>가격</span>:<span>$200</span>
+                        <span>가격</span>:<span th:text="|${product.unitOfCurrency}${product.price}|">$200</span>
                     </div>
                     <p class="product-price-description product-info-item">미국(으)로 보낼경우 US달러 배송 및 수입 수수료가 부과됩니다.</p>
                 </div>
                 <div id="product-option-wrap">
                     <h3 class="product-info-title">옵션 선택</h3>
-                    <div class="product-option">
-                        <label for="a">크기</label>
-                        <select name="" id="a">
-                            <option value="">01. 20x20x20</option>
-                            <option value="">02. 30x30x30</option>
-                            <option value="">03. 40x40x40</option>
-                        </select>
-                    </div>
-                    <div class="product-option">
-                        <label for="b">옵션 선택</label>
-                        <select name="" id="b">
-                            <option value="">빨간색</option>
-                            <option value="">빨간색</option>
-                            <option value="">빨간색</option>
-                        </select>
-                    </div>
+                    <th:block th:each="productOption : ${product.productOptions}">
+                        <div class="product-option">
+                            <label for="a" th:text="${productOption.optionName}">크기 : </label>
+                            <select name="">
+                                <th:block th:each="productOptionItem : ${productOption.productOptionItems}">
+                                    <option th:value="${productOptionItem.id}" th:text="${productOptionItem.optionValue}">01. 20x20x20</option>
+                                </th:block>
+                            </select>
+                        </div>
+                    </th:block>
                 </div>
                 <div id="product-special-wrap">
                     <h3 class="product-info-title">특이사항</h3>
                     <ul class="product-special ">
-                        <li class="product-info-item">※ 세트에는 50.8cm(20인치) 기내용 가방*국내 여행이나 가벼운 상태를 유지하려는 사람들을 위한 기내 반입 크기 제한(충족)과 61cm(24인치)스피너...</li>
-                        <li class="product-info-item">※ 세트에는 50.8cm(20인치) 기내용 가방*국내 여행이나 가벼운 상태를 유지하려는 사람들을 위한 기내 반입 크기 제한(충족)과 61cm(24인치)스피너...</li>
-                        <li class="product-info-item">※ 세트에는 50.8cm(20인치) 기내용 가방*국내 여행이나 가벼운 상태를 유지하려는 사람들을 위한 기내 반입 크기 제한(충족)과 61cm(24인치)스피너...</li>
-                        <li class="product-info-item">※ 세트에는 50.8cm(20인치) 기내용 가방*국내 여행이나 가벼운 상태를 유지하려는 사람들을 위한 기내 반입 크기 제한(충족)과 61cm(24인치)스피너...</li>
+                        <th:block th:each="productSpecial : ${product.productSpecials}">
+                            <li class="product-info-item" th:text="${productSpecial.value}">※ 세트에는 50.8cm(20인치) 기내용 가방*국내 여행이나 가벼운 상태를 유지하려는 사람들을 위한 기내 반입 크기 제한(충족)과 61cm(24인치)스피너...</li>
+                        </th:block>
                     </ul>
                 </div>
                 <ul id="product-button-wrap">
@@ -74,70 +67,54 @@
             <div id="product-detail">
                 <h3>세부정보</h3>
                 <ul>
-                    <li>
-                        <span>제조업체</span>
-                        <span>Metronic</span>
-                    </li>
-                    <li>
-                        <span>브랜드</span>
-                        <span>Metronic</span>
-                    </li>
-                    <li>
-                        <span>품목 무게</span>
-                        <span>Metronic</span>
-                    </li>
-                    <li>
-                        <span>제품 치수</span>
-                        <span>Metronic</span>
-                    </li>
-                    <li>
-                        <span>상품 모델 번호</span>
-                        <span>Metronic</span>
-                    </li>
-                    <li>
-                        <span>색상</span>
-                        <span>클로저</span>
-                    </li>
+                    <th:block th:each="productDetail:${product.productDetails}">
+                        <li>
+                            <span th:text="${productDetail.name}">제조업체</span>
+                            <span th:text="${productDetail.value}">Metronic</span>
+                        </li>
+                    </th:block>
                 </ul>
             </div>
             <div id="product-detail-image-wrap">
                 <h3 id="product-detail-image-content-title">상세 이미지</h3>
                 <div id="product-detail-image-content-wrap">
                     <ul id="product-detail-image">
-                        <li><img src="https://storage.googleapis.com/linepig-81fdb.appspot.com/e66f125e-1bc8-4df5-be4f-95be507c3ee6.png" alt=""></li>
-                        <li><img src="https://storage.googleapis.com/linepig-81fdb.appspot.com/0fe5b9e3-6dad-4366-9bbd-7f2901416e1d.png" alt=""></li>
+                        <th:block th:each="productDetailImage:${product.productDetailImages}">
+                            <li><img th:src="${productDetailImage.uploadFile.uploadFileLink}" th:alt="${productDetailImage.uploadFile.originFileName}"></li>
+                        </th:block>
                     </ul>
+
+                    <!--따라다니는 상품구매 버튼-->
                     <div id="product-name-option-button-wrap">
-                        <div class="product-name">
+                        <div class="product-name-wrap">
                             <h2 class="product-name">제품이름</h2>
                             <h3 class="product-name-description">부재</h3>
                         </div>
+
+
                         <div class="product-option-wrap">
                             <h3>옵션선택</h3>
-                            <div class="product-option">
-                                <label>크기</label>
-                                <select name="">
-                                    <option value="">01. 20x20x20</option>
-                                    <option value="">02. 30x30x30</option>
-                                    <option value="">03. 40x40x40</option>
-                                </select>
-                            </div>
-                            <div class="product-option">
-                                <label>옵션 선택</label>
-                                <select name="">
-                                    <option value="">빨간색</option>
-                                    <option value="">빨간색</option>
-                                    <option value="">빨간색</option>
-                                </select>
-                            </div>
+                            <th:block th:each="productOption : ${product.productOptions}">
+                                <div class="product-option">
+                                    <label for="a" th:text="${productOption.optionName}">크기 : </label>
+                                    <select name="" id="a">
+                                        <th:block th:each="productOptionItem : ${productOption.productOptionItems}">
+                                            <option th:value="${productOptionItem.id}" th:text="${productOptionItem.optionValue}">01. 20x20x20</option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </th:block>
                         </div>
-                        <div #="product-sub-button-wrap">
+                        <div id="product-sub-button-wrap">
                             <div class="product-total-price-wrap">
-                                <span>총금액</span>
-                                <span>$300</span>
+                                <div>
+                                    <label for="sub-number">수량</label>
+                                    <input type="number" id="sub-number" value="1"/>
+                                    <span class="total-price-name" id="sub-total-price">총금액</span>
+                                </div>
+                                <span class="total-price-value" th:text="|${product.unitOfCurrency}${product.price}|">$300</span>
                             </div>
                             <ul>
-                                <li><input type="number"/></li>
                                 <li><a href="#">장바구니</a></li>
                                 <li><a href="#">결제하기</a></li>
                             </ul>

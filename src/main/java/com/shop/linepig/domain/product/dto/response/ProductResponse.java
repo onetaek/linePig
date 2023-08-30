@@ -22,7 +22,9 @@ public class ProductResponse {
     private Integer sequence;
     private int stockNumber;
     private String status;
+    private String unitOfCurrency;
     private String category;
+    private String coverImage;
     private SellerResponse seller;
     private List<ProductImageResponse> productImages;
     private List<ProductOptionResponse> productOptions;
@@ -40,7 +42,9 @@ public class ProductResponse {
                 .sequence(product.getSequence())
                 .stockNumber(product.getStockNumber())
                 .status(product.getStatus().getDisplayValue())
+                .unitOfCurrency(product.getUnitOfCurrency().getDisplayValue())
                 .category(product.getCategory().getDisplayValue())
+                .coverImage(product.getCoverImage())
                 .seller(SellerResponse.fromEntity(product.getSeller()))
                 .productImages(product.getProductImages()
                         .stream()

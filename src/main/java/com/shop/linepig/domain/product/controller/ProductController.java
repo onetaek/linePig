@@ -16,9 +16,15 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/products/{id}")
-    public String productsPage(@PathVariable Long id, Model model) {
+    public String productPage(@PathVariable Long id, Model model) {
         model.addAttribute("product",productService.findById(id));
         return "/products/product";
+    }
+
+    @GetMapping("/products")
+    public String ProductsPage(Model model) {
+        model.addAttribute("products",productService.findAll());
+        return "/products/products";
     }
 
 }
