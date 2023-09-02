@@ -39,5 +39,6 @@ out/
 
 ### custom ###
 application-dba.properties
+application.properties
 sql/data.sql
 serviceAccountKey.json

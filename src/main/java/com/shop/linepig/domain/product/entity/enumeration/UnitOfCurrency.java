@@ -8,8 +8,7 @@ import java.util.stream.Stream;
 public enum UnitOfCurrency {
     KRW("원",0,"대한민국: 원"),
     USD("$",10,"미국: 달러"),
-    CNY("¥",20,"중국: 위안화"),
-    JPY("¥",30,"일본: 엔화");
+    CNY("¥",20,"중국: 위안화");
 
     private final String code;
     private final String displayValue;

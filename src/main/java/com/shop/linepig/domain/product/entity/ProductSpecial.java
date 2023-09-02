@@ -19,7 +19,8 @@ public class ProductSpecial extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String value;
+    private String valueKo;
+    private String valueEn;
 
     private Integer sequence = 0;//순서
 

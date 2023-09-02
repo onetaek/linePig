@@ -11,15 +11,20 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class ProductDetailCreateRequest {
-    private String name;
-    private String value;
+    private String nameKo;
+    private String nameEn;
+    private String valueKo;
+    private String valueEn;
+    private Integer sequence;
 
     public static List<ProductDetail> toEntities(List<ProductDetailCreateRequest> productDetailCreateRequests, Product savedProduct) {
         return productDetailCreateRequests
                 .stream()
                 .map(productDetailCreateRequest -> ProductDetail.builder()
-                        .name(productDetailCreateRequest.getName())
-                        .value(productDetailCreateRequest.getValue())
+                        .nameKo(productDetailCreateRequest.getNameKo())
+                        .nameEn(productDetailCreateRequest.getNameEn())
+                        .valueKo(productDetailCreateRequest.getValueKo())
+                        .valueEn(productDetailCreateRequest.getValueEn())
                         .sequence(0)//요구사항 있으면 추가 일단 0
                         .product(savedProduct)
                         .build())

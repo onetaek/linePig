@@ -34,7 +34,6 @@ public class ProductService {
     private final ProductQueryRepository productQueryRepository;
     private final ProductImageRepository productImageRepository;
     private final ProductOptionRepository productOptionRepository;
-    private final ProductOptionItemRepository productOptionItemRepository;
     private final ProductSpecialRepository productSpecialRepository;
     private final ProductDetailRepository productDetailRepository;
     private final ProductDetailImageRepository productDetailImageRepository;
@@ -73,7 +72,9 @@ public class ProductService {
         List<UploadFile> uploadedProductDetailImages = uploadFirebaseService.uploadFiles(productCreateRequest.getProductDetailImages());
 
         //제품 생성 및 저장
-        Product unsavedProduct = ProductCreateRequest.toEntity(productCreateRequest, findAdmin, findSeller,uploadedProductImages.get(0).getUploadFileLink());
+        ProductOptionCreateRequest representativeProductOption = productCreateRequest.getProductOptions().get(0);//첫번째 옵션 값을 대표 값으로 사용한다.
+        Product unsavedProduct = ProductCreateRequest.toEntity(productCreateRequest, findAdmin, findSeller,uploadedProductImages.get(0).getUploadFileLink(),
+                representativeProductOption.getPriceKo(),representativeProductOption.getPriceEn());
         Product savedProduct = productRepository.save(unsavedProduct);
 
         //제품 이미지 생성 및 저장
@@ -94,13 +95,8 @@ public class ProductService {
         productDetailRepository.saveAll(unsavedProductDetails);
 
         //제품 옵션 생성 및 저장
-        productCreateRequest.getProductOptions().forEach(productOption -> {
-            ProductOption unsavedProductionOption = ProductOptionCreateRequest.toEntity(productOption, savedProduct);
-            ProductOption savedProductOption = productOptionRepository.save(unsavedProductionOption);
-            List<ProductOptionItemCreateRequest> productOptionItemCreateRequests = productOption.getProductOptionItems();
-            List<ProductOptionItem> unsavedProductionOptionItems = ProductOptionItemCreateRequest.toEntities(productOptionItemCreateRequests, savedProductOption);
-            productOptionItemRepository.saveAll(unsavedProductionOptionItems);
-        });
+        List<ProductOption> unsavedProductOptions = ProductOptionCreateRequest.toEntities(productCreateRequest.getProductOptions(), savedProduct);
+        productOptionRepository.saveAll(unsavedProductOptions);
 
         Product findProduct = productQueryRepository.findDistinctOneWithFetchJoin(ProductQueryExpression.eqId(savedProduct.getId())).orElseThrow(() -> new IllegalArgumentException("제품을 찾을 수 없습니다."));
         return ProductResponse.fromEntity(findProduct);

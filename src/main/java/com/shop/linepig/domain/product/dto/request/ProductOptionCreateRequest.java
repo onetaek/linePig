@@ -11,23 +11,32 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class ProductOptionCreateRequest {
-    private String optionName;
-    private List<ProductOptionItemCreateRequest> productOptionItems;
+    private String valueKo;
+    private String valueEn;
 
-    public static ProductOption toEntity(ProductOptionCreateRequest productOptionCreateRequest, Product savedProduct) {
-        return ProductOption.builder()
-                .optionName(productOptionCreateRequest.getOptionName())
-                .product(savedProduct)
-                .build();
-    }
+    private int priceKo;
+    private double priceEn;
+
+    private String priceDescriptionKo;
+    private String priceDescriptionEn;
+
+    private int stockQuantity;
+
+    private Integer sequence;
 
     public static List<ProductOption> toEntities(List<ProductOptionCreateRequest> productOptionCreateRequests, Product savedProduct) {
-        return productOptionCreateRequests
-                .stream()
-                .map(productOptionCreateRequest -> ProductOption.builder()
-                        .optionName(productOptionCreateRequest.getOptionName())
-                        .product(savedProduct)
-                        .build())
+        return productOptionCreateRequests.stream()
+                        .map(productOptionCreateRequest -> ProductOption.builder()
+                                .valueKo(productOptionCreateRequest.getValueKo())
+                                .valueEn(productOptionCreateRequest.getValueEn())
+                                .priceKo(productOptionCreateRequest.getPriceKo())
+                                .priceEn(productOptionCreateRequest.getPriceEn())
+                                .priceDescriptionKo(productOptionCreateRequest.getPriceDescriptionKo())
+                                .priceDescriptionEn(productOptionCreateRequest.getPriceDescriptionEn())
+                                .stockQuantity(productOptionCreateRequest.getStockQuantity())
+                                .sequence(0)
+                                .product(savedProduct)
+                                .build())
                 .collect(Collectors.toList());
     }
 

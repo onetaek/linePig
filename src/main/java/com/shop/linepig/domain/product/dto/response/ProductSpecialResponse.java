@@ -11,15 +11,19 @@ import lombok.Getter;
 public class ProductSpecialResponse {
 
     private Long id;
-    private String value;
-    private Integer sequence;
+
+    private String valueKo;
+    private String valueEn;
+
+    private Integer sequence;//순서
 
     public static ProductSpecialResponse fromEntity(ProductSpecial productSpecial) {
         if (productSpecial == null)
             return null;
         return ProductSpecialResponse.builder()
                 .id(productSpecial.getId())
-                .value(productSpecial.getValue())
+                .valueKo(productSpecial.getValueKo())
+                .valueEn(productSpecial.getValueEn())
                 .sequence(productSpecial.getSequence())
                 .build();
     }

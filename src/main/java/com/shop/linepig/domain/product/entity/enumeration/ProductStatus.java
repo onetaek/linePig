@@ -6,16 +6,20 @@ import lombok.Getter;
 import java.util.stream.Stream;
 
 @Getter
-public enum ProductSellStatus {
-    SELL("판매중",0,""),
-    SOLD_OUT("재고 소진", 10,"");
+public enum ProductStatus {
+
+    CREATED("생성",10,""),
+    WAIT("대기",20,""),
+    SELL("판매중",30,""),
+    SOLD_OUT("재고 소진", 40,""),
+    DELETED("삭제",50,"");
 
     private final String code;
     private final String displayValue;
     private final Integer sequence;
     private final String description;
 
-    ProductSellStatus(String displayValue, Integer sequence, String description) {
+    ProductStatus(String displayValue, Integer sequence, String description) {
         this.code = this.name();
         this.displayValue = displayValue;
         this.sequence = sequence;
@@ -23,7 +27,7 @@ public enum ProductSellStatus {
     }
 
     @JsonCreator
-    public static ProductSellStatus fromCode(String code) {
+    public static ProductStatus fromCode(String code) {
         return Stream.of(values())
                 .filter(enumType -> code.equalsIgnoreCase(enumType.code))
                 .findFirst()

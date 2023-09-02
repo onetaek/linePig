@@ -11,12 +11,17 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class ProductSpecialCreateRequest {
-    private String value;
+    private String valueKo;
+    private String valueEn;
+
+    private Integer sequence;
 
     public static List<ProductSpecial> toEntities(List<ProductSpecialCreateRequest> productSpecialCreateRequests, Product savedProduct) {
         return productSpecialCreateRequests.stream()
                 .map(productSpecialCreateRequest -> ProductSpecial.builder()
-                        .value(productSpecialCreateRequest.getValue())
+                        .valueKo(productSpecialCreateRequest.getValueKo())
+                        .valueEn(productSpecialCreateRequest.getValueEn())
+                        .sequence(0)
                         .product(savedProduct)
                         .build())
                 .collect(Collectors.toList());
