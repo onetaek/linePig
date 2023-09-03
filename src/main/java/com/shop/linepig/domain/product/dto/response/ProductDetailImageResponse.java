@@ -12,7 +12,6 @@ import lombok.Getter;
 public class ProductDetailImageResponse {
     private Long id;
     private UploadFile uploadFile;
-    private Integer sequence;//순서
 
     public static ProductDetailImageResponse fromEntity(ProductDetailImage productDetailImage) {
         if(productDetailImage == null)
@@ -20,7 +19,6 @@ public class ProductDetailImageResponse {
         return ProductDetailImageResponse.builder()
                 .id(productDetailImage.getId())
                 .uploadFile(productDetailImage.getUploadFile())
-                .sequence(productDetailImage.getSequence())
                 .build();
     }
 }

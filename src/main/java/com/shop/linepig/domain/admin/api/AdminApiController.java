@@ -24,7 +24,7 @@ public class AdminApiController {
 
     @PostMapping("/admins/login")
     public ResponseEntity<?> login(@Validated @RequestBody AdminLoginRequest request, HttpServletRequest httpServletRequest) {
-
+        
         Long adminId = adminService.login(request);
 
         if (adminId == null) {

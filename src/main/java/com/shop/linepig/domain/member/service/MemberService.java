@@ -60,6 +60,7 @@ public class MemberService {
     }
 
     public MemberBasicResponse findBasicById(Long id) {
+        if (id == null) return null;
         return memberQueryRepository.findBasicOne(MemberQueryExpression.eqId(id));
     }
 

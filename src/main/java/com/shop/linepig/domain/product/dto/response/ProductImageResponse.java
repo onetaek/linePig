@@ -12,7 +12,6 @@ import lombok.Getter;
 public class ProductImageResponse {
     private Long id;
     private UploadFile uploadFile;
-    private Integer sequence;
 
     public static ProductImageResponse fromEntity(ProductImage productImage) {
         if (productImage == null)
@@ -20,7 +19,6 @@ public class ProductImageResponse {
         return ProductImageResponse.builder()
                 .id(productImage.getId())
                 .uploadFile(productImage.getUploadFile())
-                .sequence(productImage.getSequence())
                 .build();
     }
 }

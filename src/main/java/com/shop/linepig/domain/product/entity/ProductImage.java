@@ -24,8 +24,6 @@ public class ProductImage extends BaseEntity {
     @Embedded
     private UploadFile uploadFile;
 
-    private Integer sequence = 0;//순서
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 

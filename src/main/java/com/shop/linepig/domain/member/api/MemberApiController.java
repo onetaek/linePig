@@ -38,8 +38,8 @@ public class MemberApiController {
     }
 
     @PostMapping("/api/members/join")//회원가입
-    public ResponseEntity join(@ModelAttribute(name = "member") MemberJoinRequest memberJoinRequest,
-                       BindingResult bindingResult, HttpServletRequest httpServletRequest){
+    public ResponseEntity join(@Validated @RequestBody MemberJoinRequest memberJoinRequest,
+                       BindingResult bindingResult, HttpServletRequest httpServletRequest) {
         //회원가입 로직
         MemberResponse memberResponse = memberService.join(memberJoinRequest);
         if (memberResponse == null) {

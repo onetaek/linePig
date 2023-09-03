@@ -1,7 +1,6 @@
 package com.shop.linepig.common.advice;
 
 import com.shop.linepig.common.constance.SessionConst;
-import com.shop.linepig.domain.common.controller.WelcomeController;
 import com.shop.linepig.domain.member.dto.response.MemberBasicResponse;
 import com.shop.linepig.domain.member.service.MemberService;
 import com.shop.linepig.domain.product.controller.ProductController;
@@ -15,7 +14,7 @@ import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
 @Slf4j
-@ControllerAdvice(basePackageClasses = {ProductController.class, WelcomeController.class} )
+@ControllerAdvice(basePackageClasses = {ProductController.class} )
 @RequiredArgsConstructor
 public class MemberModelAttributeAdvice {
 

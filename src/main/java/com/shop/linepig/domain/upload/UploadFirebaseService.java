@@ -34,6 +34,7 @@ public class UploadFirebaseService {
         ByteArrayInputStream content = new ByteArrayInputStream(decodedFile);
         bucket.create(storeFileName,content,request.getContentType());
         return UploadFile.builder()
+                .sequence(request.getSequence())
                 .uploadFileLink(rootPath+firebaseBucket+"/"+storeFileName)
                 .originFileName(request.getFileName())
                 .build();

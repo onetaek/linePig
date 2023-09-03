@@ -4,7 +4,9 @@ import com.shop.linepig.common.util.PasswdEncry;
 import com.shop.linepig.domain.admin.dto.request.AdminLoginRequest;
 import com.shop.linepig.domain.admin.dto.response.AdminResponse;
 import com.shop.linepig.domain.admin.entity.Admin;
+import com.shop.linepig.domain.admin.repository.AdminQueryRepository;
 import com.shop.linepig.domain.admin.repository.AdminRepository;
+import com.shop.linepig.domain.admin.repository.expression.AdminQueryExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,10 +17,14 @@ import org.springframework.stereotype.Service;
 public class AdminService {
 
     private final AdminRepository adminRepository;
+    private final AdminQueryRepository adminQueryRepository;
 
     public Long login(AdminLoginRequest request) {
 
-        Admin findAdminByLoginId = adminRepository.findByLoginId(request.getLoginId());
+        String loginId = request.getLoginId();
+        String password = request.getPassword();
+
+        Admin findAdminByLoginId = adminQueryRepository.findOne(AdminQueryExpression.eqLoginId(loginId)).orElseGet(null);
         if(findAdminByLoginId == null) {
             //예외처리
             return null;
@@ -28,11 +34,9 @@ public class AdminService {
 
         PasswdEncry passwdEncry = new PasswdEncry();
 
-        String password = request.getPassword();
-
         String SHA256Pw = passwdEncry.getEncry(password, salt);
 
-        Admin findAdmin = adminRepository.findByLoginIdAndPassword(request.getLoginId(), SHA256Pw);
+        Admin findAdmin = adminQueryRepository.findOne(AdminQueryExpression.eqLoginId(loginId), AdminQueryExpression.eqPassword(SHA256Pw)).orElseGet(null);
 
         if(findAdmin == null){
             //예외처리

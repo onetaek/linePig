@@ -18,20 +18,20 @@ import java.util.List;
 public class ProductApiController {
 
     private final ProductService productService;
-    @PostMapping("/admins/products")
+    @PostMapping("/admins/products")//제품 등록
     public ResponseEntity create(@RequestBody ProductCreateRequest productCreateRequest, @AdminLogin Long adminId) {
         System.out.println("productCreateRequest = " + productCreateRequest);
         productService.create(productCreateRequest,adminId);
-        return null;
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/products/{id}")//제품 조회
     public ResponseEntity findById(@PathVariable Long id) {
         ProductResponse productResponse = productService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(productResponse);
     }
 
-    @GetMapping("/products")
+    @GetMapping("/products")//제품 목록 조회
     public ResponseEntity findAll() {
         List<ProductBasicResponse> productBasicResponses = productService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(productBasicResponses);

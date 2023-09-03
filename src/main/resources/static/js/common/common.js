@@ -39,7 +39,8 @@ function createUploadFileObj(file) {
             resolve({
                 fileBase64: base64,
                 fileName: file.name,
-                contentType: file.type
+                contentType: file.type,
+                sequence: undefined,
             });
         };
 

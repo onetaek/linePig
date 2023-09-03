@@ -62,7 +62,7 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public ProductResponse create(ProductCreateRequest productCreateRequest, Long adminId) {
+    public void create(ProductCreateRequest productCreateRequest, Long adminId) {
 
         Seller findSeller = sellerRepository.findById(productCreateRequest.getSellerId()).orElseThrow(() -> new IllegalArgumentException("판매자를 찾을 수 없습니다."));
         Admin findAdmin = adminRepository.findById(adminId).orElseThrow(() -> new IllegalArgumentException("관리자를 찾을 수 없습니다."));
@@ -97,9 +97,6 @@ public class ProductService {
         //제품 옵션 생성 및 저장
         List<ProductOption> unsavedProductOptions = ProductOptionCreateRequest.toEntities(productCreateRequest.getProductOptions(), savedProduct);
         productOptionRepository.saveAll(unsavedProductOptions);
-
-        Product findProduct = productQueryRepository.findDistinctOneWithFetchJoin(ProductQueryExpression.eqId(savedProduct.getId())).orElseThrow(() -> new IllegalArgumentException("제품을 찾을 수 없습니다."));
-        return ProductResponse.fromEntity(findProduct);
     }
 
 

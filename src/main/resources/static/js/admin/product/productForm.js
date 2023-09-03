@@ -1,79 +1,147 @@
 //--------------variable--------------
-const productImagesBox = document.querySelector('#productImagesBox');//상품 이미지 박스
-const productOptionMainBox = document.querySelector('#productOptionMainBox');//옵션 박스
-const productSpecialsBox = document.querySelector('#productSpecialsBox');//특이사항 박스
-const productDetailsBox = document.querySelector('#productDetailsBox');//세주정보 박스
-const productDetailImagesBox = document.querySelector('#productDetailImagesBox');//상세이미지 박스
+const productImagesBox = document.querySelector('#product-images-box');//상품 이미지 박스
+const productOptionsBox = document.querySelector('#product-options-box');//옵션 박스
+const productSpecialsBox = document.querySelector('#product-specials-box');//특이사항 박스
+const productDetailsBox = document.querySelector('#product-details-box');//세주정보 박스
+const productDetailImagesBox = document.querySelector('#product-detail-images-box');//상세이미지 박스
 
 //---------------element---------------
-const productImageInputElement = `<div class="mb-3 productImageBox">
+const productImageInputElement = `<div class="mb-3 product-image-box">
                                 <label class="form-label">이미지 파일</label>
                                 <div style="display:flex;">
-                                    <input class="form-control bg-dark productImageInput" type="file">
+                                    <input class="form-control product-image-sequence" style="width:70px;margin-right:10px;" type="number"/>
+                                    <input class="form-control bg-dark product-sequence product-image-input" type="file">
                                     <button onclick="removeProductImageBox(this)" type="button" class="btn btn-sm btn-sm-square btn-outline-primary m-2">
                                         <i class="fa fa-times "></i>
                                     </button>
                                 </div>
                             </div>`//제품 이미지 요소
-const optionInputElement = `<div class="productOptionBox">
-                        <h6 class="mb-4">제품 옵션</h6>
-                            <div class="row d-flex justify-content-between mb-3 productOptionNameBox">
-                                <label for="name" class="col-sm-2 col-form-label">옵션명</label>
-                                <div class="row col-sm-9">
-                                    <input type="text" class="productOptionNameInput form-control">
-                                </div>
-                                <button onclick="removeProductOptionBox(this)" type="button" class="col-sm-1 btn btn-sm btn-sm-square btn-outline-primary m-2">
-                                    <i class="fa fa-times "></i>
-                                </button>
-                            </div>
-                        <div class="ms-5 productOptionValueMainBox">
-                            <h6 class="mb-4">제품 옵션값</h6>
-                            <div class="productOptionValuesBox">
-                                <!--javascript로 productOptionValueBox 계속 추가해줌-->
-                            </div>
-                            <button onclick="createProductOptionValueBox(this)" class="btn btn-outline-primary w-100 m-2" type="button">제품 옵션값 추가</button>
-                        </div>
-                    </div>`//제품 옵션 요소
-const optionValueInputElement = `<div class="row d-flex justify-content-between mb-3 productOptionValueBox">
-                                    <label for="name" class="col-sm-2 col-form-label">옵션값</label>
-                                    <div class="row col-sm-9">
-                                        <input type="text" class="productOptionValueInput form-control">
+const optionInputElement = `<div class="product-option-box mb-5 row d-flex justify-content-between align-items-center ">
+                            <div class="col-xl-11">
+                                <div class="row col-xl-12 mb-3">
+                                    <div class="row col-xl-6">
+                                        <label class="col-sm-3 col-form-label">옵션값(Ko)</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control product-value-ko">
+                                        </div>
                                     </div>
-                                    <button onclick="removeProductOptionValueBox(this)" type="button" class="col-sm-1 btn btn-sm btn-sm-square btn-outline-primary m-2">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </div>`; //제품 옵션 값 요소
-const specialTextAreaElement = `<div class="productSpecialBox row d-flex justify-content-between align-items-center">
-                        <div class="form-floating mb-3 col-sm-11">
-                                <textarea class="form-control productSpecial" placeholder="Leave a comment here"
-                                          style="height: 150px;"></textarea>
-                            <label class="ms-3">Comments</label>
+                                    <div class="row col-xl-6">
+                                        <label class="col-sm-3 col-form-label">옵션값(En)</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control product-value-en">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row col-xl-12 mb-3">
+                                    <div class="row col-xl-6">
+                                        <label class="col-sm-3 col-form-label">가격(Ko)</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control product-price-ko">
+                                        </div>
+                                    </div>
+                                    <div class="row col-xl-6">
+                                        <label class="col-sm-3 col-form-label">가격(En)</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control product-price-en">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row col-xl-12 mb-3">
+                                    <div class="row col-xl-6">
+                                        <label class="col-sm-3 col-form-label">가격설명(ko)</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control product-price-description-ko">
+                                        </div>
+                                    </div>
+                                    <div class="row col-xl-6">
+                                        <label class="col-sm-3 col-form-label">가격설명(En)</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control product-price-description-en">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row col-xl-12 mb-3">
+                                    <div class="row col-xl-6">
+                                        <label class="col-sm-3 col-form-label">재고량</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control product-stock-quantity">
+                                        </div>
+                                    </div>
+                                    <div class="row col-xl-6">
+                                        <label class="col-sm-3 col-form-label">순서</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control product-sequence">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button onclick="removeProductOptionBox(this)" type="button" class="col-sm-1 btn btn-sm btn-sm-square btn-outline-primary m-2">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>`; //제품 옵션 값 요소
+const specialTextAreaElement = `<div class="product-special-box mb-5 row d-flex justify-content-between align-items-center">
+                        <div class="row col-xl-1">
+                            <input type="number" class="form-control product-sequence">
                         </div>
-                        <button onclick="removeSpecialBox(this)" type="button" class="btn btn-sm btn-sm-square btn-outline-primary col-sm-1">
+                        <div class="col-xl-10 row d-flex justify-content-between align-items-center">
+                            <div class="form-floating col-xl-6 mb-3">
+                                    <textarea class="form-control product-special-ko" placeholder="Leave a comment here"
+                                              style="height: 150px;"></textarea>
+                                <label class="ms-3">특이사항(Ko)</label>
+                            </div>
+                            <div class="form-floating col-xl-6 mb-3">
+                                    <textarea class="form-control product-special-en" placeholder="Leave a comment here"
+                                              style="height: 150px;"></textarea>
+                                <label class="ms-3">특이사항(En)</label>
+                            </div>
+                        </div>
+                        <button onclick="removeSpecialBox(this)" type="button" class="btn btn-sm btn-sm-square btn-outline-primary col-xl-1">
                             <i class="fa fa-times "></i>
                         </button>
                     </div>`;//제품 특이사항 요소
-const productDetailInputElement = `<div class="productDetailBox row d-flex justify-content-between align-items-center mb-3 ">
-                        <div class="row col-xl-4">
-                            <label for="name" class="col-sm-3 col-form-label">속성명</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control productDetailName">
+const productDetailInputElement = `<div class="product-detail-box mb-5 row d-flex justify-content-between align-items-center mb-3 ">
+                        <div class="row col-xl-1 mb-3">
+                            <input type="number" class="form-control product-sequence">
+                        </div>
+                        <div class="row col-xl-10 mb-3">
+                            <div class="row col-xl-12 mb-3">
+                                <div class="row col-xl-5">
+                                    <label class="col-sm-4 col-form-label">속성명(Ko)</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control product-detail-name-ko">
+                                    </div>
+                                </div>
+                                <div class="row col-xl-7">
+                                    <label class="col-sm-3 col-form-label">속성값(Ko)</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control product-detail-value-ko">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row col-xl-12 mb-3">
+                                <div class="row col-xl-5">
+                                    <label class="col-sm-4 col-form-label">속성명(En)</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control product-detail-name-en">
+                                    </div>
+                                </div>
+                                <div class="row col-xl-7">
+                                    <label class="col-sm-3 col-form-label">속성값(En)</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control product-detail-value-en">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="row col-xl-7">
-                            <label for="nameDescription" class="col-sm-2 col-form-label">속성값</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control productDetailValue">
-                            </div>
-                        </div>
-                        <button onclick="removeProductDetailBox(this)" type="button" class="btn btn-sm btn-sm-square btn-outline-primary col-xl-1">
+                        <button onclick="removeProductDetailBox(this)" type="button" class="btn btn-sm btn-sm-square btn-outline-primary col-xl-1 mb-3">
                             <i class="fa fa-times "></i>
                         </button>
                     </div>`;//제품 세부정보 요소
-const productDetailImageInputElement = `<div class="mb-3 productDetailImageBox">
+const productDetailImageInputElement = `<div class="mb-3 product-detail-image-box">
                                 <label class="form-label">상세 이미지 파일</label>
                                 <div style="display:flex;">
-                                    <input class="form-control bg-dark productImage" type="file">
+                                    <input class="form-control product-detail-image-sequence" style="width:70px;margin-right:10px;" type="number"/>
+                                    <input class="form-control bg-dark product-detail-image" type="file">
                                     <button onclick="removeProductDetailImageBox(this)" type="button" class="btn btn-sm btn-sm-square btn-outline-primary m-2">
                                         <i class="fa fa-times "></i>
                                     </button>
@@ -94,30 +162,17 @@ function createProductImageBox() {
 }
 
 function removeProductImageBox(obj) {
-    let productImageBox = $(obj).closest('.productImageBox');
+    let productImageBox = $(obj).closest('.product-image-box');
     productImageBox.remove();
 }
 
 function createProductOptionBox() {
-    productOptionMainBox.append(createTemplateElement(optionInputElement));
-}
-
-function createProductOptionValueBox(obj) {
-    console.log("제품 옵션 값 추가")
-    let productOptionValueMainBox = $(obj).closest('.productOptionValueMainBox');
-    let productOptionValuesBox = productOptionValueMainBox.find('.productOptionValuesBox');
-    productOptionValuesBox.append(createTemplateElement(optionValueInputElement));
+    productOptionsBox.append(createTemplateElement(optionInputElement));
 }
 
 function removeProductOptionBox(obj) {
-    console.log("옵션 제거 클릭!")
-    let productOptionBox = $(obj).closest('.productOptionBox');
+    let productOptionBox = $(obj).closest('.product-option-box');
     productOptionBox.remove();
-}
-
-function removeProductOptionValueBox(obj) {
-    let productOptionValueBox = $(obj).closest('.productOptionValueBox');
-    productOptionValueBox.remove();
 }
 
 function createSpecialBox() {
@@ -125,7 +180,7 @@ function createSpecialBox() {
 }
 
 function removeSpecialBox(obj) {
-    let productOptionBox = $(obj).closest('.productSpecialBox');
+    let productOptionBox = $(obj).closest('.product-special-box');
     productOptionBox.remove();
 }
 
@@ -134,7 +189,7 @@ function createProductDetailImageBox() {
 }
 
 function removeProductDetailImageBox(obj) {
-    let productDetailImageBox = $(obj).closest('.productDetailImageBox');
+    let productDetailImageBox = $(obj).closest('.product-detail-image-box');
     productDetailImageBox.remove();
 }
 
@@ -143,117 +198,146 @@ function createProductDetailBox() {
 }
 
 function removeProductDetailBox(obj) {
-    let productDetailBox = $(obj).closest('.productDetailBox');
+    let productDetailBox = $(obj).closest('.product-detail-box');
     productDetailBox.remove();
 }
 
 async function createFormData() {
     let requestBody = {
-        productImages:undefined,
-        name:undefined,
-        nameDescription:undefined,
-        price:undefined,
-        priceDescription:undefined,
-        stockNumber:undefined,
-        unitOfCurrency: undefined,
-        productOptions:undefined,
-        productSpecials:undefined,
-        productDetails:undefined,
-        productDetailImages:undefined,
-        sellerId:undefined,
     }
 
-    //제품 이미지
-    const productImageInputs = productImagesBox.querySelectorAll('.productImageInput');
-    requestBody.productImages = await createUploadFiles(productImageInputs)
+    //판매자 정보
+    const productSellerSelect = document.querySelector('#productSellerSelect');
+    requestBody.sellerId = productSellerSelect.value
 
     //제품 정보
-    const productName = document.querySelector('#productName');//제품명
-    const productNameDescription = document.querySelector('#productNameDescription');//부재
-    const productPrice = document.querySelector('#productPrice');//가격
-    const productPriceDescription = document.querySelector('#productPriceDescription');//가격설명
-    const productStockNumber = document.querySelector('#productStockNumber');//재고수량
-    const productUnitOfCurrency = document.querySelector('#productUnitOfCurrency');//통화단위
-
-    requestBody.name = productName.value;
-    requestBody.nameDescription = productNameDescription.value;
-    requestBody.price = productPrice.value;
-    requestBody.priceDescription = productPriceDescription.value;
-    requestBody.stockNumber = productStockNumber.value;
-    requestBody.unitOfCurrency = productUnitOfCurrency.value;
+    const productNameKo = document.querySelector('#product-name-ko');//제품명
+    const productNameEn = document.querySelector('#product-name-en');//제품명
+    const productNameDescriptionKo = document.querySelector('#product-name-description-ko');//제품명
+    const productNameDescriptionEn = document.querySelector('#product-name-description-en');//제품명
+    const productMainSequence = document.querySelector('#product-main-sequence');
+    requestBody.nameKo = productNameKo.value;
+    requestBody.nameEn = productNameEn.value;
+    requestBody.nameDescriptionKo = productNameDescriptionKo.value;
+    requestBody.nameDescriptionEn = productNameDescriptionEn.value;
+    requestBody.sequence = productMainSequence.value;
 
     //제품 옵션명
-    const productOptionBoxes = productOptionMainBox.querySelectorAll('.productOptionBox');
+    const productOptionKo = document.querySelector('.product-option-ko');
+    const productOptionEn = document.querySelector('.product-option-en');
+    requestBody.optionKo = productOptionKo.value;
+    requestBody.optionEn = productOptionEn.value;
+
+    //제품 옵션별 정보
+    const productOptionBoxes = productOptionsBox.querySelectorAll('.product-option-box');
     let productOptionObjects = []
     productOptionBoxes.forEach(productOptionBox => {
-        const productOptionNameInput = productOptionBox.querySelector('.productOptionNameInput');
-        let optionObject = {
-            optionName : productOptionNameInput.value,
-            productOptionItems : []
-        }
+        const productValueKo = productOptionBox.querySelector('.product-value-ko');
+        const productValueEn = productOptionBox.querySelector('.product-value-en');
+        const productPriceKo = productOptionBox.querySelector('.product-price-ko');
+        const productPriceEn = productOptionBox.querySelector('.product-price-en');
+        const productPriceDescriptionKo = productOptionBox.querySelector('.product-price-description-ko');
+        const productPriceDescriptionEn = productOptionBox.querySelector('.product-price-description-en');
+        const productStockQuantity = productOptionBox.querySelector('.product-stock-quantity');
+        const productSequence = productOptionBox.querySelector('.product-sequence');
 
-        //제품 옵션 값
-        const productOptionValueInputs = productOptionBox.querySelectorAll('.productOptionValueInput');
-        productOptionValueInputs.forEach(productOptionValueInput => {
-            const optionValue = productOptionValueInput.value;
-            optionObject.productOptionItems.push(optionValue);
-        });
-        productOptionObjects.push(optionObject)
+        let productOptionObject = {
+            valueKo: productValueKo.value,
+            valueEn: productValueEn.value,
+            priceKo: productPriceKo.value,
+            priceEn: productPriceEn.value,
+            priceDescriptionKo: productPriceDescriptionKo.value,
+            priceDescriptionEn: productPriceDescriptionEn.value,
+            stockQuantity: productStockQuantity.value,
+            sequence: productSequence.value,
+        }
+        productOptionObjects.push(productOptionObject)
     })
     requestBody.productOptions = productOptionObjects;
 
     //특이사항
-    const productSpecialTextAreas = document.querySelectorAll('.productSpecial');
+    const productSpecialBoxes = document.querySelectorAll('.product-special-box');
     let productSpecialObjects = []
-    productSpecialTextAreas.forEach(textArea => {
+    productSpecialBoxes.forEach(productSpecialBox => {
+        const productSpecialKo = productSpecialBox.querySelector('.product-special-ko');
+        const productSpecialEn = productSpecialBox.querySelector('.product-special-en');
+        const productSequence = productSpecialBox.querySelector('.product-sequence');
+
         const productSpecialObject = {
-            value : textArea.value
+            valueKo: productSpecialKo.value,
+            valueEn: productSpecialEn.value,
+            sequence: productSequence.value,
         }
         productSpecialObjects.push(productSpecialObject)
     })
     requestBody.productSpecials = productSpecialObjects;
 
     //세부정보
-    const productDetailBoxes = document.querySelectorAll('.productDetailBox');
+    const productDetailBoxes = document.querySelectorAll('.product-detail-box');
     let productDetailObjects = []
     productDetailBoxes.forEach(productDetail => {
-        const productDetailName = productDetail.querySelector('.productDetailName');
-        const productDetailValue = productDetail.querySelector('.productDetailValue');
+        const productDetailNameKo = productDetail.querySelector('.product-detail-name-ko');
+        const productDetailNameEn = productDetail.querySelector('.product-detail-name-en');
+        const productDetailValueKo = productDetail.querySelector('.product-detail-value-ko');
+        const productDetailValueEn = productDetail.querySelector('.product-detail-value-en');
+        const productSequence = productDetail.querySelector('.product-sequence');
         const productDetailObject = {
-            name : productDetailName.value,
-            value : productDetailValue.value,
+            nameKo: productDetailNameKo.value,
+            nameEn: productDetailNameEn.value,
+            valueKo: productDetailValueKo.value,
+            valueEn: productDetailValueEn.value,
+            sequence: productSequence.value,
         }
         productDetailObjects.push(productDetailObject)
     })
     requestBody.productDetails = productDetailObjects;
 
 
+    //제품 이미지
+    const productImageInputs = productImagesBox.querySelectorAll('.product-image-input');
+    requestBody.productImages = await createUploadFiles(productImageInputs)
+
+    console.log("requestBody.productImages =",requestBody.productImages)
+
+    const productImageSequences = await document.querySelectorAll('.product-image-sequence');
+    console.log("productImageSequences =",productImageSequences)
+    await productImageSequences.forEach((productImageSequence,index) => {
+        console.log("index =",index)
+        console.log("productImageSequence =",productImageSequence)
+        console.log("requestBody.productImages[index] =",requestBody.productImages[index])
+        console.log("productImageSequence.value =",productImageSequence.value)
+        requestBody.productImages[index].sequence = productImageSequence.value;
+    })
+
+
     //제품 상세이미지
-    const productImages = document.querySelectorAll('.productImage');
-    requestBody.productDetailImages = await createUploadFiles(productImages)
+    const productDetailImageInputs = productDetailImagesBox.querySelectorAll('.product-detail-image');
+    requestBody.productDetailImages = await createUploadFiles(productDetailImageInputs)
+    const productDetailImageSequences = await document.querySelectorAll('.product-detail-image-sequence');
+    await productDetailImageSequences.forEach((productDetailImageSequence,index) => {
+        requestBody.productDetailImages[index].sequence = productDetailImageSequence.value;
+    })
 
-    //판매자 정보
-    const productSellerSelect = document.querySelector('#productSellerSelect');
-    requestBody.sellerId = productSellerSelect.value
-
-    console.log("requestBody =",requestBody);
+    console.log("requestBody =", requestBody);
     return requestBody;
 }
 
+
+
 async function submitProductBtn() {
     if (confirm("제품을 등록하시겠습니까?")) {
+        const requestBody = await createFormData();
         try {
             const requestBody = await createFormData();
-            console.log("requestbody =", requestBody);
 
             const response =
                 await fetch(`/api/admins/products`, {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(requestBody)
-            });
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(requestBody)
+                });
 
             if (response.ok) {
                 const data = await response.json();

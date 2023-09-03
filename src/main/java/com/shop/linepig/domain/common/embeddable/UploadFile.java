@@ -10,6 +10,8 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor
 @Embeddable
 public class UploadFile {
+
+    private Integer sequence;
     private String uploadFileLink;
     private String originFileName;
 }
