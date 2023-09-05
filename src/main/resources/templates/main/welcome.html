@@ -22,15 +22,13 @@
                     <th:block th:if="${loginMember}">
                         <li><a th:href="|/members/${loginMember.id}|" th:text="${loginMember.name}">이름</a></li>
                         <li><a href="#" onclick="onClickLogoutBtn()">로그아웃</a></li>
-                        <!--                    <li><a href="#">한글</a></li>-->
                     </th:block>
                     <th:block th:unless="${loginMember}">
                         <li><a href="/members/login">로그인</a></li>
                         <li><a href="/members/join">회원가입</a></li>
-                        <!--                    <li><a href="#">한글</a></li>-->
                     </th:block>
                     <li>
-                        <select id="languageSelect" name="language">
+                        <select id="languageSelect" name="language" onchange="changeLanguage(this)">
                             <!-- 한국어 선택 옵션 -->
                             <option th:selected="${userLanguage == 'ko'}"
                                     th:value="ko">한국어</option>
@@ -42,7 +40,7 @@
                 </ul>
             </div>
             <div id="logo-wrap">
-                <h1><a href="/">라인 피그</a></h1>
+                <h1><a href="/" th:text="#{header.logo}">라인 피그</a></h1>
             </div>
         </header>
 
@@ -50,10 +48,11 @@
             <div id="shop-wrap">
                 <div id="slider-wrap">
                     <ul class="nav-menu">
-                        <li><h2>쇼핑</h2></li>
-                        <li><h2>정보</h2></li>
-                        <li><h2>공지</h2></li>
-                        <li><h2>연락</h2></li>
+                        <li><h2><a th:href="|/products|" th:text="#{header.nav.shopping}">쇼핑</a></h2></li>
+                        <li><h2><a th:href="|/infos|" th:text="#{header.nav.info}">정보</a></h2></li>
+                        <li><h2><a th:href="|/notices|" th:text="#{header.nav.notice}">공지</a></h2></li>
+                        <li><h2><a th:href="|/contacts|" th:text="#{header.nav.contact}">연락</a></h2></li>
+                        <li><h2><a th:href="|/magazines|" th:text="#{header.nav.new}">기사</a></h2></li>
                     </ul>
                     <ul>
                         <li>슬라이더 이미지1</li>
@@ -143,6 +142,6 @@
         </footer>
 
     </div>
-
+    <script src="/js/common/mainBase.js"></script>
 </body>
 </html>

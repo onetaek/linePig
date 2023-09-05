@@ -7,6 +7,7 @@ import com.shop.linepig.domain.member.entity.Seller;
 import com.shop.linepig.domain.member.repository.SellerRepository;
 import com.shop.linepig.domain.product.dto.request.*;
 import com.shop.linepig.domain.product.dto.response.ProductBasicResponse;
+import com.shop.linepig.domain.product.dto.response.ProductOptionResponse;
 import com.shop.linepig.domain.product.dto.response.ProductResponse;
 import com.shop.linepig.domain.product.dto.response.UnitOfCurrencyResponse;
 import com.shop.linepig.domain.product.entity.*;
@@ -97,6 +98,16 @@ public class ProductService {
         //제품 옵션 생성 및 저장
         List<ProductOption> unsavedProductOptions = ProductOptionCreateRequest.toEntities(productCreateRequest.getProductOptions(), savedProduct);
         productOptionRepository.saveAll(unsavedProductOptions);
+    }
+
+    public Long findProductOptionId(List<ProductOptionResponse> productOptions, Long productOptionId) {
+        if (productOptionId == null) return productOptions.get(0).getId();
+        return productOptions
+                .stream()
+                .map(ProductOptionResponse::getId)
+                .filter(id -> id.equals(productOptionId))
+                .findFirst()
+                .orElse(null);
     }
 
 

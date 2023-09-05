@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @ControllerAdvice(basePackageClasses = {ProductController.class} )
 @RequiredArgsConstructor
-public class MemberModelAttributeAdvice {
+public class LoginMemberModelAttributeAdvice {
 
     private final MemberService memberService;
     @ModelAttribute

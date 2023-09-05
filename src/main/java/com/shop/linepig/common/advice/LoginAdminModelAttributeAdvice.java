@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice(basePackageClasses = AdminController.class )
 @RequiredArgsConstructor
-public class AdminModelAttributeAdvice {
+public class LoginAdminModelAttributeAdvice {
 
     private final AdminService adminService;
 
