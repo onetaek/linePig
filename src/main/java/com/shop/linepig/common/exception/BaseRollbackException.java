@@ -1,9 +1,27 @@
 package com.shop.linepig.common.exception;
 
-import org.springframework.http.HttpStatus;
+import lombok.Getter;
 
-public class BaseRollbackException extends BaseException{
-    protected BaseRollbackException(String value, String reason, HttpStatus httpStatus) {
-        super(value, reason, httpStatus);
+import java.util.HashMap;
+import java.util.Map;
+
+@Getter
+public abstract class BaseRollbackException extends RuntimeException{
+
+    public final Map<String, String> validation = new HashMap<>();
+
+    public BaseRollbackException(String message) {
+        super(message);
     }
+
+    public BaseRollbackException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public abstract int getStatusCode();
+
+    public void addValidation(String fieldName, String message) {
+        validation.put(fieldName, message);
+    }
+
 }
