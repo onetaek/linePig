@@ -38,7 +38,7 @@ public class UploadService {
 
     public List<UploadFile> uploadFiles(List<UploadBase64EncodedFileRequest> requests) {
 
-        List<UploadFile> uploadFiles = uploadFirebaseService.uploadFiles(requests);
+        List<UploadFile> uploadFiles = uploadFirebaseService.uploadBase64EncodedFiles(requests);
 
         log.info("uploadFiles = {}",uploadFiles);
 

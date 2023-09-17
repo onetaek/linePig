@@ -1,5 +1,6 @@
 package com.shop.linepig.domain.admin.controller;
 
+import com.shop.linepig.domain.board.service.BoardService;
 import com.shop.linepig.domain.member.service.MemberService;
 import com.shop.linepig.domain.member.service.SellerService;
 import com.shop.linepig.domain.product.service.ProductService;
@@ -18,6 +19,7 @@ public class AdminController {//AdminModelAttributeAdvice를 통해서 로그인
     private final MemberService memberService;
     private final SellerService sellerService;
     private final ProductService productService;
+    private final BoardService boardService;
 
     @GetMapping("/admins/login")//로그인 페이지 이동
     public String loginPage() {
@@ -63,20 +65,27 @@ public class AdminController {//AdminModelAttributeAdvice를 통해서 로그인
         return "/admins/sellers/sellers";
     }
 
+    @GetMapping("/admins/boards")//공지사항목록 페이지 (개발x)
+    public String notices() {
+        return "/admins/boards/boards";
+    }
+
+    @GetMapping("/admins/boards/new")//공지사항등록 페이지 (개발x)
+    public String noticesNewPage(Model model) {
+        model.addAttribute("categories",boardService.getCategories());
+        model.addAttribute("statuses",boardService.getStatuses());
+        return "/admins/boards/boardForm";
+    }
+
+
+    //---미개발
+
     @GetMapping("/admins/orders")//주문목록 페이지 (개발x)
     public String ordersPage() {
         return "/admins/orders/orders";
     }
 
-    @GetMapping("/admins/notices")//공지사항목록 페이지 (개발x)
-    public String notices() {
-        return "/admins/notices/notices";
-    }
 
-    @GetMapping("/admins/notices/new")//공지사항등록 페이지 (개발x)
-    public String noticesNewPage() {
-        return "/admins/notices/new";
-    }
 
     @GetMapping("/admins/magazine")//메거진목록 페이지 (개발x)
     public String magazinesPage() {

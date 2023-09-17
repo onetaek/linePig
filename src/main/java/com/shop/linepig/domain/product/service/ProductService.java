@@ -69,8 +69,8 @@ public class ProductService {
         Admin findAdmin = adminRepository.findById(adminId).orElseThrow(() -> new IllegalArgumentException("관리자를 찾을 수 없습니다."));
 
         //Firebase Storage에 저장 이미지 저장
-        List<UploadFile> uploadedProductImages = uploadFirebaseService.uploadFiles(productCreateRequest.getProductImages());
-        List<UploadFile> uploadedProductDetailImages = uploadFirebaseService.uploadFiles(productCreateRequest.getProductDetailImages());
+        List<UploadFile> uploadedProductImages = uploadFirebaseService.uploadBase64EncodedFiles(productCreateRequest.getProductImages());
+        List<UploadFile> uploadedProductDetailImages = uploadFirebaseService.uploadBase64EncodedFiles(productCreateRequest.getProductDetailImages());
 
         //제품 생성 및 저장
         ProductOptionCreateRequest representativeProductOption = productCreateRequest.getProductOptions().get(0);//첫번째 옵션 값을 대표 값으로 사용한다.
