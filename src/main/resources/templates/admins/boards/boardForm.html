@@ -4,6 +4,7 @@
       layout:decorate="~{layouts/adminBase}">
 <head>
     <title>게시판 작성 페이지</title>
+    <link rel="stylesheet" href="/css/admin/boardForm.css">
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/translations/ko.js"></script>
 </head>
@@ -12,76 +13,112 @@
 <!-- 상품등록 start -->
 <div layout:fragment="content" class="container-fluid pt-4 px-4">
     <div class="row g-4">
-            <div class="col-sm-12 col-xl-12">
-                <div class="bg-secondary rounded h-100 p-4">
-                    <h6 class="mb-4">제품 정보</h6>
-                    <form>
-                        <div class="row col-xl-12 mb-3">
-                            <div class="row col-xl-6">
-                                <label class="col-sm-3 col-form-label">제목(Ko)</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control product-option-ko">
-                                </div>
-                            </div>
-                            <div class="row col-xl-6">
-                                <label class="col-sm-3 col-form-label">제목(En)</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control product-option-en">
-                                </div>
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">제품 정보</h6>
+                <div class="row g-4">
+                    <div class="row col-xl-12 mb-3">
+                        <div class="row col-xl-6">
+                            <label class="col-sm-3 col-form-label">제목(Ko)</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control board-title-ko-input">
                             </div>
                         </div>
-                        <div class="row col-xl-12 mb-3">
-                            <div class="row col-xl-6">
-                                <label class="col-sm-3 col-form-label">부제(Ko)</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control product-option-ko">
-                                </div>
-                            </div>
-                            <div class="row col-xl-6">
-                                <label class="col-sm-3 col-form-label">부제(En)</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control product-option-en">
-                                </div>
+                        <div class="row col-xl-6">
+                            <label class="col-sm-3 col-form-label">제목(En)</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control board-title-en-input">
                             </div>
                         </div>
-<!--                        <div class="col-sm-12 col-xl-6">-->
-<!--                            <div class="bg-secondary rounded h-100 p-4">-->
-<!--                                <h6 class="mb-4">카테고리</h6>-->
-<!--                                <div class="form-floating mb-3">-->
-<!--                                    <select class="form-select" id="productSellerSelect"-->
-<!--                                            aria-label="Floating label select example">-->
-<!--                                        <option>카테고리를 선택하시오</option>-->
-<!--                                        <th:block th:each="categery:${categories}">-->
-<!--                                            <option th:value="${categery.code}"-->
-<!--                                                    th:text="${categery.displayValue}"></option>-->
-<!--                                        </th:block>-->
-<!--                                    </select>-->
-<!--                                    <label for="productSellerSelect">카테고리</label>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-sm-12 col-xl-6">-->
-<!--                            <div class="bg-secondary rounded h-100 p-4">-->
-<!--                                <h6 class="mb-4">상태</h6>-->
-<!--                                <div class="form-floating mb-3">-->
-<!--                                    <select class="form-select" id="producteellerSelect"-->
-<!--                                            aria-label="Floating label select example">-->
-<!--                                        <option>상태를 선택하시오</option>-->
-<!--                                        <th:block th:each="status:${statuses}">-->
-<!--                                            <option th:value="${status.code}"-->
-<!--                                                    th:text="${status.displayValue}"></option>-->
-<!--                                        </th:block>-->
-<!--                                    </select>-->
-<!--                                    <label for="productSellerSelect">상태</label>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-                        <textarea name="contentKo" id="contentKo" cols="30" rows="10">
-
-                        </textarea>
-                    </form>
+                    </div>
+                    <div class="row col-xl-12 mb-3">
+                        <div class="row col-xl-6">
+                            <label class="col-sm-3 col-form-label">작성자</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control board-writer-input">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">카테고리</h6>
+                <div class="form-floating mb-3">
+                    <select class="form-select board-category-select" id="board-category-select"
+                            aria-label="Floating label select example">
+                        <option>카테고리를 선택하시오</option>
+                        <th:block th:each="categery:${categories}">
+                            <option th:value="${categery.code}"
+                                    th:text="${categery.displayValue}"></option>
+                        </th:block>
+                    </select>
+                    <label for="board-category-select">카테고리</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">상태</h6>
+                <div class="form-floating mb-3">
+                    <select class="form-select board-status-select" id="board-status-select"
+                            aria-label="Floating label select example">
+                        <option>상태를 선택하시오</option>
+                        <th:block th:each="status:${statuses}">
+                            <option th:value="${status.code}"
+                                    th:text="${status.displayValue}"></option>
+                        </th:block>
+                    </select>
+                    <label for="board-status-select">상태</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">최상단 게시글 선택여부</h6>
+                <div class="form-floating mb-3">
+                    <select class="form-select board-is-top-select" id="board-is-top-select"
+                            aria-label="Floating label select example">
+                        <option>최상단 게시글 선택여부</option>
+                        <option value="true">Y</option>
+                        <option value="false">N</option>
+                    </select>
+                    <label for="board-is-top-select">상태</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">순서</h6>
+                <div class="form-floating mb-3">
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control board-sequence-input">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">내용(Ko)</h6>
+                <div class="form-floating mb-3">
+                    <textarea name="board-content-ko-textarea" id="board-content-ko-textarea" cols="30" rows="10"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">내용(En)</h6>
+                <div class="form-floating mb-3">
+                    <textarea name="board-content-en-textarea" id="board-content-en-textarea" cols="30" rows="10"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4 d-flex justify-content-end">
+                <button type="button" onclick="submitBoardButton()" class="btn btn-lg btn-success m-2">게시글 등록</button>
+            </div>
+        </div>
 
     </div>
 </div>
@@ -90,14 +127,23 @@
 <!-- javaScript 파일-->
 <th:block layout:fragment="scripts">
     <script>
-        ClassicEditor.create( document.querySelector( '#contentKo' ), {
+        ClassicEditor.create(document.querySelector('#board-content-ko-textarea'), {
             language: "ko",
-            ckfinder : {
+            ckfinder: {
                 uploadUrl: "/api/image/upload",
                 withCredentials: true
             }
-        } );
+        })
+
+        ClassicEditor.create(document.querySelector('#board-content-en-textarea'), {
+            language: "en",
+            ckfinder: {
+                uploadUrl: "/api/image/upload",
+                withCredentials: true
+            }
+        })
     </script>
+    <script src="/js/admin/board/boardForm.js"></script>
 </th:block>
 </body>
 </html>

@@ -1,0 +1,46 @@
+function submitBoardButton() {
+
+    const boardTitleKoInput = document.querySelector('.board-title-ko-input');
+    const boardTitleEnInput = document.querySelector('.board-title-en-input');
+    const boardWriterInput = document.querySelector('.board-writer-input');
+    const boardCategorySelect = document.querySelector('.board-category-select');
+    const boardStatusSelect = document.querySelector('.board-status-select');
+    const boardIsTopSelect = document.querySelector('.board-is-top-select');
+    const boardSequenceInput = document.querySelector('.board-sequence-input');
+    const boardContentKoTextarea = document.querySelector('#board-content-ko-textarea');
+    const boardContentEnTextarea = document.querySelector('#board-content-en-textarea');
+
+    const requestBody = {
+        titleKo: boardTitleKoInput.value,
+        titleEn: boardTitleEnInput.value,
+        category: boardCategorySelect.value,
+        status: boardStatusSelect.value,
+        writer: boardWriterInput.value,
+        isTop: boardIsTopSelect.value,
+        sequence: boardSequenceInput.value,
+        contentKo: boardContentKoTextarea.value,
+        contentEn: boardContentEnTextarea.value,
+    }
+
+    console.log("requestBody = ",requestBody)
+
+    if (confirm("게시글을 등록하시겠습니까?")) {
+        fetch("/api/boards", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestBody)
+        }).then((response) => {
+            if (response.ok) {
+                return response.json()
+            }
+        }).then((data) => {
+            console.log("data = ", data)
+            alert("게시글 등록 성공!")
+            window.location.href = "/admins/boards";
+        }).catch(error => {
+            alert(`error : ${error}`);
+        })
+    }
+}

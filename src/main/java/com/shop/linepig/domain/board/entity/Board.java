@@ -40,6 +40,8 @@ public class Board extends BaseEntity {
 
     private int viewCount;//조회수
 
+    private Integer sequence;//순서
+
     private String password;//게시글 비밀번호
 
     @Enumerated(EnumType.STRING)
