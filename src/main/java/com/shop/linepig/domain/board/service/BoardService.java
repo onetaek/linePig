@@ -29,6 +29,13 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
+    public List<BoardResponse> findAll() {
+        return boardRepository.findAll()
+                .stream()
+                .map(BoardResponse::fromEntity)
+                .collect(Collectors.toList());
+    }
+
     public BoardResponse findById(Long id) {
         Board findBoard = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(""));
         return BoardResponse.fromEntity(findBoard);

@@ -8,7 +8,8 @@ import java.util.stream.Stream;
 public enum BoardType {
 
     ADMIN("관리자",10,"관리자가 작성한 게시글"),
-    USER("사용자",20,"사용자가 작성한 게시글");
+    USER("사용자",20,"사용자가 작성한 게시글"),
+    GUEST("비회원",30,"비회원이 작성한 게시글");
 
     private final String code;
     private final String displayValue;

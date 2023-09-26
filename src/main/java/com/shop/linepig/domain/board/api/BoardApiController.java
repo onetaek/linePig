@@ -3,14 +3,13 @@ package com.shop.linepig.domain.board.api;
 import com.shop.linepig.common.argumentresolver.AdminLogin;
 import com.shop.linepig.common.argumentresolver.Login;
 import com.shop.linepig.domain.board.dto.request.BoardCreateByAdminRequest;
+import com.shop.linepig.domain.board.dto.request.BoardCreateByUserRequest;
 import com.shop.linepig.domain.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -19,13 +18,31 @@ public class BoardApiController {
 
     private final BoardService boardService;
 
-    @PostMapping(value = "/api/boards")
-    public ResponseEntity create(@Login Long memberId, @AdminLogin Long adminId, @RequestBody BoardCreateByAdminRequest request) {
+    @GetMapping("/api/boards")
+    public ResponseEntity findAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(boardService.findAll());
+    }
 
-        log.info("memberId = {}",memberId);
-        log.info("adminId = {}",adminId);
-        log.info("requestBody = {}",request);
+    @GetMapping("/api/boards/{id}")
+    public ResponseEntity findById(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(boardService.findById(id));
+    }
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    @PostMapping(value = "/api/admins/boards")
+    public ResponseEntity create(@AdminLogin Long adminId, @RequestBody BoardCreateByAdminRequest request) {
+        if (adminId != null) {
+            boardService.createByAdmin(request, adminId);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    @PostMapping("/api/members/boards")
+    public ResponseEntity create(@Login Long memberId, @RequestBody BoardCreateByUserRequest request) {
+        if (memberId != null) {
+            boardService.createByUser(request, memberId);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 }

@@ -7,9 +7,9 @@ function submitBoardButton() {
     const boardStatusSelect = document.querySelector('.board-status-select');
     const boardIsTopSelect = document.querySelector('.board-is-top-select');
     const boardSequenceInput = document.querySelector('.board-sequence-input');
-    const boardContentKoTextarea = document.querySelector('#board-content-ko-textarea');
-    const boardContentEnTextarea = document.querySelector('#board-content-en-textarea');
 
+    console.log("editorKo = ", editorKo.getData())
+    console.log("editorEn = ", editorEn.getData())
     const requestBody = {
         titleKo: boardTitleKoInput.value,
         titleEn: boardTitleEnInput.value,
@@ -18,14 +18,14 @@ function submitBoardButton() {
         writer: boardWriterInput.value,
         isTop: boardIsTopSelect.value,
         sequence: boardSequenceInput.value,
-        contentKo: boardContentKoTextarea.value,
-        contentEn: boardContentEnTextarea.value,
+        contentKo: editorKo.getData(),
+        contentEn: editorEn.getData(),
     }
 
     console.log("requestBody = ",requestBody)
 
     if (confirm("게시글을 등록하시겠습니까?")) {
-        fetch("/api/boards", {
+        fetch("/api/admins/boards", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -33,12 +33,9 @@ function submitBoardButton() {
             body: JSON.stringify(requestBody)
         }).then((response) => {
             if (response.ok) {
-                return response.json()
+                alert("게시글 등록에 성공하였습니다.")
+                window.location.href="/admins/boards"
             }
-        }).then((data) => {
-            console.log("data = ", data)
-            alert("게시글 등록 성공!")
-            window.location.href = "/admins/boards";
         }).catch(error => {
             alert(`error : ${error}`);
         })

@@ -66,7 +66,8 @@ public class AdminController {//AdminModelAttributeAdvice를 통해서 로그인
     }
 
     @GetMapping("/admins/boards")//공지사항목록 페이지 (개발x)
-    public String notices() {
+    public String notices(Model model) {
+        model.addAttribute("boards",boardService.findAll());
         return "/admins/boards/boards";
     }
 
@@ -76,7 +77,6 @@ public class AdminController {//AdminModelAttributeAdvice를 통해서 로그인
         model.addAttribute("statuses",boardService.getStatuses());
         return "/admins/boards/boardForm";
     }
-
 
     //---미개발
 
