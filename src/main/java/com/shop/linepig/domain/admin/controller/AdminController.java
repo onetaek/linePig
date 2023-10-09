@@ -32,7 +32,8 @@ public class AdminController {//AdminModelAttributeAdvice를 통해서 로그인
     }
 
     @GetMapping("/admins/products")//상품 목록 페이지 (개발x)
-    public String productsPage() {
+    public String productsPage(Model model) {
+        model.addAttribute("products",productService.findAll());
         return "admins/products/products";
     }
 
@@ -65,13 +66,15 @@ public class AdminController {//AdminModelAttributeAdvice를 통해서 로그인
         return "admins/sellers/sellers";
     }
 
-    @GetMapping("/admins/boards")//공지사항목록 페이지 (개발x)
+    @GetMapping("/admins/boards")//게시판목록 페이지 (개발x)
     public String notices(Model model) {
         model.addAttribute("boards",boardService.findAll());
-        return "admins/boards/boards";
+        model.addAttribute("categories",boardService.getCategories());
+        model.addAttribute("statuses",boardService.getStatuses());
+        return "admins/boards/boardList";
     }
 
-    @GetMapping("/admins/boards/new")//공지사항등록 페이지 (개발x)
+    @GetMapping("/admins/boards/new")//게시판등록 페이지 (개발x)
     public String noticesNewPage(Model model) {
         model.addAttribute("categories",boardService.getCategories());
         model.addAttribute("statuses",boardService.getStatuses());

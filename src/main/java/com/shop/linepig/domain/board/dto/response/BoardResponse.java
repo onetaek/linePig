@@ -30,6 +30,8 @@ public class BoardResponse {
 
     private int viewCount;//조회수
 
+    private Integer sequence;//순서
+
     private String category;//카테고리
 
     private String status;//상태
@@ -48,9 +50,10 @@ public class BoardResponse {
                 .writtenOn(board.getWrittenOn())
                 .isTop(board.getIsTop())
                 .viewCount(board.getViewCount())
+                .sequence(board.getSequence())
                 .category(board.getCategory().getDisplayValue())
                 .status(board.getStatus().getDisplayValue())
-                .type(board.getType().getDescription())
+                .type(board.getType().getDisplayValue())
                 .build();
     }
 }

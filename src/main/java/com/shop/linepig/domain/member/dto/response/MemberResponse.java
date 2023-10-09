@@ -18,6 +18,7 @@ public class MemberResponse {
     private String phoneCode;
     private String phoneNumber;
     private String status;
+    private String type;
     private String name;
     private String gender;
 
@@ -31,7 +32,8 @@ public class MemberResponse {
                 .joinOn(DateTimeFormatterUtil.formatWithSeconds(member.getJoinOn()))
                 .phoneCode(member.getPhoneCode())
                 .phoneNumber(member.getPhoneNumber())
-                .status(member.getStatus())
+                .status(member.getStatus().getDisplayValue())
+                .type(member.getType().getDisplayValue())
                 .name(member.getName())
                 .gender(member.getGender())
                 .build();

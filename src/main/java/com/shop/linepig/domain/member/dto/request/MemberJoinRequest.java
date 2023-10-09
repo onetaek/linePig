@@ -2,6 +2,7 @@ package com.shop.linepig.domain.member.dto.request;
 
 import com.shop.linepig.domain.member.entity.Member;
 import com.shop.linepig.domain.member.entity.enumeration.MemberStatus;
+import com.shop.linepig.domain.member.entity.enumeration.MemberType;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,6 +40,7 @@ public class MemberJoinRequest {
                 .phoneNumber(memberJoinRequest.getPhoneNumber())
                 .email(memberJoinRequest.getEmail())
                 .status(MemberStatus.NORMAL)
+                .type(MemberType.NORMAL)
                 .salt(memberJoinRequest.getSalt())
                 .joinOn(LocalDateTime.now())
                 .build();

@@ -3,6 +3,7 @@ package com.shop.linepig.domain.member.entity;
 import com.shop.linepig.domain.common.mappedsuperclass.BaseEntity;
 import com.shop.linepig.domain.member.entity.enumeration.Gender;
 import com.shop.linepig.domain.member.entity.enumeration.MemberStatus;
+import com.shop.linepig.domain.member.entity.enumeration.MemberType;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -42,6 +43,9 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MemberStatus status;//회원 상태
 
+    @Enumerated(EnumType.STRING)
+    private MemberType type;//회원 가입 형태
+
     private String salt;//난수
 
     private LocalDateTime joinOn;//회원가입 시각
@@ -52,10 +56,6 @@ public class Member extends BaseEntity {
     public Member setStatus(MemberStatus status) {
         this.status = status;
         return this;
-    }
-
-    public String getStatus() {
-        return this.status.getDisplayValue();
     }
 
     public String getGender() {
