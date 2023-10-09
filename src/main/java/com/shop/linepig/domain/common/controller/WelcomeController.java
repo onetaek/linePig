@@ -20,6 +20,6 @@ public class WelcomeController {
     public String welcome(@Login Long id, Model model) {
         MemberBasicResponse memberBasicResponse = memberService.findBasicById(id);
         model.addAttribute("loginMember",memberBasicResponse);
-        return "/main/welcome";
+        return "main/welcome";
     }
 }

@@ -22,7 +22,7 @@ public class MemberController {
     @GetMapping("/join")//회원가입 페이지 이동
     public String join(Model model) {
         model.addAttribute("member",new MemberJoinRequest());
-        return "/members/join";
+        return "members/join";
     }
 
     @GetMapping("/login")//로그인 페이지 이동

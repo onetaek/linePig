@@ -23,13 +23,13 @@ public class ProductController {
         Long findProductOptionId = productService.findProductOptionId(product.getProductOptions(), productOptionId);
         model.addAttribute("product",product);
         model.addAttribute("productOptionId",findProductOptionId);
-        return "/products/product";
+        return "products/product";
     }
 
     @GetMapping("/products")
     public String ProductsPage(Model model) {
         model.addAttribute("products",productService.findAll());
-        return "/products/products";
+        return "products/products";
     }
 
 }
