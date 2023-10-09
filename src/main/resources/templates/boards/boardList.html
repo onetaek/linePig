@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:placeholder="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/mainBase}">
+<head>
+    <title>게시판 페이지</title>
+    <link rel="stylesheet" href="/css/board/boardList.css">
+</head>
+<body>
+
+<!-- 게시판목록 페이지 start -->
+<div layout:fragment="content">
+    <div>
+        <div class="title-wrap">
+            <h2>NOTICE</h2>
+        </div>
+        <div class="content-wrap">
+            <ul class="board-header-wrap">
+                <li>분류</li>
+                <li>제목</li>
+                <li>글쓴이</li>
+                <li>조회수</li>
+                <li>날짜</li>
+            </ul>
+            <ul class="boar-data-grid-wrap">
+                <li>
+                    <ul class="board-data-wrap">
+                        <li>1</li>
+                        <li>쇼핑몰 배송비 정책 변경 안내</li>
+                        <li>SONA</li>
+                        <li>431</li>
+                        <li>2023-04-02</li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="board-data-wrap">
+                        <li>2</li>
+                        <li>쇼핑몰 배송비 정책 변경 안내</li>
+                        <li>SONA</li>
+                        <li>431</li>
+                        <li>2023-04-02</li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="board-data-wrap">
+                        <li>3</li>
+                        <li>쇼핑몰 배송비 정책 변경 안내</li>
+                        <li>SONA</li>
+                        <li>431</li>
+                        <li>2023-04-02</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="board-page-button-main-wrap">
+            <ul class="board-page-button-wrap">
+                <li><<</li>
+                <li><</li>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>></li>
+                <li>>></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- 게시판목록 페이지 end -->
+
+<!-- javaScript 파일-->
+<th:block layout:fragment="scripts">
+</th:block>
+</body>
+</html>
