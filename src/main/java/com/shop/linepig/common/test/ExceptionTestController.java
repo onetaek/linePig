@@ -16,7 +16,7 @@ public class ExceptionTestController {
         throw new SampleCustom404Exception();
     }
 
-    @GetMapping("/api/test/exception")
+    @GetMapping("/api/test/exception/404")
     public void testApiException1() {
         throw new SampleCustom404Exception();
     }
