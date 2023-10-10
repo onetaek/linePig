@@ -21,8 +21,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .order(1)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/members/join","/members/login",
-                        "/admins/**","/api/admins/**","/","/products/*","/boards/*",
-                        "/error","/api/**","/oauth/**","/css/**",
+                        "/admins/**","/api/admins/**","/","/products/**","/boards/**",
+                        "/error/**","/api/**","/oauth/**","/css/**",
                         "/js/**", "/img/**","/*.ico","/lib/**")
                 .excludePathPatterns("/test/**");
 
@@ -30,7 +30,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .order(2)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/admins/login",
-                        "/error","/api/**","/oauth/**","/css/**",
+                        "/error/**","/api/**","/oauth/**","/css/**",
                         "/js/**", "/img/**","/*.ico","/lib/**")
                 .excludePathPatterns("/test/**");
 

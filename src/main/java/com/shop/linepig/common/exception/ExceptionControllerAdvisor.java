@@ -1,5 +1,6 @@
 package com.shop.linepig.common.exception;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +11,18 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
 @ControllerAdvice
+@RequiredArgsConstructor
 public class ExceptionControllerAdvisor {
+
+    private final HttpServletRequest httpServletRequest;
+    private final HttpServletResponse httpServletResponse;
 
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -33,20 +41,22 @@ public class ExceptionControllerAdvisor {
         return response;
     }
 
-    @ResponseBody
     @ExceptionHandler(BaseRollbackException.class)
-    public ResponseEntity<ErrorResponse> rollBackException(BaseRollbackException e) {
-        int statusCode = e.getStatusCode();
+    public Object rollBackException(BaseRollbackException e) throws IOException {
+        if (httpServletRequest.getRequestURI().startsWith("/api")) {
+            int statusCode = e.getStatusCode();
 
-        ErrorResponse body = ErrorResponse.builder()
-                .code(String.valueOf(statusCode))
-                .message(e.getMessage())
-                .validation(e.getValidation())
-                .build();
+            ErrorResponse body = ErrorResponse.builder()
+                    .code(String.valueOf(statusCode))
+                    .message(e.getMessage())
+                    .validation(e.getValidation())
+                    .build();
 
-        ResponseEntity<ErrorResponse> response = ResponseEntity.status(statusCode)
-                .body(body);
-
-        return response;
+            return ResponseEntity.status(statusCode)
+                    .body(body);
+        } else {
+            httpServletResponse.sendError(e.getStatusCode());
+            return null;
+        }
     }
 }

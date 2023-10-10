@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Getter
-public abstract class BaseRollbackException extends RuntimeException{
+public abstract class BaseRollbackException extends RuntimeException {
 
     public final Map<String, String> validation = new HashMap<>();
 
