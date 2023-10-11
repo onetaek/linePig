@@ -6,15 +6,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Getter
-public abstract class BaseRollbackException extends RuntimeException {
+public abstract class RollbackTriggeredException extends RuntimeException {
 
     public final Map<String, String> validation = new HashMap<>();
 
-    public BaseRollbackException(String message) {
+    public RollbackTriggeredException(String message) {
         super(message);
     }
 
-    public BaseRollbackException(String message, Throwable cause) {
+    public RollbackTriggeredException(String message, Throwable cause) {
         super(message, cause);
     }
 

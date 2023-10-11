@@ -17,7 +17,8 @@
                         <h6 class="mb-4">게시글 목록</h6>
                     </div>
                     <div class="col d-flex justify-content-end">
-                        <button type="button" class="btn btn-info m-2" th:onclick="onClickMemberStatusUpdate()">수정</button>
+                        <button type="button" class="btn btn-info m-2" onclick="onClickBoardUpdateButton()">수정</button>
+                        <button type="button" class="btn btn-danger m-2" onclick="onClickBoardDeleteButton()">삭제</button>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -64,7 +65,7 @@
 
 <!-- javaScript 파일-->
 <th:block layout:fragment="scripts">
-
+    <script src="/js/admin/board/boardList.js"></script>
 </th:block>
 </body>
 </html>

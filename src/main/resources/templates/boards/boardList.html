@@ -10,44 +10,51 @@
 
 <!-- 게시판목록 페이지 start -->
 <div layout:fragment="content">
-    <div>
-        <div class="title-wrap">
-            <h2>NOTICE</h2>
+    <div id="main-board-wrap">
+        <div id="title-wrap">
+            <h2>Q&A</h2>
+            <h3>사이즈 문의, 입금 배송 문의,코디 문의, 이벤트 문의 등 모든 궁금한 사항들을 남겨주세요~</h3>
         </div>
-        <div class="content-wrap">
+        <div id="button-wrap">
+            <div class="board-write-button">
+                <button>글쓰기</button>
+            </div>
+        </div>
+        <div id="content-wrap">
             <ul class="board-header-wrap">
-                <li>분류</li>
-                <li>제목</li>
-                <li>글쓴이</li>
-                <li>조회수</li>
-                <li>날짜</li>
+                <li class="board-sequence">번호</li>
+                <li class="board-title">제목</li>
+                <li class="board-writer">작성자</li>
+                <li class="board-view-count">조회수</li>
+                <li class="board-written-on">작성일</li>
             </ul>
-            <ul class="boar-data-grid-wrap">
+            <ul class="board-data-grid-wrap">
                 <li>
                     <ul class="board-data-wrap">
-                        <li>1</li>
-                        <li>쇼핑몰 배송비 정책 변경 안내</li>
-                        <li>SONA</li>
-                        <li>431</li>
-                        <li>2023-04-02</li>
+                        <li class="board-sequence">1</li>
+                        <li class="board-title">쇼핑몰 배송비 정책 변경 안내</li>
+                        <li class="board-writer">SONA</li>
+                        <li class="board-view-count">431</li>
+                        <li class="board-written-on">2023-04-02</li>
+                    </ul>
+                </li>
+
+                <li>
+                    <ul class="board-data-wrap">
+                        <li class="board-sequence">2</li>
+                        <li class="board-title">쇼핑몰 배송비 정책 변경 안내</li>
+                        <li class="board-writer">SONA</li>
+                        <li class="board-view-count">431</li>
+                        <li class="board-written-on">2023-04-02</li>
                     </ul>
                 </li>
                 <li>
                     <ul class="board-data-wrap">
-                        <li>2</li>
-                        <li>쇼핑몰 배송비 정책 변경 안내</li>
-                        <li>SONA</li>
-                        <li>431</li>
-                        <li>2023-04-02</li>
-                    </ul>
-                </li>
-                <li>
-                    <ul class="board-data-wrap">
-                        <li>3</li>
-                        <li>쇼핑몰 배송비 정책 변경 안내</li>
-                        <li>SONA</li>
-                        <li>431</li>
-                        <li>2023-04-02</li>
+                        <li class="board-sequence">3</li>
+                        <li class="board-title">쇼핑몰 배송비 정책 변경 안내</li>
+                        <li class="board-writer">SONA</li>
+                        <li class="board-view-count">431</li>
+                        <li class="board-written-on">2023-04-02</li>
                     </ul>
                 </li>
             </ul>

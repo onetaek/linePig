@@ -1,5 +1,7 @@
 package com.shop.linepig.domain.board.service;
 
+import com.shop.linepig.domain.admin.exception.AdminNotFoundException;
+import com.shop.linepig.domain.admin.repository.AdminRepository;
 import com.shop.linepig.domain.board.dto.request.BoardCreateByAdminRequest;
 import com.shop.linepig.domain.board.dto.request.BoardCreateByUserRequest;
 import com.shop.linepig.domain.board.dto.request.BoardUpdateByAdminRequest;
@@ -12,6 +14,7 @@ import com.shop.linepig.domain.board.entity.Board;
 import com.shop.linepig.domain.board.entity.enumeration.BoardCategory;
 import com.shop.linepig.domain.board.entity.enumeration.BoardStatus;
 import com.shop.linepig.domain.board.entity.enumeration.BoardType;
+import com.shop.linepig.domain.board.exception.BoardNotFoundException;
 import com.shop.linepig.domain.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,6 +31,7 @@ import java.util.stream.Stream;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final AdminRepository adminRepository;
 
     public List<BoardResponse> findAll() {
         return boardRepository.findAll()
@@ -52,18 +56,19 @@ public class BoardService {
     }
 
     public void updateByAdmin(BoardUpdateByAdminRequest request, Long id) {
-        Board findBoard = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다."));
+        Board findBoard = boardRepository.findById(id).orElseThrow(BoardNotFoundException::new);
         findBoard.updateByAdmin(request.getTitleKo(), request.getTitleEn(), request.getContentKo(), request.getContentEn(),
                 request.getIsTop(), BoardCategory.fromCode(request.getCategory()), BoardStatus.fromCode(request.getStatus()));
     }
 
     public void updateByUser(BoardUpdateByUserRequest request, Long id) {
-        Board findBoard = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다."));
+        Board findBoard = boardRepository.findById(id).orElseThrow(BoardNotFoundException::new);
         findBoard.updateByUser(request.getContent());
     }
 
-    public void delete(Long id) {
-        Board findBoard = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다."));
+    public void deleteByAdmin(Long id, Long adminId) {
+        Board findBoard = boardRepository.findById(id).orElseThrow(BoardNotFoundException::new);
+        adminRepository.findById(adminId).orElseThrow(AdminNotFoundException::new);
         boardRepository.delete(findBoard);
     }
 

@@ -51,7 +51,7 @@ public class BoardResponse {
                 .isTop(board.getIsTop())
                 .viewCount(board.getViewCount())
                 .sequence(board.getSequence())
-                .category(board.getCategory().getDisplayValue())
+                .category(board.getCategory().getDisplayValueKo())
                 .status(board.getStatus().getDisplayValue())
                 .type(board.getType().getDisplayValue())
                 .build();

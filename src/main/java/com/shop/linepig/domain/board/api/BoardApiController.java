@@ -2,9 +2,11 @@ package com.shop.linepig.domain.board.api;
 
 import com.shop.linepig.common.argumentresolver.AdminLogin;
 import com.shop.linepig.common.argumentresolver.Login;
+import com.shop.linepig.domain.admin.exception.AdminNotLoggedInException;
 import com.shop.linepig.domain.board.dto.request.BoardCreateByAdminRequest;
 import com.shop.linepig.domain.board.dto.request.BoardCreateByUserRequest;
 import com.shop.linepig.domain.board.service.BoardService;
+import com.shop.linepig.domain.member.exception.MemberNotLoggedInException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -30,19 +32,22 @@ public class BoardApiController {
 
     @PostMapping(value = "/api/admins/boards")
     public ResponseEntity create(@AdminLogin Long adminId, @RequestBody BoardCreateByAdminRequest request) {
-        if (adminId != null) {
-            boardService.createByAdmin(request, adminId);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if (adminId == null) throw new AdminNotLoggedInException();
+        boardService.createByAdmin(request, adminId);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/api/members/boards")
     public ResponseEntity create(@Login Long memberId, @RequestBody BoardCreateByUserRequest request) {
-        if (memberId != null) {
-            boardService.createByUser(request, memberId);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if (memberId == null) throw new MemberNotLoggedInException();
+        boardService.createByUser(request, memberId);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @DeleteMapping("/api/admins/boards/{id}")
+    public ResponseEntity delete(@AdminLogin Long adminId, @PathVariable Long id) {
+        if (adminId == null) throw new AdminNotLoggedInException();
+        boardService.deleteByAdmin(id, adminId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

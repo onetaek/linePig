@@ -1,6 +1,6 @@
 package com.shop.linepig.common.exception;
 
-public class SampleCustom500Exception extends BaseRollbackException{
+public class SampleCustom500Exception extends RollbackTriggeredException {
 
     private static final String MESSAGE = "샘플 500 예외";
 

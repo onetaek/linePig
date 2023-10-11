@@ -1,6 +1,6 @@
 package com.shop.linepig.common.exception;
 
-public class SampleInvalidRequest extends BaseRollbackException {
+public class SampleInvalidRequest extends RollbackTriggeredException {
 
     private static final String MESSAGE = "잘못된 요청입니다.";
 

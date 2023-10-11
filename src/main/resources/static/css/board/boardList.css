@@ -1,0 +1,124 @@
+#main-board-wrap {
+    background: skyblue;
+}
+
+#title-wrap {
+    margin-top:30px;
+}
+
+#title-wrap h2 {
+    font-size: 28px;
+}
+
+#title-wrap h3 {
+    font-size: 16px;
+    margin-top:10px;
+    color: #5e5e5e;
+}
+
+#content-wrap {
+    width: 100%;
+    margin-top:10px;
+}
+
+#button-wrap {
+    display: flex;
+    justify-content: end;
+}
+
+#button-wrap .board-write-button {
+    background: #1e1e1e;
+    border-radius: 2px;
+    padding: 7px 20px;
+}
+
+#button-wrap .board-write-button button {
+    color:white;
+    font-size: 14px;
+}
+
+/* 게시글 머릿글 */
+.board-header-wrap {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    margin-top:10px;
+    border: 1px solid var(--board-border-color);
+    background: #0c4128;
+}
+
+.board-header-wrap .board-sequence {
+    width:10%;
+    /*background: red;*/
+}
+
+.board-header-wrap .board-title {
+    width:50%;
+    background: orange;
+}
+
+.board-header-wrap .board-writer {
+    width:10%;
+    background: yellow;
+}
+
+.board-header-wrap .board-view-count {
+    width:10%;
+    background: greenyellow;
+}
+
+.board-header-wrap .board-written-on {
+    width:20%;
+    background: dodgerblue;
+}
+
+/* 게시글 내용 */
+.board-data-grid-wrap {
+
+}
+
+.board-data-grid-wrap .board-data-wrap {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--board-border-color);
+    padding:8px 0;
+}
+
+.board-data-grid-wrap .board-data-wrap .board-sequence {
+    width:10%;
+    text-align: center;
+}
+
+.board-data-grid-wrap .board-data-wrap .board-title {
+    width:50%;
+    background: orange;
+}
+
+.board-data-grid-wrap .board-data-wrap .board-writer {
+    width:10%;
+    background: yellow;
+    text-align: center;
+}
+
+.board-data-grid-wrap .board-data-wrap .board-view-count {
+    width:10%;
+    background: greenyellow;
+    text-align: center;
+}
+
+.board-data-grid-wrap .board-data-wrap .board-written-on {
+    width:20%;
+    background: dodgerblue;
+    text-align: center;
+}
+
+/* 버튼 위치 */
+.board-page-button-main-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.board-page-button-wrap {
+    display: flex;
+    justify-content: space-between;
+}

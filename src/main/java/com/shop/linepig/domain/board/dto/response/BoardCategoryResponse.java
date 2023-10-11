@@ -11,18 +11,22 @@ import lombok.Getter;
 public class BoardCategoryResponse {
 
     private final String code;
-    private final String displayValue;
+    private final String displayValueKo;
+    private final String displayValueEn;
     private final Integer sequence;
-    private String description;
+    private final String descriptionKo;
+    private final String descriptionEn;
 
-    public static BoardCategoryResponse fromEnum(BoardCategory gender) {
-        if (gender == null)
+    public static BoardCategoryResponse fromEnum(BoardCategory enumeration) {
+        if (enumeration == null)
             return null;
         return new BoardCategoryResponse(
-                gender.getCode(),
-                gender.getDisplayValue(),
-                gender.getSequence(),
-                gender.getDescription());
+                enumeration.getCode(),
+                enumeration.getDisplayValueKo(),
+                enumeration.getDisplayValueEn(),
+                enumeration.getSequence(),
+                enumeration.getDescriptionKo(),
+                enumeration.getDescriptionEn());
     }
 
 }

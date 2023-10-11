@@ -6,11 +6,13 @@ import com.shop.linepig.domain.board.entity.enumeration.BoardType;
 import com.shop.linepig.domain.common.mappedsuperclass.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+//https://hot-10.com/board/product/list.html
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @AllArgsConstructor
@@ -18,6 +20,7 @@ import java.time.LocalDateTime;
 @EnableJpaAuditing
 @Entity
 @SQLDelete(sql = "UPDATE BOARD SET deleted = 1, deleted_on = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "deleted = false")
 public class Board extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
