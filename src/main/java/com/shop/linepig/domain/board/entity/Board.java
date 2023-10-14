@@ -43,6 +43,8 @@ public class Board extends BaseEntity {
 
     private Boolean isTop;//상단에 위치할 게시글인지 아닌지
 
+    private Boolean isHidden;//비밀글 여부
+
     private int viewCount;//조회수
 
     private Integer sequence;//순서

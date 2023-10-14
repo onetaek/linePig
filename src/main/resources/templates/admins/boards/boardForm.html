@@ -39,6 +39,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row col-xl-12 mb-3">
+                        <div class="row col-xl-6">
+                            <label class="col-sm-3 col-form-label">순서</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control board-sequence-input">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,7 +59,7 @@
                         <option>카테고리를 선택하시오</option>
                         <th:block th:each="categery:${categories}">
                             <option th:value="${categery.code}"
-                                    th:text="${categery.displayValue}"></option>
+                                    th:text="${categery.displayValueKo}"></option>
                         </th:block>
                     </select>
                     <label for="board-category-select">카테고리</label>
@@ -90,14 +98,19 @@
         </div>
         <div class="col-sm-12 col-xl-6">
             <div class="bg-secondary rounded h-100 p-4">
-                <h6 class="mb-4">순서</h6>
+                <h6 class="mb-4">비밀글 공개글 선택여부</h6>
                 <div class="form-floating mb-3">
-                    <div class="col-sm-9">
-                        <input type="number" class="form-control board-sequence-input">
-                    </div>
+                    <select class="form-select board-is-hidden-select" id="board-is-hidden-select"
+                            aria-label="Floating label select example">
+                        <option>비밀글 공개글 선택여부</option>
+                        <option value="true">Y</option>
+                        <option value="false">N</option>
+                    </select>
+                    <label for="board-is-top-select">비밀글 공개글 선택여부</label>
                 </div>
             </div>
         </div>
+
         <div class="col-sm-12 col-xl-12">
             <div class="bg-secondary rounded h-100 p-4">
                 <h6 class="mb-4">내용(Ko)</h6>

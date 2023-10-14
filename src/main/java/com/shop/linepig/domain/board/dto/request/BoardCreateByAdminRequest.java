@@ -19,6 +19,7 @@ public class BoardCreateByAdminRequest {
     private String contentEn;//글내용
     private String writer;//작성자
     private Boolean isTop;//상단에 위치할 게시글인지 아닌지
+    private Boolean isHidden;//비밀글 여부
     private Integer sequence;//순서
     private String category;//카테고리
     private String status;//상태
@@ -33,6 +34,7 @@ public class BoardCreateByAdminRequest {
                 .writer(request.getWriter())
                 .writtenOn(LocalDateTime.now())
                 .isTop(request.getIsTop())
+                .isHidden(request.getIsHidden())
                 .sequence(request.getSequence())
                 .viewCount(0)
                 .category(BoardCategory.fromCode(request.getCategory()))

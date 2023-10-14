@@ -66,9 +66,9 @@ public class AdminController {//AdminModelAttributeAdvice를 통해서 로그인
         return "admins/sellers/sellers";
     }
 
-    @GetMapping("/admins/boards")//게시판목록 페이지 (개발x)
-    public String notices(Model model) {
-        model.addAttribute("boards",boardService.findAll());
+    @GetMapping("/admins/boards")//게시판목록 페이지
+    public String notices(@RequestParam(required = false) String category,@RequestParam(required = false) Boolean isTop ,Model model) {
+        model.addAttribute("boards",boardService.findAll(category, isTop));
         model.addAttribute("categories",boardService.getCategories());
         model.addAttribute("statuses",boardService.getStatuses());
         return "admins/boards/boardList";

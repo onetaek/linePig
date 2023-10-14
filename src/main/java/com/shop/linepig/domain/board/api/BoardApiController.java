@@ -9,6 +9,7 @@ import com.shop.linepig.domain.board.service.BoardService;
 import com.shop.linepig.domain.member.exception.MemberNotLoggedInException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,20 @@ public class BoardApiController {
     private final BoardService boardService;
 
     @GetMapping("/api/boards")
-    public ResponseEntity findAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(boardService.findAll());
+    public ResponseEntity findAll(
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) Boolean isTop
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(boardService.findAll(category,isTop));
+    }
+
+    @GetMapping("/api/boards/pagination")
+    public ResponseEntity findAllWithPagination(
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) Boolean isTop,
+            Pageable pageable
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(boardService.findAllWithPagination(pageable,category,isTop));
     }
 
     @GetMapping("/api/boards/{id}")

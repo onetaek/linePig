@@ -6,17 +6,19 @@ import com.shop.linepig.domain.board.dto.request.BoardCreateByAdminRequest;
 import com.shop.linepig.domain.board.dto.request.BoardCreateByUserRequest;
 import com.shop.linepig.domain.board.dto.request.BoardUpdateByAdminRequest;
 import com.shop.linepig.domain.board.dto.request.BoardUpdateByUserRequest;
-import com.shop.linepig.domain.board.dto.response.BoardCategoryResponse;
-import com.shop.linepig.domain.board.dto.response.BoardResponse;
-import com.shop.linepig.domain.board.dto.response.BoardStatusResponse;
-import com.shop.linepig.domain.board.dto.response.BoardTypeResponse;
+import com.shop.linepig.domain.board.dto.response.*;
 import com.shop.linepig.domain.board.entity.Board;
 import com.shop.linepig.domain.board.entity.enumeration.BoardCategory;
 import com.shop.linepig.domain.board.entity.enumeration.BoardStatus;
 import com.shop.linepig.domain.board.entity.enumeration.BoardType;
 import com.shop.linepig.domain.board.exception.BoardNotFoundException;
+import com.shop.linepig.domain.board.repository.BoardQueryRepository;
 import com.shop.linepig.domain.board.repository.BoardRepository;
+import com.shop.linepig.domain.board.repository.expression.BoardBooleanExpression;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -31,10 +33,21 @@ import java.util.stream.Stream;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final BoardQueryRepository boardQueryRepository;
     private final AdminRepository adminRepository;
 
-    public List<BoardResponse> findAll() {
-        return boardRepository.findAll()
+    public Page<BoardResponse> findAllWithPagination(Pageable pageable, String category, Boolean isTop) {
+        pageable = PageRequest.of(pageable.getPageNumber(),5);
+        return boardQueryRepository.findAllWithPagination(
+                pageable,
+                BoardBooleanExpression.eqCategory(category == null ? null : BoardCategory.fromCode(category)),
+                BoardBooleanExpression.eqIsTop(isTop)).map(BoardResponse::fromEntity);
+    }
+
+    public List<BoardResponse> findAll(String category, Boolean isTop) {
+        return boardQueryRepository.findAll(
+                        BoardBooleanExpression.eqCategory(category == null ? null : BoardCategory.fromCode(category)),
+                        BoardBooleanExpression.eqIsTop(isTop))
                 .stream()
                 .map(BoardResponse::fromEntity)
                 .collect(Collectors.toList());
@@ -88,6 +101,10 @@ public class BoardService {
                         Comparator.naturalOrder()))
                 .map(BoardCategoryResponse::fromEnum)
                 .collect(Collectors.toList());
+    }
+
+    public BoardCategoryResponse getCategory(String category) {
+        return BoardCategoryResponse.fromEnum(BoardCategory.fromCode(category));
     }
 
     public List<BoardTypeResponse> getTypes() {

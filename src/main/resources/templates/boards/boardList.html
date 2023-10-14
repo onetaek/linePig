@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="/css/board/boardList.css">
 </head>
 <body>
+<!--https://hot-10.com/board/product/list.html?board_no=6-->
 
 <!-- 게시판목록 페이지 start -->
 <div layout:fragment="content">
     <div id="main-board-wrap">
         <div id="title-wrap">
-            <h2>Q&A</h2>
-            <h3>사이즈 문의, 입금 배송 문의,코디 문의, 이벤트 문의 등 모든 궁금한 사항들을 남겨주세요~</h3>
+            <h2 th:text="${category.displayValueKo}">Q&A</h2>
+            <h3 th:text="${category.descriptionKo}">사이즈 문의, 입금 배송 문의,코디 문의, 이벤트 문의 등 모든 궁금한 사항들을 남겨주세요~</h3>
         </div>
         <div id="button-wrap">
             <div class="board-write-button">
@@ -29,45 +30,53 @@
                 <li class="board-written-on">작성일</li>
             </ul>
             <ul class="board-data-grid-wrap">
-                <li>
-                    <ul class="board-data-wrap">
-                        <li class="board-sequence">1</li>
-                        <li class="board-title">쇼핑몰 배송비 정책 변경 안내</li>
-                        <li class="board-writer">SONA</li>
-                        <li class="board-view-count">431</li>
-                        <li class="board-written-on">2023-04-02</li>
+                <li th:each="topBoard:${topBoards}">
+                    <ul class="board-data-wrap is-top">
+                        <li class="board-sequence">공지</li>
+                        <li class="board-title" th:text="${topBoard.titleKo}">쇼핑몰 배송비 정책 변경 안내</li>
+                        <li class="board-writer" th:text="${topBoard.writer}">SONA</li>
+                        <li class="board-view-count" th:text="${topBoard.viewCount}">431</li>
+                        <li class="board-written-on" th:text="${topBoard.writtenOn}">2023-04-02</li>
                     </ul>
                 </li>
-
-                <li>
+                <li th:each="board:${paginationBoard.content}">
                     <ul class="board-data-wrap">
-                        <li class="board-sequence">2</li>
-                        <li class="board-title">쇼핑몰 배송비 정책 변경 안내</li>
-                        <li class="board-writer">SONA</li>
-                        <li class="board-view-count">431</li>
-                        <li class="board-written-on">2023-04-02</li>
-                    </ul>
-                </li>
-                <li>
-                    <ul class="board-data-wrap">
-                        <li class="board-sequence">3</li>
-                        <li class="board-title">쇼핑몰 배송비 정책 변경 안내</li>
-                        <li class="board-writer">SONA</li>
-                        <li class="board-view-count">431</li>
-                        <li class="board-written-on">2023-04-02</li>
+                        <li class="board-sequence" th:text="${board.id}">1</li>
+                        <li class="board-title" th:text="${board.titleKo}">쇼핑몰 배송비 정책 변경 안내</li>
+                        <li class="board-writer" th:text="${board.writer}">SONA</li>
+                        <li class="board-view-count" th:text="${board.viewCount}">431</li>
+                        <li class="board-written-on" th:text="${board.writtenOn}">2023-04-02</li>
                     </ul>
                 </li>
             </ul>
         </div>
-        <div class="board-page-button-main-wrap">
-            <ul class="board-page-button-wrap">
-                <li><<</li>
-                <li><</li>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>></li>
-                <li>>></li>
+
+        <!-- 페이지 영역 -->
+        <div th:if="${!paginationBoard.isEmpty()}" class="board-page-button-main-wrap">
+            <ul class="board-page-button-wrap"
+                th:with="
+            pageNumber = ${paginationBoard.pageable.pageNumber},
+            pageSize = ${paginationBoard.pageable.pageSize},
+            totalPages = ${paginationBoard.totalPages},
+            startPage = ${T(java.lang.Math).floor(pageNumber / pageSize) * pageSize + 1},
+            tempEndPage = ${startPage + pageSize - 1},
+            endPage = (${tempEndPage < totalPages ? tempEndPage : totalPages})">
+
+                <li th:classappend="${paginationBoard.first} ? 'disabled'" class="page-item">
+                    <a class="page-link" th:href="${paginationBoard.first} ? '#' : @{/boards/(page=${pageNumber - 1}, category=${category.displayValueKo})}">
+                        <span aria-hidden="true">&lt;</span>
+                    </a>
+                </li>
+
+                <li th:each="page: ${#numbers.sequence(startPage, endPage)}" th:classappend="${page == pageNumber + 1} ? 'active'" class="page-item">
+                    <a th:text="${page}" class="page-link" th:href="@{/boards/(page=${page - 1}, category=${category.displayValueKo})}"></a>
+                </li>
+
+                <li th:classappend="${paginationBoard.last} ? 'disabled'" class="page-item">
+                    <a class="page-link" th:href="${paginationBoard.last} ? '#' : @{/boards/(page=${pageNumber + 1}, category=${category.displayValueKo} )}" aria-label="Next">
+                        <span aria-hidden="true">&gt;</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

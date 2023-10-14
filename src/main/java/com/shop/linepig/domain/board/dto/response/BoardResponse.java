@@ -28,6 +28,8 @@ public class BoardResponse {
 
     private Boolean isTop;//상단에 위치할 게시글인지 아닌지
 
+    private Boolean isHidden;//비밀글 여부
+
     private int viewCount;//조회수
 
     private Integer sequence;//순서
@@ -49,6 +51,7 @@ public class BoardResponse {
                 .writer(board.getWriter())
                 .writtenOn(board.getWrittenOn())
                 .isTop(board.getIsTop())
+                .isHidden(board.getIsHidden())
                 .viewCount(board.getViewCount())
                 .sequence(board.getSequence())
                 .category(board.getCategory().getDisplayValueKo())

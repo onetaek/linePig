@@ -6,6 +6,7 @@ function submitBoardButton() {
     const boardCategorySelect = document.querySelector('.board-category-select');
     const boardStatusSelect = document.querySelector('.board-status-select');
     const boardIsTopSelect = document.querySelector('.board-is-top-select');
+    const boardIsHiddenSelect = document.querySelector('.board-is-hidden-select');
     const boardSequenceInput = document.querySelector('.board-sequence-input');
 
     console.log("editorKo = ", editorKo.getData())
@@ -17,6 +18,7 @@ function submitBoardButton() {
         status: boardStatusSelect.value,
         writer: boardWriterInput.value,
         isTop: boardIsTopSelect.value,
+        isHidden : boardIsHiddenSelect.value,
         sequence: boardSequenceInput.value,
         contentKo: editorKo.getData(),
         contentEn: editorEn.getData(),
