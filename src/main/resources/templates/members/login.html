@@ -18,15 +18,15 @@
 <div id="wrapper">
     <div id="content-wrap">
         <form th:object="${member}" onsubmit="onSubmitBtn(event)" th:id="login-form">
-            <h1 id="logo">linepig</h1>
+            <h1 id="logo"><a href="/">linepig</a></h1>
             <p th:if="${errorMessage != null && #strings.equals(errorMessage,'loginFail')}" class="login-error">아이디 또는 비밀번호가 틀렸습니다.</p>
             <div id="user-info">
-                <div id="email-wrap">
-                    <label th:for="loginId">아이디</label>
+                <div id="loginId-wrap">
+                    <label th:for="loginId" style="width:80px;">아이디</label>
                     <input th:field = "*{loginId}" type="text">
                 </div>
                 <div id="password-wrap">
-                    <label th:for="password">비밀번호</label>
+                    <label th:for="password" style="width:80px;">비밀번호</label>
                     <input th:field="*{password}" type="password">
                 </div>
             </div>
@@ -45,15 +45,14 @@
                 <li>회원가입</li>
             </ul>
             <ul id="sns-login-wrap">
-                <li>구글</li>
-                <li>페이스북</li>
-                <li>애플</li>
-                <li id="kakao-login-btn"><img src="/img/login/kakao/kakao_login_large_narrow.png" alt=""></li>
+                <li id="kakao-login-btn" onclick="kakaoLoginButton()"><img src="/img/login/sns/kakao-login.png" alt=""></li>
+                <li id="google-login-btn" onclick="googleLoginButton()"><img src="/img/login/sns/google-login.png" alt=""></li>
+                <li id="facebook-login-btn" onclick="facebookLoginButton()"><img src="/img/login/sns/facebook-login.png" alt=""></li>
             </ul>
         </div>
     </div>
 </div>
-
+<form id="sns-login-form"></form>
 <script src="/js/member/login/login.js"></script>
 
 </body>

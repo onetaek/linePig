@@ -16,4 +16,9 @@ public class TestController {
         model.addAttribute("member",new MemberJoinRequest());
         return "/test/joinPage";
     }
+
+    @GetMapping("/google-login")
+    public String googleLoginPage() {
+        return "/test/googleLoginTest";
+    }
 }

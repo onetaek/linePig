@@ -41,3 +41,24 @@ function onSubmitBtn(event) {
         alert(error)
     })
 }
+
+function kakaoLoginButton() {
+    const snsLoginForm = document.querySelector("#sns-login-form");
+    snsLoginForm.action="/oauth/kakao/login";
+    snsLoginForm.method="POST";
+    snsLoginForm.submit();
+}
+
+function googleLoginButton() {
+    const snsLoginForm = document.querySelector("#sns-login-form");
+    snsLoginForm.action="/oauth/google/login";
+    snsLoginForm.method="POST";
+    snsLoginForm.submit();
+}
+
+function facebookLoginButton() {
+    const snsLoginForm = document.querySelector("#sns-login-form");
+    snsLoginForm.action="/oauth/facebook/login";
+    snsLoginForm.method="POST";
+    snsLoginForm.submit();
+}

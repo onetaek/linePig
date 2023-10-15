@@ -2,21 +2,29 @@ package com.shop.linepig.domain.member.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shop.linepig.domain.member.dto.request.MemberSnsLoginRequest;
 import com.shop.linepig.domain.member.entity.Member;
 import com.shop.linepig.domain.member.entity.enumeration.MemberStatus;
-import com.shop.linepig.domain.member.dto.request.MemberSnsJoinRequest;
-import com.shop.linepig.domain.member.dto.request.MemberSnsLoginRequest;
+import com.shop.linepig.domain.member.entity.enumeration.MemberType;
 import com.shop.linepig.domain.member.repository.MemberRepository;
-import com.shop.linepig.common.constance.SnsConst;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +37,8 @@ public class SnsService {
     private final MemberRepository memberRepository;
     private final ModelMapper modelMapper;
 
-    public String getKakaoAccessToken(String authorize_code) throws Exception {
+
+    public String getKakaoAccessToken(String authorize_code, String kakaoResApiKey, String kakaoRedirectRri) throws Exception {
         String access_Token = "";
         String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -48,8 +57,8 @@ public class SnsService {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
 
-            sb.append("&client_id="+ SnsConst.KAKAO_REST_API_KEY); // REST_API키 본인이 발급받은 key 넣어주기
-            sb.append("&redirect_uri=" + SnsConst.KAKAO_REDIRECT_URI); // REDIRECT_URI 본인이 설정한 주소 넣어주기
+            sb.append("&client_id="+ kakaoResApiKey); // REST_API키 본인이 발급받은 key 넣어주기
+            sb.append("&redirect_uri=" + kakaoRedirectRri); // REDIRECT_URI 본인이 설정한 주소 넣어주기
 
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
@@ -114,8 +123,6 @@ public class SnsService {
             while ((line = br.readLine()) != null) {
                 result += line;
             }
-            System.out.println("response body : " + result);
-            System.out.println("result type" + result.getClass().getName()); // java.lang.String
 
             try {
                 // jackson objectmapper 객체 생성
@@ -129,9 +136,6 @@ public class SnsService {
                 Map<String, Object> properties = (Map<String, Object>) jsonMap.get("properties");
                 Map<String, Object> kakao_account = (Map<String, Object>) jsonMap.get("kakao_account");
 
-                // System.out.println(properties.get("nickname"));
-                // System.out.println(kakao_account.get("email"));
-
                 String nickName = properties.get("nickname").toString();
                 String email = kakao_account.get("email").toString();
                 String uniqueID = jsonMap.get("id").toString();
@@ -139,7 +143,6 @@ public class SnsService {
                 userInfo.put("nickName", nickName);
                 userInfo.put("email", email);
                 userInfo.put("uniqueID", uniqueID);
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -150,29 +153,68 @@ public class SnsService {
         return userInfo;
     }
 
+    public String requesFaceBooktAccesToken(HttpSession session, String code,
+                                            String facebookClientId, String facebookRedirectUri,
+                                            String FacebookClientSecret) throws IOException, ParseException {
+        String facebookUrl = "https://graph.facebook.com/v2.8/oauth/access_token?"+
+                "client_id=" + facebookClientId +
+                "&redirect_uri=" + facebookRedirectUri +
+                "&client_secret=" + FacebookClientSecret +
+                "&code="+code;
 
-    public Member findUser(String uniqueID) {
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet getRequest = new HttpGet(facebookUrl);
+        String rawJsonString = client.execute(getRequest, new BasicResponseHandler());
+        //logger.debug("facebookAccessToken / raw json : "+rawJsonString);
 
-        Member findMember = memberRepository.findByLoginId(uniqueID);
+        JSONParser jsonParser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) jsonParser.parse(rawJsonString);
+        String faceBookAccessToken = (String) jsonObject.get("access_token");
+        //logger.debug("facebookAccessToken / accessToken : "+faceBookAccessToken);
 
-        return findMember;
+        session.setAttribute("faceBookAccessToken", faceBookAccessToken);
+        return faceBookAccessToken;
     }
 
-    public Member snsJoin(MemberSnsLoginRequest memberLoginDTO) {
+    public Map<String, String> getFacebookUserInfo(String accessToken) throws Exception {
+        String facebookUrl = "https://graph.facebook.com/me?"+
+                "access_token="+accessToken+
+                "&fields=id,name,email,picture";
 
-        // API로 받은 로그인 정보를 회원가입하기 위한 정보로 변환
-        MemberSnsJoinRequest memberJoinDTO = modelMapper.map(memberLoginDTO, MemberSnsJoinRequest.class);
-        // 비밀번호는 필요없음
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet getRequest = new HttpGet(facebookUrl);
+        String rawJsonString = client.execute(getRequest, new BasicResponseHandler());
+        //logger.debug("facebookAccessToken / rawJson!  : "+rawJsonString);
 
-        // status 세팅
-        memberJoinDTO.setMemberStatus(MemberStatus.NORMAL);
+        JSONParser jsonParser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) jsonParser.parse(rawJsonString);
+        //logger.debug("facebookUserDataLoadAndSave / raw json : "+jsonObject);
 
-        // dto를 entity로 변환
-        Member mappedMember = modelMapper.map(memberJoinDTO,Member.class);
+        String id = (String) jsonObject.get("id");
+        String name = (String) jsonObject.get("name");
 
-        // db에 저장
-        Member savedMember = memberRepository.save(mappedMember);
+        Map<String, String> userInfo = new HashMap<>();
+        userInfo.put("id",id);
+        userInfo.put("name",name);
+        /* 가져온 데이터를 서비스에 맞춰 가공하는 로직*/
+        return userInfo;
+    }
 
-        return savedMember;
+    public Long snsJoin(String uniqueId,String nickName,String email, MemberType type) {
+        Member findMember = memberRepository.findByLoginId(uniqueId);
+        if (findMember != null) { //이미 회원 가입한 유저라면
+            return findMember.getId();
+        } else {
+            MemberSnsLoginRequest memberLoginRequest = MemberSnsLoginRequest.builder()
+                    .loginId(uniqueId)
+                    .name(nickName)
+                    .email(email)
+                    .joinOn(LocalDateTime.now())
+                    .status(MemberStatus.NORMAL)
+                    .type(type)
+                    .build();
+            Member savedMember = memberRepository.save(MemberSnsLoginRequest.toEntity(memberLoginRequest));
+            return savedMember.getId();
+        }
     }
 }

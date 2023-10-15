@@ -10,7 +10,8 @@ public enum MemberType {
 
     NORMAL("일반",0,""),
     KAKAO("카카오톡",10,""),
-    GOOGLE("구글",20,"");
+    GOOGLE("구글",20,""),
+    FACEBOOK("페이스북",30,"");
 
     private final String code;
     private final String displayValue;
