@@ -49,6 +49,13 @@ function kakaoLoginButton() {
     snsLoginForm.submit();
 }
 
+function naverLoginButton() {
+    const snsLoginForm = document.querySelector("#sns-login-form");
+    snsLoginForm.action="/oauth/naver/login";
+    snsLoginForm.method="POST";
+    snsLoginForm.submit();
+}
+
 function googleLoginButton() {
     const snsLoginForm = document.querySelector("#sns-login-form");
     snsLoginForm.action="/oauth/google/login";

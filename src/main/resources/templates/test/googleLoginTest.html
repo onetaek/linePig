@@ -13,6 +13,9 @@
 
 <form id="facebook-login-form" action="/oauth/facebook/login" method="POST"></form>
 <button onclick="facebookLogin()">페이스북 로그인</button>
+
+<form id="naver-login-form" action="/oauth/naver/login" method="POST"></form>
+<button onclick="naverbookLogin()">네이버 로그인</button>
 <script>
 
     function googleLogin() {
@@ -23,6 +26,11 @@
     function facebookLogin() {
         const facebookLoginForm = document.querySelector('#facebook-login-form');
         facebookLoginForm.submit();
+    }
+
+    function naverbookLogin() {
+        const naverLoginForm = document.querySelector('#naver-login-form');
+        naverLoginForm.submit();
     }
 </script>
 </body>
