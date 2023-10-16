@@ -19,7 +19,7 @@ jobs:
         with:
           token: ${{ secrets.CLOUDTYPE_TOKEN }}
           project: dnjsxorchlrh/linepig
-          stage: main
+          stage: master
           yaml: |
             name: linepig
             app: java@8
