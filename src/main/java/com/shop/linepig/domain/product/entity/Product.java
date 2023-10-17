@@ -44,6 +44,7 @@ public class Product extends BaseEntity {
     private double representativePriceEn;
     private String representativeImage;//대표 이미지
 
+    @Builder.Default
     private Integer sequence = 0;//순서
 
     @Enumerated(EnumType.STRING)
@@ -58,18 +59,23 @@ public class Product extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Seller seller;//판매자
 
+    @Builder.Default
     @OneToMany(mappedBy = "product")
     private List<ProductOption> productOptions = new ArrayList<>();//옵션
 
+    @Builder.Default
     @OneToMany(mappedBy = "product")
     private List<ProductImage> productImages = new ArrayList<>();//제품이미지
 
+    @Builder.Default
     @OneToMany(mappedBy = "product")
     private List<ProductSpecial> productSpecials = new ArrayList<>();//특이사항
 
+    @Builder.Default
     @OneToMany(mappedBy = "product")
     private List<ProductDetail> productDetails = new ArrayList<>();//세부 정보
 
+    @Builder.Default
     @OneToMany(mappedBy = "product")
     private List<ProductDetailImage> productDetailImages = new ArrayList<>();//제품 상세 이미지
 

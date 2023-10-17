@@ -20,6 +20,6 @@ public class Cart extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     private Member member;//회원
 }

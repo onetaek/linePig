@@ -1,6 +1,7 @@
 package com.shop.linepig.domain.cart.entity;
 
-import com.shop.linepig.domain.product.entity.Product;
+import com.shop.linepig.domain.common.mappedsuperclass.BaseEntity;
+import com.shop.linepig.domain.product.entity.ProductOption;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Entity
 @SQLDelete(sql = "UPDATE CART_ITEM SET deleted = 1, deleted_on = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted = false")
-public class CartItem {
+public class CartItem extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +26,6 @@ public class CartItem {
     private Cart cart;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Product product;
-
+    private ProductOption productOption;
 
 }

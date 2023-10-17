@@ -1,11 +1,13 @@
 package com.shop.linepig.domain.product.entity;
 
+import com.shop.linepig.domain.cart.entity.CartItem;
 import com.shop.linepig.domain.common.mappedsuperclass.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
@@ -34,4 +36,7 @@ public class ProductOption extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
+
+    @OneToMany(mappedBy = "productOption")
+    private List<CartItem> cartItems;
 }

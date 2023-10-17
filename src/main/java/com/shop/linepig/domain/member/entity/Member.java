@@ -1,5 +1,6 @@
 package com.shop.linepig.domain.member.entity;
 
+import com.shop.linepig.domain.cart.entity.Cart;
 import com.shop.linepig.domain.common.mappedsuperclass.BaseEntity;
 import com.shop.linepig.domain.member.entity.enumeration.Gender;
 import com.shop.linepig.domain.member.entity.enumeration.MemberStatus;
@@ -52,6 +53,9 @@ public class Member extends BaseEntity {
 
     @OneToOne(mappedBy = "member")
     private Seller seller;
+
+    @OneToOne(mappedBy = "member")
+    private Cart cart;
 
     public Member setStatus(MemberStatus status) {
         this.status = status;
