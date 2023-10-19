@@ -28,4 +28,8 @@ public class CartItem extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private ProductOption productOption;
 
+    public void update(int count) {
+        this.count = count;
+    }
+
 }
