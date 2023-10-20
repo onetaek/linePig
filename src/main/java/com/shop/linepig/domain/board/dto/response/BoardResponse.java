@@ -17,6 +17,9 @@ public class BoardResponse {
     private String titleKo;//제목
     private String titleEn;//제목
 
+    private String subTitleKo;//부제목
+    private String subTitleEn;//부제목
+
     private String contentKo;//글내용
     private String contentEn;//글내용
 
@@ -45,6 +48,8 @@ public class BoardResponse {
                 .id(board.getId())
                 .titleKo(board.getTitleKo())
                 .titleEn(board.getTitleEn())
+                .subTitleKo(board.getSubTitleKo())
+                .subTitleEn(board.getSubTitleEn())
                 .contentKo(board.getContentKo())
                 .contentEn(board.getContentEn())
                 .memberId(board.getMemberId())

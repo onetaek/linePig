@@ -29,6 +29,11 @@ public class Board extends BaseEntity {
     private String titleKo;//제목
     private String titleEn;//제목
 
+    private String subTitleKo;//부제목
+    private String subTitleEn;//부제목
+
+    private String image;
+
     @Lob
     private String contentKo;//글내용
     @Lob

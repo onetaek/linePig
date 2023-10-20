@@ -10,7 +10,9 @@ public enum BoardCategory {
     NOTICE("NOTICE","NOTICE",10,"구매전에 꼭 읽어 주세요~","Please read it before you buy it"),
     QNA("Q&A","Q&A",20,"사이즈 문의, 입금 배송 문의,코디 문의, 이벤트 문의 등 모든 궁금한 사항들을 남겨주세요~","Please leave all questions such as size inquiries, deposit delivery inquiries, styling inquiries, and event inquiries"),
     FAQ("FAQ","FAQ",30,"자주하는 질문과 답변","frequently asked questions"),
-    CONTACT("CONTACT","CONTACT",40,"","");
+    CONTACT("CONTACT","CONTACT",40,"",""),
+    MAGAZINE("MAGAZINE","MAGAZINE",50,"최신 핫한 소식을 확인할 수 있습니다.","You can check out the latest hot news."),
+    ;
 
     private final String code;
     private final String displayValueKo;

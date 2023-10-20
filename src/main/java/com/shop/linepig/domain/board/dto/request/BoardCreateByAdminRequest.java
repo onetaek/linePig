@@ -15,6 +15,8 @@ public class BoardCreateByAdminRequest {
 
     private String titleKo;//제목
     private String titleEn;//제목
+    private String subTitleKo;
+    private String subTitleEn;
     private String contentKo;//글내용
     private String contentEn;//글내용
     private String writer;//작성자
@@ -28,6 +30,8 @@ public class BoardCreateByAdminRequest {
         return Board.builder()
                 .titleKo(request.getTitleKo())
                 .titleEn(request.getTitleEn())
+                .subTitleKo(request.getSubTitleKo())
+                .subTitleEn(request.getSubTitleEn())
                 .contentKo(request.getContentEn())
                 .contentEn(request.getContentKo())
                 .adminId(adminId)
