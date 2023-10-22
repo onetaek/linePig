@@ -47,12 +47,14 @@
         </div>
     </header>
     <nav>
+        <div id="under-line"></div>
         <ul id="nav-menu-wrap">
-            <li><h2><a th:href="|/products|" th:text="#{header.nav.shopping}">쇼핑</a></h2></li>
-            <li><h2><a th:href="|/infos|" th:text="#{header.nav.info}">정보</a></h2></li>
-            <li><h2><a th:href="|/boards?category=NOTICE|" th:text="#{header.nav.notice}">공지</a></h2></li>
-            <li><h2><a th:href="|/contacts|" th:text="#{header.nav.contact}">연락</a></h2></li>
-            <li><h2><a th:href="|/magazines|" th:text="#{header.nav.new}">기사</a></h2></li>
+            <li class="home"><h2><a th:href="|/|" th:text="#{header.nav.home}">홈</a></h2></li>
+            <li class="products"><h2><a th:href="|/products|" th:text="#{header.nav.shopping}">쇼핑</a></h2></li>
+            <li class="infos"><h2><a th:href="|/infos|" th:text="#{header.nav.info}">정보</a></h2></li>
+            <li class="boards"><h2><a th:href="|/boards?category=NOTICE|" th:text="#{header.nav.notice}">공지</a></h2></li>
+            <li class="contacts"><h2><a th:href="|/contacts|" th:text="#{header.nav.contact}">연락</a></h2></li>
+            <li class="magazines"><h2><a th:href="|/magazines|" th:text="#{header.nav.new}">기사</a></h2></li>
         </ul>
     </nav>
 
@@ -63,7 +65,7 @@
         푸터 영역
     </footer>
 </div>
-
+<script src="/js/common/common.js"></script>
 <script src="/js/common/mainBase.js"></script>
 <th:block layout:fragment="scripts"/>
 </body>

@@ -1,5 +1,6 @@
 package com.shop.linepig.domain.admin.controller;
 
+import com.shop.linepig.domain.board.entity.enumeration.BoardCategory;
 import com.shop.linepig.domain.board.service.BoardService;
 import com.shop.linepig.domain.member.service.MemberService;
 import com.shop.linepig.domain.member.service.SellerService;
@@ -68,17 +69,29 @@ public class AdminController {//AdminModelAttributeAdvice를 통해서 로그인
 
     @GetMapping("/admins/boards")//게시판목록 페이지
     public String notices(@RequestParam(required = false) String category,@RequestParam(required = false) Boolean isTop ,Model model) {
-        model.addAttribute("boards",boardService.findAll(category, isTop));
+        model.addAttribute("boards",boardService.findAllByCategoryAndIsTop(category, isTop));
         model.addAttribute("categories",boardService.getCategories());
         model.addAttribute("statuses",boardService.getStatuses());
         return "admins/boards/boardList";
     }
 
-    @GetMapping("/admins/boards/new")//게시판등록 페이지 (개발x)
+    @GetMapping("/admins/boards/new")//게시판등록 페이지
     public String noticesNewPage(Model model) {
         model.addAttribute("categories",boardService.getCategories());
         model.addAttribute("statuses",boardService.getStatuses());
         return "admins/boards/boardForm";
+    }
+
+    @GetMapping(value = "/admins/boards", params = "category")//메거진목록 페이지 (개발x)
+    public String magazinesPage(Model model, @RequestParam String category) {
+        model.addAttribute("magazines",boardService.findAllByCategory(BoardCategory.fromCode(category)));
+        return "admins/boards/magazines";
+    }
+
+    @GetMapping(value = "/admins/boards/new", params = "category")//메거진등록 페이지 (개발x)
+    public String noticeNewPage(Model model) {
+        model.addAttribute("statuses",boardService.getStatuses());
+        return "admins/boards/magazineForm";
     }
 
     //---미개발
@@ -90,15 +103,7 @@ public class AdminController {//AdminModelAttributeAdvice를 통해서 로그인
 
 
 
-    @GetMapping("/admins/magazine")//메거진목록 페이지 (개발x)
-    public String magazinesPage() {
-        return "admins/magazines/magazines";
-    }
 
-    @GetMapping("/admins/magazine/new")//메거진등록 페이지 (개발x)
-    public String noticeNewPage() {
-        return "admins/magazines/new";
-    }
 
     @GetMapping("/admins/reviews")//리뷰목록 페이지 (개발x)
     public String reviewsPage() {

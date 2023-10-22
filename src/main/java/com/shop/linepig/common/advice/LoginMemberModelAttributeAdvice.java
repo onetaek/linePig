@@ -1,6 +1,8 @@
 package com.shop.linepig.common.advice;
 
 import com.shop.linepig.common.constance.SessionConst;
+import com.shop.linepig.domain.board.controller.BoardController;
+import com.shop.linepig.domain.common.controller.WelcomeController;
 import com.shop.linepig.domain.member.dto.response.MemberBasicResponse;
 import com.shop.linepig.domain.member.service.MemberService;
 import com.shop.linepig.domain.product.controller.ProductController;
@@ -13,8 +15,17 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
+
+/**
+ * 로그인한 유저(loginMember) 데이터를 model에 담는 controller
+ * 로그인하지 않았다면 loginMember에 null값이 담긴다.
+ */
 @Slf4j
-@ControllerAdvice(basePackageClasses = {ProductController.class} )
+@ControllerAdvice(basePackageClasses = {
+        ProductController.class,
+        BoardController.class,
+        WelcomeController.class,
+} )
 @RequiredArgsConstructor
 public class LoginMemberModelAttributeAdvice {
 

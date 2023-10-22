@@ -4,14 +4,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
+/*  [사용 방법]
+ *  // 객체 생성
+ *  PasswdEncry pwEn = new PasswdEncry();
+ *  // 암호화
+ *  //String res = pwEn.getEncry(pw, pwEn.getSalt());
+ *  String res = pwEn.getEncry(pw, "testSalt");
+ * */
 public class PasswdEncry {
-  /*  [사용 방법]
-   *  // 객체 생성
-   *  PasswdEncry pwEn = new PasswdEncry();
-   *  // 암호화
-   *  //String res = pwEn.getEncry(pw, pwEn.getSalt());
-   *  String res = pwEn.getEncry(pw, "testSalt");
-   * */
 
   public String getSalt() {
     SecureRandom r = new SecureRandom();

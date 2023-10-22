@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thymeleaf Swiper Slider</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- 스타일 -->
+    <style>
+        .swiper-container {
+            width: 100%;
+            height: 300px;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" style="background-color: #ff5733;">Slide 1</div>
+        <div class="swiper-slide" style="background-color: #33ff57;">Slide 2</div>
+        <div class="swiper-slide" style="background-color: #5733ff;">Slide 3</div>
+    </div>
+
+    <!-- 이전/다음 버튼 -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+
+    <!-- 페이지 버튼 -->
+    <div class="swiper-pagination"></div>
+</div>
+
+<!-- 슬라이더 초기화 스크립트 -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let mySwiper = new Swiper('.swiper-container', {
+            slidesPerView: 'auto',
+            spaceBetween: 30,
+            loop: false,
+
+            autoplay: {
+                delay: 2000,
+            },
+        });
+    });
+</script>
+</body>
+</html>

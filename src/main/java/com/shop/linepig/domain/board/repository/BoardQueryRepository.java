@@ -33,6 +33,13 @@ public class BoardQueryRepository {
         return new PageImpl<>(content, pageable, total);
     }
 
+    public List<Board> findAllWithLimit(long limit ,BooleanExpression... expressions) {
+        return jpaQueryFactory.selectFrom(board)
+                .where(expressions)
+                .limit(limit)
+                .fetch();
+    }
+
     public List<Board> findAll(BooleanExpression... expressions) {
         return jpaQueryFactory.selectFrom(board)
                 .where(expressions)

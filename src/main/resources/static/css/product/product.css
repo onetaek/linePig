@@ -1,5 +1,12 @@
+/* input type="number"에 대한 스타일 변경 */
+
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox 브라우저용 스타일 제거 */
+}
+
 #main-wrap {
     font-family:'Lato', 'Noto Sans KR', sans-serif;
+    margin-top:20px;
 }
 
 #product-info-top {
@@ -18,12 +25,10 @@
 .product-image-sub-wrap{
     display: flex;
     justify-content: end;
-    background:red;
     margin-top: 5px;
 }
 .product-image-sub-wrap li {
     width:80px;
-    background: green;
     margin-left: 10px;
 }
 
@@ -34,13 +39,13 @@
 /* 이름 */
 #product-name-price-option-special-wrap{
     width:40%;
-    border-top: 1px solid #000000;
     margin-left:10px;
 }
 
 #product-name-wrap {
     display: flex;
     font-size: 24px;
+    margin-top:10px;
 }
 
 #product-name-wrap .product-name {
@@ -62,7 +67,6 @@
     right:0;
     width:1px;
     height: 25px;
-    background:#000000;
 }
 
 .product-info-title {
@@ -76,7 +80,7 @@
 /* 가격 */
 #product-price-wrap {
     border-top: 1px solid black;
-    margin-top:20px;
+    margin-top:10px;
 }
 
 
@@ -97,7 +101,6 @@
 #product-option-wrap {
     margin-top:20px;
     border-top: 1px solid black;
-    background: greenyellow;
 }
 
 #product-option-wrap .product-option {
@@ -107,7 +110,6 @@
 #product-special-wrap {
     margin-top: 20px;
     border-top: 1px solid black;
-    background: skyblue;
 }
 
 #product-special-wrap ul li {
@@ -141,12 +143,10 @@
 
 /* ----세부정보---- */
 #product-info-bottom{
-    background: pink;
 }
 
 #product-detail {
     margin-top:20px;
-    background: hotpink;
 }
 
 #product-detail h3 {
@@ -161,7 +161,6 @@
 
 #product-detail ul li{
     width: calc( 50% - 20px );
-    background: rebeccapurple;
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid black;
@@ -178,7 +177,6 @@
 
 #product-detail-image-wrap {
     margin-top:20px;
-    background: #0b6969;
 }
 
 #product-detail-image-content-title {
@@ -207,12 +205,18 @@
 }
 
 #product-name-option-button-wrap {
-    margin-top: 50px;
+    display:block;
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0; /* 초기에 투명한 상태로 시작 */
+    transition: opacity 0.2s; /* 투명도가 변경될 때 애니메이션 지속 시간을 설정 (예: 0.5초) */
+    pointer-events: none;
+
     width:25%;
-    background: darkorange;
     margin-left:10px;
     margin-right: 5px;
-    border:1px solid black;
 }
 
 #product-name-option-button-wrap .product-name-wrap {
@@ -286,7 +290,6 @@
     display: flex;
     justify-content: end;
     margin-top: 10px;
-    color:yellow;
 }
 
 #product-sub-button-wrap ul li:first-child {

@@ -13,6 +13,9 @@ import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 로그인한 관리자 데이터(admin)을 model에 담는 컨트롤러
+ */
 @ControllerAdvice(basePackageClasses = AdminController.class )
 @RequiredArgsConstructor
 public class LoginAdminModelAttributeAdvice {

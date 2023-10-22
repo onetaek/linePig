@@ -1,7 +1,6 @@
 #wrapper {
     max-width: 1080px;
     margin:0 auto;
-    background: #f6f1e9;
 }
 
 #header{
@@ -38,7 +37,6 @@
 
 #nav-auth-wrap #nav-auth li{
     margin:0 10px;
-    background: #ff7878;
 }
 #nav-auth-wrap #nav-auth li a{
     font-size: 14px;
@@ -47,7 +45,6 @@
 #logo-wrap{
     display: flex;
     justify-content: center;
-    background: #c0c0ff;
     font-size: 32px;
     padding:20px;
     font-weight: bold;
@@ -55,9 +52,17 @@
 
 #nav-menu-wrap{
     padding:5px 0;
-    background: #ffffaf;
     display: flex;
     justify-content: center;
+}
+#under-line {
+    position: absolute;
+    top:106px;
+    left:500px;
+    width:0;
+    height:4px;
+    background: pink;
+    transition: 0.5s;
 }
 #nav-menu-wrap li {
     margin: 0 20px;

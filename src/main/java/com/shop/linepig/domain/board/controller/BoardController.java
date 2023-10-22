@@ -24,8 +24,8 @@ public class BoardController {
     @GetMapping(value = "/boards", params = "category")
     public String boardListPage(@RequestParam String category, Pageable pageable, Model model) {
         model.addAttribute("category",boardService.getCategory(category));
-        model.addAttribute("topBoards",boardService.findAll(category,Boolean.TRUE));//최상단에 위치할 게시글들
-        model.addAttribute("paginationBoard",boardService.findAllWithPagination(pageable,category,Boolean.FALSE));//하단에 위치할 게시글들
+        model.addAttribute("topBoards",boardService.findAllByCategoryAndIsTop(category,Boolean.TRUE));//최상단에 위치할 게시글들
+        model.addAttribute("paginationBoard",boardService.findAllByCategoryAndIsTopWithPagination(pageable,category,Boolean.FALSE));//하단에 위치할 게시글들
         return "boards/boardList";
     }
 }

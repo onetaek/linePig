@@ -21,4 +21,9 @@ public class TestController {
     public String googleLoginPage() {
         return "/test/googleLoginTest";
     }
+
+    @GetMapping("/slider")
+    public String sliderPage() {
+        return "test/slider";
+    }
 }

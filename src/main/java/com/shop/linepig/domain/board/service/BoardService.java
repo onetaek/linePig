@@ -2,11 +2,15 @@ package com.shop.linepig.domain.board.service;
 
 import com.shop.linepig.domain.admin.exception.AdminNotFoundException;
 import com.shop.linepig.domain.admin.repository.AdminRepository;
+import com.shop.linepig.domain.board.dto.MagazineCreateRequest;
 import com.shop.linepig.domain.board.dto.request.BoardCreateByAdminRequest;
 import com.shop.linepig.domain.board.dto.request.BoardCreateByUserRequest;
 import com.shop.linepig.domain.board.dto.request.BoardUpdateByAdminRequest;
 import com.shop.linepig.domain.board.dto.request.BoardUpdateByUserRequest;
-import com.shop.linepig.domain.board.dto.response.*;
+import com.shop.linepig.domain.board.dto.response.BoardCategoryResponse;
+import com.shop.linepig.domain.board.dto.response.BoardResponse;
+import com.shop.linepig.domain.board.dto.response.BoardStatusResponse;
+import com.shop.linepig.domain.board.dto.response.BoardTypeResponse;
 import com.shop.linepig.domain.board.entity.Board;
 import com.shop.linepig.domain.board.entity.enumeration.BoardCategory;
 import com.shop.linepig.domain.board.entity.enumeration.BoardStatus;
@@ -15,6 +19,8 @@ import com.shop.linepig.domain.board.exception.BoardNotFoundException;
 import com.shop.linepig.domain.board.repository.BoardQueryRepository;
 import com.shop.linepig.domain.board.repository.BoardRepository;
 import com.shop.linepig.domain.board.repository.expression.BoardBooleanExpression;
+import com.shop.linepig.domain.common.embeddable.UploadFile;
+import com.shop.linepig.domain.upload.UploadFirebaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,8 +41,9 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardQueryRepository boardQueryRepository;
     private final AdminRepository adminRepository;
+    private final UploadFirebaseService uploadFirebaseService;
 
-    public Page<BoardResponse> findAllWithPagination(Pageable pageable, String category, Boolean isTop) {
+    public Page<BoardResponse> findAllByCategoryAndIsTopWithPagination(Pageable pageable, String category, Boolean isTop) {
         pageable = PageRequest.of(pageable.getPageNumber(),5);
         return boardQueryRepository.findAllWithPagination(
                 pageable,
@@ -44,10 +51,27 @@ public class BoardService {
                 BoardBooleanExpression.eqIsTop(isTop)).map(BoardResponse::fromEntity);
     }
 
-    public List<BoardResponse> findAll(String category, Boolean isTop) {
+    public List<BoardResponse> findAllByCategoryAndIsTop(String category, Boolean isTop) {
         return boardQueryRepository.findAll(
                         BoardBooleanExpression.eqCategory(category == null ? null : BoardCategory.fromCode(category)),
                         BoardBooleanExpression.eqIsTop(isTop))
+                .stream()
+                .map(BoardResponse::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    //메거진 메인페이지 조회용 쿼리
+    public List<BoardResponse> findAllByCategoryWithLimit(BoardCategory category, long limit) {
+        return boardQueryRepository.findAllWithLimit(
+                limit, BoardBooleanExpression.eqCategory(category))
+                .stream()
+                .map(BoardResponse::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    //메거진 관리자 페이지 조회용 쿼리
+    public List<BoardResponse> findAllByCategory(BoardCategory category) {
+        return boardQueryRepository.findAll(BoardBooleanExpression.eqCategory(category))
                 .stream()
                 .map(BoardResponse::fromEntity)
                 .collect(Collectors.toList());
@@ -61,6 +85,12 @@ public class BoardService {
     public void createByAdmin(BoardCreateByAdminRequest request, Long adminId) {
         Board board = BoardCreateByAdminRequest.toEntity(request, adminId);
         boardRepository.save(board);
+    }
+
+    //메거진글 작성 메서드
+    public void createMagazine(MagazineCreateRequest request, Long adminId) {
+        UploadFile uploadFile = uploadFirebaseService.uploadBase64EncodedFile(request.getBoardImage());
+        boardRepository.save(MagazineCreateRequest.toEntity(request,uploadFile,adminId));
     }
 
     public void createByUser(BoardCreateByUserRequest request, Long memberId) {

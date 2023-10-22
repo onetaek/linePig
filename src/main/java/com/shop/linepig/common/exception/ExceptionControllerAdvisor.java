@@ -42,7 +42,7 @@ public class ExceptionControllerAdvisor {
     }
 
     @ExceptionHandler(RollbackTriggeredException.class)
-    public Object rollBackException(RollbackTriggeredException e) throws IOException {
+    public ResponseEntity<ErrorResponse> rollBackException(RollbackTriggeredException e) throws IOException {
         if (httpServletRequest.getRequestURI().startsWith("/api")) {
             int statusCode = e.getStatusCode();
 

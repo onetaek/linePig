@@ -1,6 +1,7 @@
 package com.shop.linepig.common.advice;
 
 import com.shop.linepig.domain.board.controller.BoardController;
+import com.shop.linepig.domain.cart.controller.CartController;
 import com.shop.linepig.domain.common.controller.WelcomeController;
 import com.shop.linepig.domain.product.controller.ProductController;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,9 @@ import static com.shop.linepig.common.constance.UserLanguageConst.*;
 @ControllerAdvice(basePackageClasses = {
         WelcomeController.class,
         ProductController.class,
-        BoardController.class})
+        BoardController.class,
+        CartController.class,
+})
 public class LanguagePreferenceAdvice {
 
     private final LocaleResolver localeResolver;

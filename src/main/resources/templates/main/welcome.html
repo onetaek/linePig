@@ -1,6 +1,6 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:placeholder="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/mainBase}">
 <head>
     <meta charset="UTF-8">
@@ -8,8 +8,15 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>line pig 메인페이지</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
     <link rel="stylesheet" href="/css/common/reset.css">
     <link rel="stylesheet" href="/css/main/welcome.css">
+
+
 </head>
 <body>
 
@@ -17,88 +24,104 @@
 <div layout:fragment="content">
     <main id="content-wrap">
         <div id="shop-wrap">
-            <div id="slider-wrap">
-                <ul>
-                    <li>슬라이더 이미지1</li>
-                    <li>슬라이더 이미지2</li>
-                    <li>슬라이더 이미지3</li>
-                </ul>
+            <div id="swiper-container-outer">
+                <div class="swiper-container" >
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" th:onclick="window.location='/products'">Slide 1</div>
+                        <div class="swiper-slide" th:onclick="window.location='/products'">Slide 2</div>
+                        <div class="swiper-slide" th:onclick="window.location='/products'">Slide 3</div>
+                    </div>
+                </div>
             </div>
             <div id="item-wrap">
                 <ul>
-                    <li>
-                        <img src="#" alt="상품 이미지">
-                        <div class="item-info">
-                            <div>
-                                <span>Glass cup</span> | <span>water&water</span>
+                    <th:block th:each="product:${products}">
+                        <div class="product-wrap" th:productId="${product.id}" th:onclick="onClickProduct(this.getAttribute('productId'))">
+                            <div class="product-image-wrap">
+                                <img class="product-image" th:src="${product.representativeImage}" alt="제품이미지">
                             </div>
-                            <div>
-                                <span>ABC stodio</span> - <span>KOREA</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="#" alt="상품 이미지">
-                        <div class="item-info">
-                            <div>
-                                <span>Glass cup</span> | <span>water&water</span>
-                            </div>
-                            <div>
-                                <span>ABC stodio</span> - <span>KOREA</span>
+                            <div class="product-info-wrap">
+                                <div class="product-name-wrap">
+                                    <th:block th:if="${userLanguage == 'ko'}" >
+                                        <h2 th:text="${product.nameKo}">Class cup</h2>|<h3 th:text="${product.nameDescriptionKo}">water & water</h3>
+                                    </th:block>
+                                    <th:block th:unless="${userLanguage == 'ko'}">
+                                        <h2 th:text="${product.nameEn}">Class cup</h2>|<h3 th:text="${product.nameDescriptionEn}">water & water</h3>
+                                    </th:block>
+                                </div>
+                                <p th:if="${userLanguage == 'ko'}"><span>가격 : </span><span th:text="|${product.representativePriceKo}원|">20$</span></p>
+                                <p th:unless="${userLanguage == 'ko'}"><span>price : </span><span th:text="|${product.representativePriceEn}$|">20$</span></p>
                             </div>
                         </div>
-                    </li>
-                    <li>
-                        <img src="#" alt="상품 이미지">
-                        <div class="item-info">
-                            <div>
-                                <span>Glass cup</span> | <span>water&water</span>
-                            </div>
-                            <div>
-                                <span>ABC stodio</span> - <span>KOREA</span>
-                            </div>
-                        </div>
-                    </li>
+                    </th:block>
                 </ul>
             </div>
         </div>
 
-        <div id="notice-wrap">
+        <div id="magazine-wrap">
             <ul>
-                <li>
-                    <h3>
-                        <span>1.</span>
-                        <p>미국도 중국도 중요한 한국 무역, 묘수는[강문성의 경제 돋보기]...</p>
-
-                    </h3>
-                    <img src="#" alt="기사">
-                </li>
-                <li>
-                    <h3>
-                        <span>2.</span>
-                        <p>미국도 중국도 중요한 한국 무역, 묘수는[강문성의 경제 돋보기]...</p>
-                    </h3>
-                    <img src="#" alt="기사">
-                </li>
-                <li>
-                    <h3>
-                        <span>3.</span>
-                        <p>미국도 중국도 중요한 한국 무역, 묘수는[강문성의 경제 돋보기]...</p>
-                    </h3>
-                    <img src="#" alt="기사">
-                </li>
-                <li>
-                    <h3>
-                        <span>4.</span>
-                        <p>미국도 중국도 중요한 한국 무역, 묘수는[강문성의 경제 돋보기]...</p>
-                    </h3>
-                    <img src="#" alt="기사">
-                </li>
+                <th:block th:each="magazine:${magazines}">
+                    <li>
+                        <h3>
+                            <span th:text="|${magazineStat.count}.|">1.</span>
+                            <th:block th:if="${userLanguage == 'ko'}" >
+                                <p th:text="${magazine.titleKo}">미국도 중국도 중요한 한국 무역</p>
+                            </th:block>
+                            <th:block th:unless="${userLanguage == 'ko'}">
+                                <p th:text="${magazine.titleEn}">미국도 중국도 중요한 한국 무역</p>
+                            </th:block>
+                        </h3>
+                        <img th:src="${magazine.uploadFile.uploadFileLink}" alt="기사">
+                    </li>
+                </th:block>
+<!--                <li>-->
+<!--                    <h3>-->
+<!--                        <span>2.</span>-->
+<!--                        <p>미국도 중국도 중요한 한국 무역, 묘수는[강문성의 경제 돋보기]...</p>-->
+<!--                    </h3>-->
+<!--                    <img src="#" alt="기사">-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <h3>-->
+<!--                        <span>3.</span>-->
+<!--                        <p>미국도 중국도 중요한 한국 무역, 묘수는[강문성의 경제 돋보기]...</p>-->
+<!--                    </h3>-->
+<!--                    <img src="#" alt="기사">-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <h3>-->
+<!--                        <span>4.</span>-->
+<!--                        <p>미국도 중국도 중요한 한국 무역, 묘수는[강문성의 경제 돋보기]...</p>-->
+<!--                    </h3>-->
+<!--                    <img src="#" alt="기사">-->
+<!--                </li>-->
             </ul>
         </div>
     </main>
 </div>
 <!-- 메인페이지 end -->
-<script src="/js/common/mainBase.js"></script>
+<!-- Swiper 스크립트를 layout:fragment에 추가 -->
+<th:block layout:fragment="scripts">
+    <script type="text/javascript">
+         document.addEventListener('DOMContentLoaded', function () {
+            let mySwiper = new Swiper('.swiper-container', {
+                slidesPerView: 'auto',
+                spaceBetween: 10,
+                loop: false,
+                pagination:"true",
+                paginationClickable:"true",
+                navigation:"true",
+                centeredSlides:"true",
+
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+            });
+        });
+    </script>
+
+</th:block>
+
 </body>
 </html>

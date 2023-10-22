@@ -3,6 +3,7 @@ package com.shop.linepig.domain.board.entity;
 import com.shop.linepig.domain.board.entity.enumeration.BoardCategory;
 import com.shop.linepig.domain.board.entity.enumeration.BoardStatus;
 import com.shop.linepig.domain.board.entity.enumeration.BoardType;
+import com.shop.linepig.domain.common.embeddable.UploadFile;
 import com.shop.linepig.domain.common.mappedsuperclass.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
@@ -32,7 +33,13 @@ public class Board extends BaseEntity {
     private String subTitleKo;//부제목
     private String subTitleEn;//부제목
 
-    private String image;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "sequence", column = @Column(name = "image_sequence")),
+            @AttributeOverride(name = "uploadFileLink", column = @Column(name = "upload_file_link")),
+            @AttributeOverride(name = "originFileName", column = @Column(name = "origin_file_name"))
+    })
+    private UploadFile image;
 
     @Lob
     private String contentKo;//글내용

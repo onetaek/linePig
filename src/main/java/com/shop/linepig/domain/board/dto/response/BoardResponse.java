@@ -2,6 +2,7 @@ package com.shop.linepig.domain.board.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.shop.linepig.domain.board.entity.Board;
+import com.shop.linepig.domain.common.embeddable.UploadFile;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -22,6 +23,8 @@ public class BoardResponse {
 
     private String contentKo;//글내용
     private String contentEn;//글내용
+
+    private UploadFile uploadFile;//이미지
 
     private Long memberId;
 
@@ -52,6 +55,7 @@ public class BoardResponse {
                 .subTitleEn(board.getSubTitleEn())
                 .contentKo(board.getContentKo())
                 .contentEn(board.getContentEn())
+                .uploadFile(board.getImage())
                 .memberId(board.getMemberId())
                 .writer(board.getWriter())
                 .writtenOn(board.getWrittenOn())
