@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,7 +21,6 @@ import java.util.List;
 public class ExceptionControllerAdvisor {
 
     private final HttpServletRequest httpServletRequest;
-    private final HttpServletResponse httpServletResponse;
 
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -43,7 +41,7 @@ public class ExceptionControllerAdvisor {
 
     @ExceptionHandler(RollbackTriggeredException.class)
     public ResponseEntity<ErrorResponse> rollBackException(RollbackTriggeredException e) throws IOException {
-        if (httpServletRequest.getRequestURI().startsWith("/api")) {
+        if (isAjax(httpServletRequest)) {
             int statusCode = e.getStatusCode();
 
             ErrorResponse body = ErrorResponse.builder()
@@ -55,8 +53,12 @@ public class ExceptionControllerAdvisor {
             return ResponseEntity.status(statusCode)
                     .body(body);
         } else {
-            httpServletResponse.sendError(e.getStatusCode());
-            return null;
+            throw e;
         }
+    }
+
+    private boolean isAjax(HttpServletRequest request) {
+        String accept = request.getHeader("accept");
+        return accept != null && accept.contains("application/json");
     }
 }

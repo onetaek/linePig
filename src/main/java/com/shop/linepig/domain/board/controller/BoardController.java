@@ -28,4 +28,10 @@ public class BoardController {
         model.addAttribute("paginationBoard",boardService.findAllByCategoryAndIsTopWithPagination(pageable,category,Boolean.FALSE));//하단에 위치할 게시글들
         return "boards/boardList";
     }
+
+    @GetMapping("/magazines")
+    public String magazineListPage(Model model , Pageable pageable) {
+        model.addAttribute("paginationMagazine",boardService.findMagazineWidthPagination(pageable));
+        return "boards/magazineList";
+    }
 }

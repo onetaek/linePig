@@ -60,21 +60,39 @@
             totalPages = ${paginationBoard.totalPages},
             startPage = ${T(java.lang.Math).floor(pageNumber / pageSize) * pageSize + 1},
             tempEndPage = ${startPage + pageSize - 1},
-            endPage = (${tempEndPage < totalPages ? tempEndPage : totalPages})">
+            endPage = (${tempEndPage < totalPages ? tempEndPage : totalPages})"
+            >
 
+                <!--제일 첫번째 페이지 이동 버튼-->
+                <li th:classappend="${paginationBoard.first} ? 'disabled'" class="page-item">
+                    <a class="page-link" th:href="@{/boards/(page=0,category=${category.displayValueKo})}">
+                        <span aria-hidden="true">&lt;&lt;</span>
+                    </a>
+                </li>
+
+                <!--이전 페이지 이동 버튼-->
                 <li th:classappend="${paginationBoard.first} ? 'disabled'" class="page-item">
                     <a class="page-link" th:href="${paginationBoard.first} ? '#' : @{/boards/(page=${pageNumber - 1}, category=${category.displayValueKo})}">
                         <span aria-hidden="true">&lt;</span>
                     </a>
                 </li>
 
+                <!--현재 페이지-->
                 <li th:each="page: ${#numbers.sequence(startPage, endPage)}" th:classappend="${page == pageNumber + 1} ? 'active'" class="page-item">
-                    <a th:text="${page}" class="page-link" th:href="@{/boards/(page=${page - 1}, category=${category.displayValueKo})}"></a>
+                    <a th:text="${page}" class="page-link" th:href="@{/boards(page=${page - 1}, category=${category.displayValueKo})}"></a>
                 </li>
 
+                <!--다음 페이지 이동 버튼-->
                 <li th:classappend="${paginationBoard.last} ? 'disabled'" class="page-item">
                     <a class="page-link" th:href="${paginationBoard.last} ? '#' : @{/boards/(page=${pageNumber + 1}, category=${category.displayValueKo} )}" aria-label="Next">
                         <span aria-hidden="true">&gt;</span>
+                    </a>
+                </li>
+
+                <!--맨마지막 페이지 이동 버튼-->
+                <li th:classappend="${paginationBoard.last} ? 'disabled'" class="page-item">
+                    <a class="page-link" th:href="@{/boards(page=${totalPages - 1}, category=${category.displayValueKo})}">
+                        <span aria-hidden="true">&gt;&gt;</span>
                     </a>
                 </li>
             </ul>

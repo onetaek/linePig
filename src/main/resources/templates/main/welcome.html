@@ -61,7 +61,7 @@
         <div id="magazine-wrap">
             <ul>
                 <th:block th:each="magazine:${magazines}">
-                    <li>
+                    <li th:magazineId="${magazine.id}" th:onclick="onClickMagazine(this.getAttribute('magazineId'))">
                         <h3>
                             <span th:text="|${magazineStat.count}.|">1.</span>
                             <th:block th:if="${userLanguage == 'ko'}" >
@@ -74,27 +74,6 @@
                         <img th:src="${magazine.uploadFile.uploadFileLink}" alt="기사">
                     </li>
                 </th:block>
-<!--                <li>-->
-<!--                    <h3>-->
-<!--                        <span>2.</span>-->
-<!--                        <p>미국도 중국도 중요한 한국 무역, 묘수는[강문성의 경제 돋보기]...</p>-->
-<!--                    </h3>-->
-<!--                    <img src="#" alt="기사">-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                    <h3>-->
-<!--                        <span>3.</span>-->
-<!--                        <p>미국도 중국도 중요한 한국 무역, 묘수는[강문성의 경제 돋보기]...</p>-->
-<!--                    </h3>-->
-<!--                    <img src="#" alt="기사">-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                    <h3>-->
-<!--                        <span>4.</span>-->
-<!--                        <p>미국도 중국도 중요한 한국 무역, 묘수는[강문성의 경제 돋보기]...</p>-->
-<!--                    </h3>-->
-<!--                    <img src="#" alt="기사">-->
-<!--                </li>-->
             </ul>
         </div>
     </main>
@@ -119,6 +98,14 @@
                 },
             });
         });
+
+         function onClickMagazine(magazineId) {
+             window.location.href=`/boards/${magazineId}?category=MAGAZINE`
+         }
+
+         function onClickProduct(productId) {
+             window.location.href=`/products/${productId}`
+         }
     </script>
 
 </th:block>

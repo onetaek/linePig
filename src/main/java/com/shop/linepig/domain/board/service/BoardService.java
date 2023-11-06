@@ -44,11 +44,19 @@ public class BoardService {
     private final UploadFirebaseService uploadFirebaseService;
 
     public Page<BoardResponse> findAllByCategoryAndIsTopWithPagination(Pageable pageable, String category, Boolean isTop) {
-        pageable = PageRequest.of(pageable.getPageNumber(),5);
+        pageable = PageRequest.of(pageable.getPageNumber(),7);
         return boardQueryRepository.findAllWithPagination(
                 pageable,
                 BoardBooleanExpression.eqCategory(category == null ? null : BoardCategory.fromCode(category)),
-                BoardBooleanExpression.eqIsTop(isTop)).map(BoardResponse::fromEntity);
+                BoardBooleanExpression.eqIsTop(isTop))
+                .map(BoardResponse::fromEntity);
+    }
+
+    public Page<BoardResponse> findMagazineWidthPagination(Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber(), 7);
+        return boardQueryRepository.findAllWithPagination(pageable,
+                        BoardBooleanExpression.eqCategory(BoardCategory.MAGAZINE))
+                .map(BoardResponse::fromEntity);
     }
 
     public List<BoardResponse> findAllByCategoryAndIsTop(String category, Boolean isTop) {
