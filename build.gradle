@@ -3,10 +3,13 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
     id 'java'
+
+    //--------코틀린 도입을 위한 추가 코드 start-------------
     id 'org.jetbrains.kotlin.jvm' version '1.6.21'
     id 'org.jetbrains.kotlin.plugin.jpa' version '1.6.21'
     id 'org.jetbrains.kotlin.plugin.spring' version '1.6.21'
     id 'org.jetbrains.kotlin.kapt' version '1.6.21'
+    //--------코틀린 도입을 위한 추가 코드 end-------------
 }
 
 group = 'com.maturi'
@@ -43,7 +46,7 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
-//    implementation 'com.querydsl:querydsl-jpa'
+    implementation 'com.querydsl:querydsl-jpa'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.projectlombok:lombok'
@@ -55,8 +58,11 @@ dependencies {
     implementation 'org.springframework.social:spring-social-facebook:2.0.3.RELEASE'
     implementation 'org.apache.httpcomponents:httpclient:4.5.2'
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+
+    //--------코틀린 도입을 위한 추가 코드 start-------------
     kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
+    //--------코틀린 도입을 위한 추가 코드 end-------------
 }
 
 test {
@@ -64,6 +70,7 @@ test {
     useJUnitPlatform()
 }
 
+//--------코틀린 도입을 위한 추가 코드 start-------------
 compileKotlin {
     kotlinOptions {
         jvmTarget = "8"
@@ -75,25 +82,26 @@ compileTestKotlin {
         jvmTarget = "8"
     }
 }
+//--------코틀린 도입을 위한 추가 코드 end-------------
 
-//def querydslDir = "$buildDir/generated/querydsl"
-//querydsl {
-//    jpa = true
-//    querydslSourcesDir = querydslDir
-//}
-//
-//sourceSets {
-//    main.java.srcDir querydslDir
-//}
-//
-//configurations {
-//    querydsl.extendsFrom compileClasspath
-//}
-//
-//compileQuerydsl {
-//    options.annotationProcessorPath = configurations.querydsl
-//}
-//
-//clean {
-//    delete file('src/main/generated')
-//}
+def querydslDir = "$buildDir/generated/querydsl"
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+    main.java.srcDir querydslDir
+}
+
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}
+
+clean {
+    delete file('src/main/generated')
+}
