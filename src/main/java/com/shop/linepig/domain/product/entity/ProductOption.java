@@ -31,7 +31,7 @@ public class ProductOption extends BaseEntity {
     private String priceDescriptionEn;
 
     private int stockQuantity;
-
+    @Builder.Default
     private Integer sequence = 0;//순서
 
     @ManyToOne(fetch = FetchType.LAZY)

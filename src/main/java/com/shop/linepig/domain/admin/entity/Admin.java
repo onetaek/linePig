@@ -27,6 +27,7 @@ public class Admin extends BaseEntity {
     private String salt;//난수
     private String name;//이름
     private String profileImgLink;
+    @Builder.Default
     private int auth = 10;//권한
 
 }

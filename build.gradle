@@ -5,10 +5,10 @@ plugins {
     id 'java'
 
     //--------코틀린 도입을 위한 추가 코드 start-------------
-    id 'org.jetbrains.kotlin.jvm' version '1.6.21'
-    id 'org.jetbrains.kotlin.plugin.jpa' version '1.6.21'
-    id 'org.jetbrains.kotlin.plugin.spring' version '1.6.21'
-    id 'org.jetbrains.kotlin.kapt' version '1.6.21'
+//    id 'org.jetbrains.kotlin.jvm' version '1.6.21'
+//    id 'org.jetbrains.kotlin.plugin.jpa' version '1.6.21'
+//    id 'org.jetbrains.kotlin.plugin.spring' version '1.6.21'
+//    id 'org.jetbrains.kotlin.kapt' version '1.6.21'
     //--------코틀린 도입을 위한 추가 코드 end-------------
 }
 
@@ -60,8 +60,8 @@ dependencies {
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 
     //--------코틀린 도입을 위한 추가 코드 start-------------
-    kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
-    kapt("org.springframework.boot:spring-boot-configuration-processor")
+//    kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
+//    kapt("org.springframework.boot:spring-boot-configuration-processor")
     //--------코틀린 도입을 위한 추가 코드 end-------------
 }
 
@@ -71,17 +71,17 @@ test {
 }
 
 //--------코틀린 도입을 위한 추가 코드 start-------------
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "8"
-    }
-}
-
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "8"
-    }
-}
+//compileKotlin {
+//    kotlinOptions {
+//        jvmTarget = "8"
+//    }
+//}
+//
+//compileTestKotlin {
+//    kotlinOptions {
+//        jvmTarget = "8"
+//    }
+//}
 //--------코틀린 도입을 위한 추가 코드 end-------------
 
 def querydslDir = "$buildDir/generated/querydsl"

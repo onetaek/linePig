@@ -24,6 +24,7 @@ public class ProductDetail extends BaseEntity {
     private String valueKo;//상세 정보 항목 값
     private String valueEn;
 
+    @Builder.Default
     private Integer sequence = 0;// 순서
 
     @ManyToOne(fetch = FetchType.LAZY)
