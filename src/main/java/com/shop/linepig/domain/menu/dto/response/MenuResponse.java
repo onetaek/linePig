@@ -20,6 +20,8 @@ public class MenuResponse {
     private String component;//컴포넌트 경로
     private Integer sequence;//순서
     private String description;//비고
+    private Boolean isActive;//사용여부
+    private Boolean hasChild;//자식이 유무
     private List<MenuResponse> childMenus;
 
     public static MenuResponse fromEntity(Menu entity) {
@@ -32,6 +34,8 @@ public class MenuResponse {
                 .component(entity.getComponent())
                 .sequence(entity.getSequence())
                 .description(entity.getDescription())
+                .isActive(entity.getIsActive())
+                .hasChild(entity.hasChild())
                 .childMenus(entity.getChildMenus()
                         .stream()
                         .map(MenuResponse::fromEntity)

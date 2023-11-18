@@ -32,6 +32,8 @@ public class Menu extends BaseEntity {
 
     private Integer sequence;//순서
 
+    private Boolean isActive;//사용여부
+
     @ManyToOne
     private Menu parentMenu;
 
@@ -46,5 +48,9 @@ public class Menu extends BaseEntity {
         if(component != null) this.component = component;
         if(description != null) this.description = description;
         if(sequence != null) this.sequence = sequence;
+    }
+
+    public Boolean hasChild() {
+        return this.childMenus != null && this.childMenus.size() != 0;
     }
 }

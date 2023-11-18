@@ -21,6 +21,8 @@ public class MenuCreateRequest {
     private String component;
     @NotNull
     private Integer sequence;
+    @NotNull
+    private Boolean isActive;
     private String description;
 
     public static Menu toEntity(MenuCreateRequest request, Menu menu) {
@@ -31,6 +33,7 @@ public class MenuCreateRequest {
                 .component(request.getComponent())
                 .description(request.getDescription())
                 .sequence(request.getSequence())
+                .isActive(request.getIsActive())
                 .parentMenu(menu)
                 .build();
     }

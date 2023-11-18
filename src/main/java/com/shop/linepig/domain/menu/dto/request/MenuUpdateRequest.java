@@ -12,4 +12,5 @@ public class MenuUpdateRequest {
     private String component;
     private Integer sequence;
     private String description;
+    private Boolean isActive;
 }

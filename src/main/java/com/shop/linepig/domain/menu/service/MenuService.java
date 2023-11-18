@@ -6,6 +6,7 @@ import com.shop.linepig.domain.menu.dto.response.MenuResponse;
 import com.shop.linepig.domain.menu.entity.Menu;
 import com.shop.linepig.domain.menu.exception.MenuNotFoundException;
 import com.shop.linepig.domain.menu.repository.MenuRepository;
+import com.shop.linepig.domain.menu.repository.expression.MenuBooleanExpression;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +27,9 @@ public class MenuService {
     }
 
     public List<MenuResponse> findAll() {
-        return menuRepository.findAllWitchOrderBy()
+        return menuRepository.findAllWitchOrderBy(
+                        MenuBooleanExpression.parentMenuIsNull()
+                )
                 .stream()
                 .map(MenuResponse::fromEntity)
                 .collect(Collectors.toList());
