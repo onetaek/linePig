@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:placeholder="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/adminBase}">
+<head>
+    <title>뉴스 등록 페이지</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/translations/ko.js"></script>
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 320px;
+        }
+
+        div.ck.ck-editor__editable_inline * {
+            all: revert;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 상품등록 start -->
+<div layout:fragment="content" class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">메거진 정보</h6>
+                <div class="row g-4 mt-3">
+                    <div class="row col-xl-12 mb-3">
+                        <div class="row col-xl-6">
+                            <label class="col-sm-3 col-form-label">제목(Ko)</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control board-title-ko-input">
+                            </div>
+                        </div>
+                        <div class="row col-xl-6">
+                            <label class="col-sm-3 col-form-label">제목(En)</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control board-title-en-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-xl-12 mb-3">
+                        <div class="row col-xl-6">
+                            <label class="col-sm-3 col-form-label">부제목(Ko)</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control board-sub-title-ko-input">
+                            </div>
+                        </div>
+                        <div class="row col-xl-6">
+                            <label class="col-sm-3 col-form-label">부제목(En)</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control board-sub-title-en-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-xl-6 mb-3">
+                        <div class="row col-xl-12">
+                            <label class="col-sm-3 col-form-label">작성자</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control board-writer-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-xl-6 mb-3">
+                        <div class="row col-xl-12">
+                            <label class="col-sm-3 col-form-label">순서</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control board-sequence-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">상태</h6>
+                <div class="form-floating mb-3">
+                    <select class="form-select board-status-select" id="board-status-select"
+                            aria-label="Floating label select example">
+                        <option>상태를 선택하시오</option>
+                        <th:block th:each="status:${statuses}">
+                            <option th:value="${status.code}"
+                                    th:text="${status.displayValue}"></option>
+                        </th:block>
+                    </select>
+                    <label for="board-status-select">상태</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">대표 이미지</h6>
+                <div id="product-images-box">
+                    <div class="mb-3 board-image-box">
+                        <label class="form-label">이미지 파일</label>
+                        <div style="display:flex;">
+                            <input class="form-control bg-dark product-sequence board-image-input" type="file">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">내용(Ko)</h6>
+                <div class="form-floating mb-3">
+                    <div class="ckeditor-container">
+                        <textarea name="board-content-ko-textarea" id="board-content-ko-textarea" cols="30"
+                                  rows="10"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">내용(En)</h6>
+                <div class="form-floating mb-3">
+                    <div class="ckeditor-container">
+                        <textarea name="board-content-en-textarea" id="board-content-en-textarea" cols="30"
+                                  rows="10"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4 d-flex justify-content-end">
+                <button type="button" onclick="submitMagazineButton()" class="btn btn-lg btn-success m-2">게시글 등록
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 상품등록 end -->
+
+<!-- javaScript 파일-->
+<th:block layout:fragment="scripts">
+    <script>
+        let editorKo;
+        let editorEn;
+        ClassicEditor.create(document.querySelector('#board-content-ko-textarea'), {
+            language: "ko",
+            ckfinder: {
+                uploadUrl: "/api/image/upload",
+                withCredentials: true
+            },
+            editorConfig: {
+                stylesSet: []
+            }
+        })
+            .then(editor => {
+                editorKo = editor;
+                console.log("editorEn initialized");
+            })
+            .catch(error => {
+                console.error("Error initializing editorEn:", error);
+            });
+
+        ClassicEditor.create(document.querySelector('#board-content-en-textarea'), {
+            language: "en",
+            ckfinder: {
+                uploadUrl: "/api/image/upload",
+                withCredentials: true
+            },
+            editorConfig: {
+                stylesSet: []
+            }
+        }).then(editor => {
+            editorEn = editor;
+            console.log("editorEn initialized");
+        })
+            .catch(error => {
+                console.error("Error initializing editorEn:", error);
+            });
+    </script>
+    <script src="/js/admin/board/magazineForm.js"></script>
+</th:block>
+</body>
+</html>

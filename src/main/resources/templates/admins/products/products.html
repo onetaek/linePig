@@ -3,19 +3,68 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:placeholder="http://www.w3.org/1999/xhtml"
       layout:decorate="~{layouts/adminBase}">
 <head>
-    <title>판매자 목록 페이지</title>
+    <title>상품목록 페이지</title>
 </head>
 <body>
 
-<!-- 상품등록 start -->
+<!-- 상품목록 start -->
 <div layout:fragment="content" class="container-fluid pt-4 px-4">
-    <div class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0">
-        <div class="col-md-6 text-center">
-            <h3>This is blank page</h3>
+    <div>
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <div class="row">
+                    <div class="col">
+                        <h6 class="mb-4">상품 목록</h6>
+                    </div>
+                    <div class="col d-flex justify-content-end">
+                        <button type="button" class="btn btn-info m-2" th:onclick="onClickMemberStatusUpdate()">수정</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">선택</th>
+                            <th scope="col">대표이미지</th>
+                            <th scope="col">제품명(Ko)</th>
+                            <th scope="col">제품명(En)</th>
+                            <th scope="col">부재(Ko)</th>
+                            <th scope="col">부재(En)</th>
+                            <th scope="col">옵션명(Ko)</th>
+                            <th scope="col">옵션명(En)</th>
+                            <th scope="col">대표가격(Ko)</th>
+                            <th scope="col">대표가격(En)</th>
+                            <th scope="col">순서</th>
+                            <th scope="col">상태</th>
+                            <th scope="col">카테고리</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="product : ${products}" th:class="memberInfo">
+                            <th scope="row"><input type="radio" name="select" th:data-id="${product.id}"></th>
+                            <td th:class="representativeImage">
+                                <a th:href="${product.representativeImage}"><img style="width:100px" th:src="${product.representativeImage}" alt="제품이미지"></a>
+                            </td>
+                            <td th:class="nameKo" th:text="${product.nameKo}">제품명(Ko)</td>
+                            <td th:class="nameEn" th:text="${product.nameEn}">제품명(En)</td>
+                            <td th:class="nameDescriptionKo" th:text="${product.nameDescriptionKo}">부재(Ko)</td>
+                            <td th:class="nameDescriptionEn" th:text="${product.nameDescriptionEn}">부재(En)</td>
+                            <td th:calss="optionKo" th:text="${product.optionKo}">옵션명(Ko)</td>
+                            <td th:class="optionEn" th:text="${product.optionEn}">옵션명(En)</td>
+                            <td th:class="sequence" th:text="${product.sequence}">순서</td>
+                            <td th:class="representativePriceKo" th:text="${product.representativePriceKo}">대표가격(Ko)</td>
+                            <td th:class="representativePriceEn" th:text="${product.representativePriceEn}">대표가격(En)</td>
+                            <td th:class="status" th:text="${product.status}">상태</td>
+                            <td th:class="category" th:text="${product.category}">카테고리</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<!-- 상품등록 end -->
+<!-- 상품목록 end -->
 
 <!-- javaScript 파일-->
 <th:block layout:fragment="scripts">

@@ -1,0 +1,27 @@
+#main-wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-wrap {
+    width:23%;
+    cursor: pointer;
+}
+
+.product-wrap .product-image-wrap {
+    width:100%;
+}
+
+.product-wrap .product-image-wrap img{
+    width:100%;
+}
+
+.product-wrap .product-info-wrap{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    padding-right:5px;
+}
+.product-wrap .product-info-wrap .product-name-wrap {
+    display: flex;
+}

@@ -71,6 +71,9 @@ function submitSellerBtn() {//판매자 등록
         })
         const uri = `/api/admins/members/${memberId}/sellers`;
 
+        console.log("uri =",uri);
+        console.log("requestBody =",requestBody);
+
         fetch (uri,{
             method : 'POST',
             body : JSON.stringify(requestBody),

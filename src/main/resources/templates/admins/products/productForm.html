@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:placeholder="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/adminBase}">
+<head>
+    <title>제품 등록 페이지</title>
+</head>
+<body>
+
+<!-- 상품등록 start -->
+<div layout:fragment="content" class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">판매자</h6>
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="productSellerSelect"
+                            aria-label="Floating label select example">
+                        <option>판매자를 선택하시오</option>
+                        <th:block th:each="seller:${sellers}">
+                            <option th:value="${seller.id}"
+                                    th:text="|아이디:${seller.member.loginId} 이름:${seller.member.name}|"></option>
+                        </th:block>
+                    </select>
+                    <label for="productSellerSelect">판매자</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">제품 정보</h6>
+                <form>
+                    <div class="row mb-3">
+                        <label for="product-name-ko" class="col-sm-3 col-form-label">제품명(Ko)</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="product-name-ko">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="product-name-en" class="col-sm-3 col-form-label">제품명(En)</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="product-name-en">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="product-name-description-ko" class="col-sm-3 col-form-label">부재(Ko)</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="product-name-description-ko">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="product-name-description-en" class="col-sm-3 col-form-label">부재(En)</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="product-name-description-en">
+                        </div>
+                    </div>
+                    <div class="row col-xl-6">
+                        <label class="col-sm-3 col-form-label">순서</label>
+                        <div class="col-sm-9">
+                            <input type="number" id="product-main-sequence" class="form-control product-main-sequence">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">옵션 명</h6>
+                <div class="row d-flex justify-content-between align-items-center mb-3">
+                    <div class="row col-xl-11 mb-3">
+                        <div class="row col-xl-12 mb-3">
+                            <div class="row col-xl-6">
+                                <label class="col-sm-3 col-form-label">옵션명(Ko)</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control product-option-ko">
+                                </div>
+                            </div>
+                            <div class="row col-xl-6">
+                                <label class="col-sm-3 col-form-label">옵션명(En)</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control product-option-en">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="product-options-box">
+                        <h6 class="mb-4">옵션별 정보</h6>
+                        <!--javaScript 로 추가해줌-->
+                    </div>
+                </div>
+                <button onclick="createProductOptionBox()" class="btn btn-outline-primary w-100 m-2" type="button">제품 옵션정보 추가</button>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">특이사항</h6>
+                <div id="product-specials-box">
+                    <!--javaScript 로 추가해줌-->
+
+                </div>
+                <button onclick="createSpecialBox()" class="btn btn-outline-primary w-100 m-2" type="button">제품 특이사항 추가</button>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">제품 세부정보</h6>
+                <form id="product-details-box">
+                    <!--js로 요소 추가해줌-->
+
+                </form>
+                <button onclick="createProductDetailBox()" class="btn btn-outline-primary w-100 m-2" type="button">제품 세부정보 추가</button>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">제품 이미지</h6>
+                <div id="product-images-box">
+                    <!--JavaScript 로 productImageBox 계속 추가해줌-->
+                </div>
+                <button onclick="createProductImageBox()" class="btn btn-outline-primary w-100 m-2" type="button">이미지파일 추가</button>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">제품 상세 이미지</h6>
+                <div id="product-detail-images-box">
+                    <!--JavaScript 로 productImageBox 계속 추가해줌-->
+                </div>
+                <button onclick="createProductDetailImageBox()" class="btn btn-outline-primary w-100 m-2" type="button">이미지파일 추가</button>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <button onclick="submitProductBtn()" class="btn btn-outline-primary w-100 m-2" type="button">제품등록하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 상품등록 end -->
+
+<!-- javaScript 파일-->
+<th:block layout:fragment="scripts">
+    <script th:src="@{/js/common/common.js}"></script>
+    <script th:src="@{/js/admin/product/productForm.js}"></script>
+</th:block>
+</body>
+</html>

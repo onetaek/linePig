@@ -11,7 +11,7 @@ import lombok.Getter;
 public class GenderResponse {
 
     private final String code;
-    private final String display;
+    private final String displayValue;
     private final Integer sequence;
     private String description;
 
@@ -20,7 +20,7 @@ public class GenderResponse {
             return null;
         return new GenderResponse(
                 gender.getCode(),
-                gender.getDescription(),
+                gender.getDisplayValue(),
                 gender.getSequence(),
                 gender.getDescription());
     }

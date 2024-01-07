@@ -1,0 +1,27 @@
+#main-board-wrap {
+    background: skyblue;
+}
+
+#title-wrap {
+    margin-top:30px;
+}
+
+#title-wrap h2 {
+    font-size: 28px;
+}
+
+#title-wrap h3 {
+    font-size: 16px;
+    margin-top:10px;
+    color: #5e5e5e;
+}
+
+#content-wrap {
+    width: 100%;
+    margin-top:10px;
+}
+
+#button-wrap {
+    display: flex;
+    justify-content: end;
+}

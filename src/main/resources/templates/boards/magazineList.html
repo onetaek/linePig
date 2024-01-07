@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:placeholder="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/mainBase}">
+<head>
+    <title>메거진목록 페이지</title>
+    <link rel="stylesheet" href="/css/board/boardList.css">
+</head>
+<body>
+<!--https://hot-10.com/board/product/list.html?board_no=6-->
+
+<!-- 게시판목록 페이지 start -->
+<div layout:fragment="content">
+    <div id="main-board-wrap">
+
+        <div class="magazine-content-outer">
+            <h2>MAGAZINE</h2>
+            <p>인기 브랜드의 신상품 발매, 할인 소식과 지금 뜨는 인기 아이템 및 브랜드의 다양한 랭킹 이슈를 확인할 수 있습니다.</p>
+            <ul>
+                <li>
+                    <img src="" alt="">
+                    <h3>패션|어떤날씨에도 완변하다</h3>
+                    <p><span>5월4일</span><span>563</span><span>케이투</span></p>
+                    <h4>변덕스러운 봄 날씨 고민을 해결할 K2 플라이슈트 컬렉션</h4>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 페이지 영역 -->
+        <div th:if="${!paginationMagazine.isEmpty()}" class="board-page-button-main-wrap">
+            <ul class="board-page-button-wrap"
+                th:with="
+            pageNumber = ${paginationMagazine.pageable.pageNumber},
+            pageSize = ${paginationMagazine.pageable.pageSize},
+            totalPages = ${paginationMagazine.totalPages},
+            startPage = ${T(java.lang.Math).floor(pageNumber / pageSize) * pageSize + 1},
+            tempEndPage = ${startPage + pageSize - 1},
+            endPage = (${tempEndPage < totalPages ? tempEndPage : totalPages})"
+            >
+
+                <!--제일 첫번째 페이지 이동 버튼-->
+                <li th:classappend="${paginationMagazine.first} ? 'disabled'" class="page-item">
+                    <a class="page-link" th:href="@{/magazines(page=0)}">
+                        <span aria-hidden="true">&lt;&lt;</span>
+                    </a>
+                </li>
+
+                <!--이전 페이지 이동 버튼-->
+                <li th:classappend="${paginationMagazine.first} ? 'disabled'" class="page-item">
+                    <a class="page-link" th:href="${paginationMagazine.first} ? '#' : @{/magazines(page=${pageNumber - 1})}">
+                        <span aria-hidden="true">&lt;</span>
+                    </a>
+                </li>
+
+                <!--현재 페이지-->
+                <li th:each="page: ${#numbers.sequence(startPage, endPage)}" th:classappend="${page == pageNumber + 1} ? 'active'" class="page-item">
+                    <a th:text="${page}" class="page-link" th:href="@{/magazines(page=${page - 1})}"></a>
+                </li>
+
+                <!--다음 페이지 이동 버튼-->
+                <li th:classappend="${paginationMagazine.last} ? 'disabled'" class="page-item">
+                    <a class="page-link" th:href="${paginationMagazine.last} ? '#' : @{/magazines(page=${pageNumber + 1})}" aria-label="Next">
+                        <span aria-hidden="true">&gt;</span>
+                    </a>
+                </li>
+
+                <!--맨마지막 페이지 이동 버튼-->
+                <li th:classappend="${paginationMagazine.last} ? 'disabled'" class="page-item">
+                    <a class="page-link" th:href="@{/magazines(page=${totalPages - 1})}">
+                        <span aria-hidden="true">&gt;&gt;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- 게시판목록 페이지 end -->
+
+<!-- javaScript 파일-->
+<th:block layout:fragment="scripts">
+</th:block>
+</body>
+</html>

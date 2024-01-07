@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:placeholder="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/adminBase}">
+<head>
+    <title>게시판 목록 페이지</title>
+</head>
+<body>
+
+<!-- 게시판 목록 start -->
+<div layout:fragment="content" class="container-fluid pt-4 px-4">
+    <div>
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <div class="row">
+                    <div class="col">
+                        <h6 class="mb-4">게시글 목록</h6>
+                    </div>
+                    <div class="col d-flex justify-content-end">
+                        <button type="button" class="btn btn-info m-2" onclick="onClickBoardUpdateButton()">수정</button>
+                        <button type="button" class="btn btn-danger m-2" onclick="onClickBoardDeleteButton()">삭제</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">선택</th>
+                            <th scope="col">순번</th>
+                            <th scope="col">제목(Ko)</th>
+                            <th scope="col">제목(En)</th>
+                            <th scope="col">작성자</th>
+                            <th scope="col">작성일</th>
+                            <th scope="col">최상단여부</th>
+                            <th scope="col">조회수</th>
+                            <th scope="col">순서</th>
+                            <th scope="col">카테고리</th>
+                            <th scope="col">상태</th>
+                            <th scope="col">타입</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="board : ${boards}" th:class="memberInfo">
+                            <th scope="row"><input type="radio" name="select" th:data-id="${board.id}"></th>
+                            <td th:text="${boardStat.count}">순번</td>
+                            <td th:class="titleKo" th:text="${board.titleKo}">제목(Ko)</td>
+                            <td th:class="titleEn" th:text="${board.titleEn}">제목(En)</td>
+                            <td th:class="writer" th:text="${board.writer}">작성자</td>
+                            <td th:class="writtenOn" th:text="${board.writtenOn}">작성일</td>
+                            <td th:calss="isTop" th:text="${board.isTop}">최상단여부</td>
+                            <td th:class="viewCount" th:text="${board.viewCount}">조회수</td>
+                            <td th:class="sequence" th:text="${board.sequence}">순서</td>
+                            <td th:class="category" th:text="${board.category}">카테고리</td>
+                            <td th:class="status" th:text="${board.status}">상태</td>
+                            <td th:class="type" th:text="${board.type}">타입</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 게시판 목록 end -->
+
+<!-- javaScript 파일-->
+<th:block layout:fragment="scripts">
+    <script src="/js/admin/board/boardList.js"></script>
+</th:block>
+</body>
+</html>

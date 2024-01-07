@@ -1,21 +1,72 @@
-<!--헤더랑 푸터는 모든 사이트에서 동일 할 경우 여기서 공통 부분을 작성함-->
+<!--헤더랑 푸터는 모든 사이트에서 동일 할 경우 현재 파일에서 공통 부분을 작성함-->
 <!DOCTYPE html>
 <html xmlns:layout = "http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- 공통 -->
     <meta charset="UTF-8">
-    <title>base</title>
+    <title>메인페이지</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
+
+    <link rel="stylesheet" href="/css/common/reset.css">
+    <link rel="stylesheet" href="/css/common/mainBase.css">
 </head>
 <body>
+<div id="wrapper">
+    <header id="header">
+        <div id="nav-auth-wrap">
+            <div class="search-box">
+                <input type="text" placeholder="검색어를 입력해주세요">
+            </div>
+            <ul id="nav-auth">
+                <th:block th:if="${loginMember}">
+                    <li><a th:href="|/members/${loginMember.id}|" th:text="${loginMember.name}">이름</a></li>
+                    <li><a href="#" onclick="onClickLogoutBtn()">로그아웃</a></li>
+                </th:block>
+                <th:block th:unless="${loginMember}">
+                    <li><a href="/members/login">로그인</a></li>
+                    <li><a href="/members/join">회원가입</a></li>
+                </th:block>
+                <li>
+                    <select id="languageSelect" name="language" onchange="changeLanguage(this)">
+                        <!-- 한국어 선택 옵션 -->
+                        <option th:selected="${userLanguage == 'ko'}"
+                                th:value="ko">한국어</option>
+                        <!-- 영어 선택 옵션 -->
+                        <option th:selected="${userLanguage != 'ko'}"
+                                th:value="en">English</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+        <div id="logo-wrap">
+            <h1><a href="/" th:text="#{header.logo}">라인 피그</a></h1>
+        </div>
+    </header>
+    <nav>
+        <div id="under-line"></div>
+        <ul id="nav-menu-wrap">
+            <li class="home"><h2><a th:href="|/|" th:text="#{header.nav.home}">홈</a></h2></li>
+            <li class="products"><h2><a th:href="|/products|" th:text="#{header.nav.shopping}">쇼핑</a></h2></li>
+            <li class="infos"><h2><a th:href="|/infos|" th:text="#{header.nav.info}">정보</a></h2></li>
+            <li class="boards"><h2><a th:href="|/boards?category=NOTICE|" th:text="#{header.nav.notice}">공지</a></h2></li>
+            <li class="contacts"><h2><a th:href="|/contacts|" th:text="#{header.nav.contact}">연락</a></h2></li>
+            <li class="magazines"><h2><a th:href="|/magazines|" th:text="#{header.nav.new}">기사</a></h2></li>
+        </ul>
+    </nav>
 
+    <!--content-->
+    <th:block layout:fragment="content"/>
 
-
-
+    <footer>
+        푸터 영역
+    </footer>
+</div>
+<script src="/js/common/common.js"></script>
+<script src="/js/common/mainBase.js"></script>
 <th:block layout:fragment="scripts"/>
 </body>
 </html>

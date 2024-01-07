@@ -1,6 +1,7 @@
 package com.shop.linepig.domain.member.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.shop.linepig.common.util.DateTimeFormatterUtil;
 import com.shop.linepig.domain.member.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,13 +14,13 @@ public class MemberResponse {
     private Long id;
     private String loginId;
     private String email;
-    private String createdAt;
+    private String joinOn;
     private String phoneCode;
     private String phoneNumber;
-    private String memberStatus;
+    private String status;
+    private String type;
     private String name;
     private String gender;
-    private SellerResponse seller;
 
     public static MemberResponse fromEntity(Member member) {
         if(member == null)
@@ -28,13 +29,13 @@ public class MemberResponse {
                 .id(member.getId())
                 .loginId(member.getLoginId())
                 .email(member.getEmail())
-                .createdAt(member.getCreatedAt())
+                .joinOn(DateTimeFormatterUtil.formatWithSeconds(member.getJoinOn()))
                 .phoneCode(member.getPhoneCode())
                 .phoneNumber(member.getPhoneNumber())
-                .memberStatus(member.getMemberStatus())
+                .status(member.getStatus().getDisplayValue())
+                .type(member.getType().getDisplayValue())
                 .name(member.getName())
                 .gender(member.getGender())
-                .seller(SellerResponse.fromEntity(member.getSeller()))
                 .build();
     }
 }

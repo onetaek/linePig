@@ -54,7 +54,7 @@ function onClickSellerCreate() {
 
 function onclickMemberStatusUpdateApi() {
     if(confirm("선택하신 회원의 상태를 수정하시겠습니까?")) {
-        const url = `/api/admins/members/${selectedMemberId}`;
+        const url = `/api/admins/members/${selectedMemberId}/status`;
         const requestBody = {
             "status":updateMemberStatus.value
         }

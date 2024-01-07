@@ -1,14 +1,21 @@
 plugins {
     id 'org.springframework.boot' version '2.2.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-    //querydsl 추가
     id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
-    id 'war'
     id 'java'
+
+    //--------코틀린 도입을 위한 추가 코드 start-------------
+//    id 'org.jetbrains.kotlin.jvm' version '1.6.21'
+//    id 'org.jetbrains.kotlin.plugin.jpa' version '1.6.21'
+//    id 'org.jetbrains.kotlin.plugin.spring' version '1.6.21'
+//    id 'org.jetbrains.kotlin.kapt' version '1.6.21'
+    //--------코틀린 도입을 위한 추가 코드 end-------------
 }
+
 group = 'com.maturi'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '8'
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
@@ -28,32 +35,17 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
-    //war파일로 배포하기위함
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-
-    //스프링부트에서 validation을 사용하기 위한 코드
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.0'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-    //model mapper
     implementation 'org.modelmapper:modelmapper:2.4.2'
-
-    // lombok을 테스트 환경에서도 사용
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
-
-    // 이메일 전송
     implementation 'org.springframework.boot:spring-boot-starter-mail'
-
-    //querydsl 추가
     implementation 'com.querydsl:querydsl-jpa'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
@@ -61,44 +53,55 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-
-    //테스트코드 작성시 entityManagerFActory에러 때문에추가
     implementation group: 'org.javassist', name: 'javassist', version: '3.15.0-GA'
-
-    //firebase 이미지 업로드
     implementation group: 'com.google.firebase', name: 'firebase-admin', version: '8.1.0'
+    implementation 'org.springframework.social:spring-social-facebook:2.0.3.RELEASE'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.2'
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 
+    //--------코틀린 도입을 위한 추가 코드 start-------------
+//    kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
+//    kapt("org.springframework.boot:spring-boot-configuration-processor")
+    //--------코틀린 도입을 위한 추가 코드 end-------------
 }
+
 test {
+    exclude { '/**/*' }
     useJUnitPlatform()
 }
 
-//querydsl 추가 시작
+//--------코틀린 도입을 위한 추가 코드 start-------------
+//compileKotlin {
+//    kotlinOptions {
+//        jvmTarget = "8"
+//    }
+//}
+//
+//compileTestKotlin {
+//    kotlinOptions {
+//        jvmTarget = "8"
+//    }
+//}
+//--------코틀린 도입을 위한 추가 코드 end-------------
+
 def querydslDir = "$buildDir/generated/querydsl"
 querydsl {
     jpa = true
     querydslSourcesDir = querydslDir
 }
+
 sourceSets {
     main.java.srcDir querydslDir
 }
+
 configurations {
     querydsl.extendsFrom compileClasspath
 }
+
 compileQuerydsl {
     options.annotationProcessorPath = configurations.querydsl
 }
-//querydsl 추가 끝
 
-//war 패키징 추가
-bootWar {
-    archiveBaseName = 'david-2.2.2.RELEASE'
-    archiveFileName = 'david-2.2.2.RELEASE.war'
-    archiveVersion = '0.0.1'
-}
-
-//Querydsl 추가
 clean {
     delete file('src/main/generated')
 }
-

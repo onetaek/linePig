@@ -11,12 +11,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
 public class SellerApiController {
 
     private final SellerService sellerService;
+
+    @GetMapping("/api/admins/sellers")//판매자 목록 조회(api 테스트 용)
+    public ResponseEntity findAll() {
+        List<SellerResponse> sellerResponses = sellerService.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(sellerResponses);
+    }
 
     @PostMapping("/api/admins/members/{id}/sellers")//판매자 등록
     public ResponseEntity create(@PathVariable Long id, @Validated @RequestBody SellerCreateRequest request) {

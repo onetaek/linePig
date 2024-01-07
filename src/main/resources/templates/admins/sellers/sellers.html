@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:placeholder="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/adminBase}">
+<head>
+    <title>판매자 목록 페이지</title>
+    <link rel="stylesheet" href="/css/member/members.css">
+</head>
+<body>
+
+<!-- 상품등록 start -->
+<div layout:fragment="content" class="container-fluid pt-4 px-4">
+    <div class="container-fluid pt-4 px-4">
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <div class="row">
+                    <div class="col">
+                        <h6 class="mb-4">판매자목록</h6>
+                    </div>
+                </div>
+                <th:block th:each="seller:${sellers}">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">선택</th>
+                                <th scope="col">아이디</th>
+                                <th scope="col">이름</th>
+                                <th scope="col">이메일</th>
+                                <th scope="col">전화번호</th>
+                                <th:block th:each="sellerExtend:${seller.sellerExtends}">
+                                    <th scope="col" th:text="${sellerExtend.name}" >sellerExtendValue</th>
+                                </th:block>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="member : ${seller.member}" th:class="memberInfo">
+                                <th scope="row"><input type="radio" name="selectMember" th:data-id="${member.id}"></th>
+                                <td th:class="loginId" th:text="${member.loginId}">아이디</td>
+                                <td th:class="name" th:text="${member.name}">이준호</td>
+                                <td th:class="email" th:text="${member.email}">jhon@email.com</td>
+                                <td th:class="phoneNumber" th:text="${member.phoneNumber}">01012345678</td>
+                                <th:block th:each="sellerExtend:${seller.sellerExtends}">
+                                    <td th:class="phoneNumber" th:text="${sellerExtend.value}">01012345678</td>
+                                </th:block>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </th:block>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 상품등록 end -->
+
+
+<!-- custom-popup start -->
+<th:block layout:fragment="custom-popup">
+    <div id="memberStatusUpdatePopup" class="rounded">
+        <div class="bg-secondary rounded h-100 p-4">
+            <div class="row mb-2">
+                <div class="col">
+                    <h6>회원상태수정</h6>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="updateMemberLoginId" class="col-sm-2 col-form-label">아이디</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" readonly id="updateMemberLoginId" value="temp id">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="updateMemberName" class="col-sm-2  col-form-label" >이름</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="updateMemberName" value="temp name" readonly>
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <select class="form-select" id="updateMemberStatus"
+                        aria-label="회원 상태" >
+                    <th:block th:each="status:${statuses}">
+                        <option th:value="${status.code}" th:text="${status.displayValue}">sample status</option>
+                    </th:block>
+                </select>
+                <label for="updateMemberStatus">회원 상태를 선택하시오</label>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button onclick="onclickMemberStatusUpdateApi()" type="submit" class="btn btn-info">수정</button>
+                <button onclick="onclickMemberStatusUpdateClose()" type="submit" class="btn btn-light ms-2">닫기</button>
+            </div>
+        </div>
+    </div>
+</th:block>
+<!-- custom-popup end -->
+
+<!-- javaScript 파일-->
+<th:block layout:fragment="scripts">
+    <script src="/js/admin/member/members.js"></script>
+</th:block>
+</body>
+</html>

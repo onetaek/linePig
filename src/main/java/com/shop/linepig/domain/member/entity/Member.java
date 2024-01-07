@@ -1,12 +1,17 @@
 package com.shop.linepig.domain.member.entity;
 
-import com.shop.linepig.domain.common.BaseEntity;
+import com.shop.linepig.domain.cart.entity.Cart;
+import com.shop.linepig.domain.common.mappedsuperclass.BaseEntity;
 import com.shop.linepig.domain.member.entity.enumeration.Gender;
 import com.shop.linepig.domain.member.entity.enumeration.MemberStatus;
+import com.shop.linepig.domain.member.entity.enumeration.MemberType;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
@@ -14,27 +19,47 @@ import javax.persistence.*;
 @Getter
 @EnableJpaAuditing
 @Entity
+@SQLDelete(sql = "UPDATE MEMBER SET deleted = 1, deleted_on = CURRENT_TIMESTAMP WHERE id = ?")
+@Where(clause = "deleted = false")
 public class Member extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String loginId;//로그인 아이디
+
     private String password;//비밀번호
+
     private String name;//이름
+
     private String email;//이메일 뒷자리
+
     private String phoneNumber;//연락처 국제번호
+
     private String phoneCode;//연락처 국제번호
+
     @Enumerated(EnumType.STRING)
     private Gender gender;//성별
+
     @Enumerated(EnumType.STRING)
-    private MemberStatus memberStatus;//회원 상태
+    private MemberStatus status;//회원 상태
+
+    @Enumerated(EnumType.STRING)
+    private MemberType type;//회원 가입 형태
+
     private String salt;//난수
+
+    private LocalDateTime joinOn;//회원가입 시각
+
     @OneToOne(mappedBy = "member")
     private Seller seller;
 
-    public String getMemberStatus() {
-        return this.memberStatus.getDisplayValue();
+    @OneToOne(mappedBy = "member")
+    private Cart cart;
+
+    public Member setStatus(MemberStatus status) {
+        this.status = status;
+        return this;
     }
 
     public String getGender() {
@@ -44,7 +69,7 @@ public class Member extends BaseEntity {
     }
 
     public Member updateStatus(MemberStatus status) {
-        this.memberStatus = status;
+        this.status = status;
         return this;
     }
 }

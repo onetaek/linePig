@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:placeholder="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/mainBase}">
+<head>
+    <title>제품 상세 페이지</title>
+    <link rel="stylesheet" href="/css/product/product.css">
+</head>
+<body>
+
+<!-- 상품상세페이지 start -->
+<div layout:fragment="content">
+    <div id="main-wrap">
+        <div id="product-info-top">
+            <div class="product-image-wrap">
+                <th:block th:each="productImage, productImageStat : ${product.productImages}">
+                    <th:block th:if="${productImageStat.index == 0}">
+                        <div class="product-image-main-wrap">
+                            <img class="product-image-main" th:src="${productImage.uploadFile.uploadFileLink}" alt="">
+                        </div>
+                    </th:block>
+                </th:block>
+                <ul class="product-image-sub-wrap">
+                    <th:block th:each="productImage, productImageStat : ${product.productImages}">
+                        <th:block th:if="${productImageStat.index >= 1}">
+                            <li><img class="product-image-sub-wrap" th:src="${productImage.uploadFile.uploadFileLink}" alt=""></li>
+                        </th:block>
+                    </th:block>
+                </ul>
+            </div>
+            <div id="product-name-price-option-special-wrap">
+                <div id="product-name-wrap">
+                    <h2 th:if="${userLanguage == 'ko'}" class="product-name" th:text="${product.nameKo}">제품이름</h2>
+                    <h2 th:if="${userLanguage != 'ko'}" class="product-name" th:text="${product.nameEn}">제품이름</h2>
+                    <h3 th:if="${userLanguage == 'ko'}" class="product-name-description" th:text="${product.nameDescriptionKo}">부재</h3>
+                    <h3 th:if="${userLanguage != 'ko'}" class="product-name-description" th:text="${product.nameDescriptionEn}">부재</h3>
+                </div>
+                <div id="product-price-wrap">
+                    <div th:each="productOption:${product.productOptions}" class="product-price product-info-title">
+                        <th:block th:if="${productOption.id == productOptionId}">
+                            <th:block th:if="${userLanguage == 'ko'}"><span>가격</span>:<span th:text="|${productOption.priceKo}원|">200원</span></th:block>
+                            <th:block th:if="${userLanguage != 'ko'}"><span>price</span>:<span th:text="|$${productOption.priceEn}|">$200</span></th:block>
+                        </th:block>
+                    </div>
+                    <th:block th:each="productOption:${product.productOptions}">
+                        <th:block th:if="${productOption.id == productOptionId}">
+                            <p th:if="${userLanguage == 'ko'}" th:text="${productOption.priceDescriptionKo}" class="product-price-description product-info-item">미국(으)로 보낼경우 US달러 배송 및 수입 수수료가 부과됩니다.</p>
+                            <p th:if="${userLanguage != 'ko'}" th:text="${productOption.priceDescriptionEn}" class="product-price-description product-info-item">Shipping and import fees apply when sending to the United States.</p>
+                        </th:block>
+                    </th:block>
+                </div>
+                <div id="product-option-wrap">
+                    <h3 class="product-info-title">옵션 선택</h3>
+                    <div class="product-option">
+                        <label for="a" th:if="${userLanguage == 'ko'}" th:text="${product.optionKo}">크기/색상</label>
+                        <label for="a" th:if="${userLanguage != 'ko'}" th:text="${product.optionEn}">Size/Color</label>
+                        <select name="" class="product-option-select" onchange="changeProductOption(this)">
+                            <th:block th:each="productOption : ${product.productOptions}">
+                                <option th:if="${userLanguage == 'ko'}" th:value="${productOption.id}" th:selected="${productOption.id == productOptionId}" th:text="${productOption.valueKo}">01. 20x20x20</option>
+                                <option th:if="${userLanguage != 'ko'}" th:value="${productOption.id}" th:selected="${productOption.id == productOptionId}" th:text="${productOption.valueEn}">01. 20x20x20</option>
+                            </th:block>
+                        </select>
+                    </div>
+                </div>
+                <div id="product-special-wrap">
+                    <h3 class="product-info-title">특이사항</h3>
+                    <ul class="product-special ">
+                        <th:block th:each="productSpecial : ${product.productSpecials}">
+                            <li th:if="${userLanguage == 'ko'}" th:text="${productSpecial.valueKo}" class="product-info-item">※ 세트에는 50.8cm(20인치) 기내용 가방*국내 여행이나 가벼운 상태를 유지하려는 사람들을 위한 기내 반입 크기 제한(충족)과 61cm(24인치)스피너...</li>
+                            <li th:if="${userLanguage != 'ko'}" th:text="${productSpecial.valueEn}" class="product-info-item">※ 세트에는 50.8cm(20인치) 기내용 가방*국내 여행이나 가벼운 상태를 유지하려는 사람들을 위한 기내 반입 크기 제한(충족)과 61cm(24인치)스피너...</li>
+                        </th:block>
+                    </ul>
+                </div>
+                <ul id="product-button-wrap">
+                    <li class="product-count-wrap">
+                        <label for="product-count">수량</label>
+                        <input id="product-count" type="number" value="1"/>
+                    </li>
+                    <li><a href="#">장바구니</a></li>
+                    <li><a href="#">결제하기</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="product-info-bottom">
+            <div id="product-detail">
+                <h3>세부정보</h3>
+                <ul>
+                    <th:block th:each="productDetail:${product.productDetails}">
+                        <li th:if="${userLanguage == 'ko'}">
+                            <span th:text="${productDetail.nameKo}">제조업체</span>
+                            <span th:text="${productDetail.valueKo}">Metronic</span>
+                        </li>
+                        <li th:if="${userLanguage != 'ko'}">
+                            <span th:text="${productDetail.nameEn}">제조업체</span>
+                            <span th:text="${productDetail.valueEn}">Metronic</span>
+                        </li>
+                    </th:block>
+                </ul>
+            </div>
+            <div id="product-detail-image-wrap">
+                <h3 id="product-detail-image-content-title">상세 이미지</h3>
+                <div id="product-detail-image-content-wrap">
+                    <ul id="product-detail-image">
+                        <th:block th:each="productDetailImage:${product.productDetailImages}">
+                            <li><img th:src="${productDetailImage.uploadFile.uploadFileLink}" th:alt="${productDetailImage.uploadFile.originFileName}"></li>
+                        </th:block>
+                    </ul>
+
+                    <!--따라다니는 상품구매 버튼-->
+                    <div id="product-name-option-button-wrap">
+                        <div class="product-name-wrap">
+                            <h2 class="product-name">제품이름</h2>
+                            <h3 class="product-name-description">부재</h3>
+                        </div>
+
+                        <div class="product-option-wrap">
+                            <h3>옵션선택</h3>
+                            <div class="product-option">
+                                <label for="a" th:if="${userLanguage == 'ko'}" th:text="${product.optionKo}">크기 : </label>
+                                <label for="a" th:if="${userLanguage != 'ko'}" th:text="${product.optionEn}">크기 : </label>
+                                <select name="" class="product-option-select" onchange="changeProductOption(this)">
+                                    <th:block th:each="productOption : ${product.productOptions}">
+                                        <option th:if="${userLanguage == 'ko'}" th:value="${productOption.id}" th:text="${productOption.valueKo}" th:selected="${productOption.id == productOptionId}">01. 20x20x20</option>
+                                        <option th:if="${userLanguage != 'ko'}" th:value="${productOption.id}" th:text="${productOption.valueEn}" th:selected="${productOption.id == productOptionId}">01. 20x20x20</option>
+                                    </th:block>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="product-sub-button-wrap">
+                            <div class="product-total-price-wrap">
+                                <div>
+                                    <label for="sub-number">수량</label>
+                                    <input type="number" id="sub-number" value="1"/>
+                                    <span class="total-price-name" id="sub-total-price">총금액</span>
+                                </div>
+                                <th:block th:each="productOption:${product.productOptions}">
+                                    <th:block th:if="${productOption.id == productOptionId}">
+                                        <span th:if="${userLanguage == 'ko'}" class="total-price-value" th:text="|${productOption.priceKo}원|">$300</span>
+                                        <span th:if="${userLanguage != 'ko'}" class="total-price-value" th:text="|$${productOption.priceEn}|">$300</span>
+                                    </th:block>
+                                </th:block>
+                            </div>
+                            <ul>
+                                <li><a href="#">장바구니</a></li>
+                                <li><a href="#">결제하기</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 상품상세페이지 end -->
+
+<!-- javaScript 파일-->
+<th:block layout:fragment="scripts">
+    <script th:inline="javascript">
+        const product = [[${product}]];
+        const productOptionId = [[${productOptionId}]];
+
+        //option이 change되면 모두 바꾸어주어야함....페이지 새로고침하면 쉬운데 그렇게하면 따라다니는 option이 의미가 없음
+        //일단 새로고침으로 구현하고 나중에 생각
+        function changeProductOption(selectElement) {
+            window.location.href=`/products/${product.id}?productOptionId=${selectElement.value}`;
+        }
+    </script>
+    <script th:src="@{/js/product/product.js}"></script>
+</th:block>
+</body>
+</html>

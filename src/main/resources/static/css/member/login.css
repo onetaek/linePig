@@ -31,12 +31,20 @@
     margin-top:50px;
 }
 
-#user-info #email-wrap{
+#user-info #loginId-wrap{
     border-bottom: 1px solid #adadad;
+}
+
+#user-info #loginId-wrap label {
+    width:80px !important;
 }
 
 #user-info #password-wrap{
     border-bottom: 1px solid #adadad;
+}
+
+#user-info #password-wrap label {
+    width:80px !important;
 }
 
 #user-info label[for="email"]{
@@ -63,8 +71,16 @@
 
 #sns-login-wrap{
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     color: #e8e800;
     border-top:1px solid #e8e800;
     margin-top:20px;
+    padding-top:20px;
+}
+#sns-login-wrap li {
+    margin:0 10px;
+    cursor: pointer;
+}
+#sns-login-wrap img {
+    width: 50px;
 }

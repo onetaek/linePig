@@ -1,11 +1,14 @@
 package com.shop.linepig.domain.member.dto.request;
 
+import com.shop.linepig.domain.member.entity.Member;
 import com.shop.linepig.domain.member.entity.enumeration.MemberStatus;
+import com.shop.linepig.domain.member.entity.enumeration.MemberType;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDateTime;
 
 @Slf4j
 @Data
@@ -25,7 +28,22 @@ public class MemberJoinRequest {
     @NotBlank
     private String email;//이메일 앞자리
     //백엔드 단에서 추가해주는 값
-    private MemberStatus memberStatus;//회원상태
+    private MemberStatus status;//회원상태
     private String salt;//난수
+
+    public static Member toEntity(MemberJoinRequest memberJoinRequest) {
+        return Member.builder()
+                .loginId(memberJoinRequest.getLoginId())
+                .password(memberJoinRequest.getPassword())
+                .name(memberJoinRequest.getName())
+                .phoneCode(memberJoinRequest.getPhoneCode())
+                .phoneNumber(memberJoinRequest.getPhoneNumber())
+                .email(memberJoinRequest.getEmail())
+                .status(MemberStatus.NORMAL)
+                .type(MemberType.NORMAL)
+                .salt(memberJoinRequest.getSalt())
+                .joinOn(LocalDateTime.now())
+                .build();
+    }
 
 }

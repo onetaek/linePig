@@ -1,0 +1,7 @@
+package com.shop.linepig.domain.cart.repository;
+
+import com.shop.linepig.domain.cart.entity.Cart;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CartRepository extends JpaRepository<Cart, Long> {
+}

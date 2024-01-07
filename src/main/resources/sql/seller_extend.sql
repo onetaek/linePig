@@ -1,0 +1,2 @@
+INSERT INTO linepig.seller_extend (id,created_by, created_on, deleted, deleted_on, modified_by, modified_on, name, sequence, value, seller_id) VALUES (4,null, '2023-08-24 01:58:28.698000', false, '2023-08-24 01:58:28.692000', null, '2023-08-24 01:58:28.698000', '회사명', 0, '롯데화학', 2);
+INSERT INTO linepig.seller_extend (id,created_by, created_on, deleted, deleted_on, modified_by, modified_on, name, sequence, value, seller_id) VALUES (5,null, '2023-08-24 01:58:28.698000', false, '2023-08-24 01:58:28.692000', null, '2023-08-24 01:58:28.698000', '회사위치', 0, '울산광역시 어딘가', 2);

@@ -1,0 +1,1 @@
+INSERT INTO linepig.seller (id, created_on, created_by, deleted, deleted_on, modified_on, modified_by, member_id) VALUES (2, '2023-08-20 04:46:22.048000', null, false, '2023-08-20 04:46:22.047000', '2023-08-20 04:46:22.051000', null, 2);

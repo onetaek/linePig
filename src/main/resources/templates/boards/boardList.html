@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:placeholder="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/mainBase}">
+<head>
+    <title>게시판 페이지</title>
+    <link rel="stylesheet" href="/css/board/boardList.css">
+</head>
+<body>
+<!--https://hot-10.com/board/product/list.html?board_no=6-->
+
+<!-- 게시판목록 페이지 start -->
+<div layout:fragment="content">
+    <div id="main-board-wrap">
+        <div id="title-wrap">
+            <h2 th:text="${category.displayValueKo}">Q&A</h2>
+            <h3 th:text="${category.descriptionKo}">사이즈 문의, 입금 배송 문의,코디 문의, 이벤트 문의 등 모든 궁금한 사항들을 남겨주세요~</h3>
+        </div>
+        <div id="button-wrap">
+            <div class="board-write-button">
+                <button>글쓰기</button>
+            </div>
+        </div>
+        <div id="content-wrap">
+            <ul class="board-header-wrap">
+                <li class="board-sequence">번호</li>
+                <li class="board-title">제목</li>
+                <li class="board-writer">작성자</li>
+                <li class="board-view-count">조회수</li>
+                <li class="board-written-on">작성일</li>
+            </ul>
+            <ul class="board-data-grid-wrap">
+                <li th:each="topBoard:${topBoards}">
+                    <ul class="board-data-wrap is-top">
+                        <li class="board-sequence">공지</li>
+                        <li class="board-title" th:text="${topBoard.titleKo}">쇼핑몰 배송비 정책 변경 안내</li>
+                        <li class="board-writer" th:text="${topBoard.writer}">SONA</li>
+                        <li class="board-view-count" th:text="${topBoard.viewCount}">431</li>
+                        <li class="board-written-on" th:text="${topBoard.writtenOn}">2023-04-02</li>
+                    </ul>
+                </li>
+                <li th:each="board:${paginationBoard.content}">
+                    <ul class="board-data-wrap">
+                        <li class="board-sequence" th:text="${board.id}">1</li>
+                        <li class="board-title" th:text="${board.titleKo}">쇼핑몰 배송비 정책 변경 안내</li>
+                        <li class="board-writer" th:text="${board.writer}">SONA</li>
+                        <li class="board-view-count" th:text="${board.viewCount}">431</li>
+                        <li class="board-written-on" th:text="${board.writtenOn}">2023-04-02</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 페이지 영역 -->
+        <div th:if="${!paginationBoard.isEmpty()}" class="board-page-button-main-wrap">
+            <ul class="board-page-button-wrap"
+                th:with="
+            pageNumber = ${paginationBoard.pageable.pageNumber},
+            pageSize = ${paginationBoard.pageable.pageSize},
+            totalPages = ${paginationBoard.totalPages},
+            startPage = ${T(java.lang.Math).floor(pageNumber / pageSize) * pageSize + 1},
+            tempEndPage = ${startPage + pageSize - 1},
+            endPage = (${tempEndPage < totalPages ? tempEndPage : totalPages})"
+            >
+
+                <!--제일 첫번째 페이지 이동 버튼-->
+                <li th:classappend="${paginationBoard.first} ? 'disabled'" class="page-item">
+                    <a class="page-link" th:href="@{/boards/(page=0,category=${category.displayValueKo})}">
+                        <span aria-hidden="true">&lt;&lt;</span>
+                    </a>
+                </li>
+
+                <!--이전 페이지 이동 버튼-->
+                <li th:classappend="${paginationBoard.first} ? 'disabled'" class="page-item">
+                    <a class="page-link" th:href="${paginationBoard.first} ? '#' : @{/boards/(page=${pageNumber - 1}, category=${category.displayValueKo})}">
+                        <span aria-hidden="true">&lt;</span>
+                    </a>
+                </li>
+
+                <!--현재 페이지-->
+                <li th:each="page: ${#numbers.sequence(startPage, endPage)}" th:classappend="${page == pageNumber + 1} ? 'active'" class="page-item">
+                    <a th:text="${page}" class="page-link" th:href="@{/boards(page=${page - 1}, category=${category.displayValueKo})}"></a>
+                </li>
+
+                <!--다음 페이지 이동 버튼-->
+                <li th:classappend="${paginationBoard.last} ? 'disabled'" class="page-item">
+                    <a class="page-link" th:href="${paginationBoard.last} ? '#' : @{/boards/(page=${pageNumber + 1}, category=${category.displayValueKo} )}" aria-label="Next">
+                        <span aria-hidden="true">&gt;</span>
+                    </a>
+                </li>
+
+                <!--맨마지막 페이지 이동 버튼-->
+                <li th:classappend="${paginationBoard.last} ? 'disabled'" class="page-item">
+                    <a class="page-link" th:href="@{/boards(page=${totalPages - 1}, category=${category.displayValueKo})}">
+                        <span aria-hidden="true">&gt;&gt;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- 게시판목록 페이지 end -->
+
+<!-- javaScript 파일-->
+<th:block layout:fragment="scripts">
+</th:block>
+</body>
+</html>

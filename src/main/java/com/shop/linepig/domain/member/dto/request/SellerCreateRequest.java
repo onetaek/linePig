@@ -9,4 +9,5 @@ public class SellerCreateRequest {
 
     private List<SellerExtendCreateRequest> sellerExtends;
 
+
 }
