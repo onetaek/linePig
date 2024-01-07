@@ -1,10 +1,18 @@
 package com.shop.linepig.domain.member.api;
 
 
+<<<<<<<< HEAD:src/main/java/com/shop/linepig/domain/member/api/KakaoOauthController.java
 import com.shop.linepig.common.constance.SessionConst;
 import com.shop.linepig.domain.member.dto.request.MemberSnsLoginRequest;
 import com.shop.linepig.domain.member.entity.enumeration.MemberType;
 import com.shop.linepig.domain.member.service.SnsService;
+========
+import com.shop.linepig.domain.member.entity.Member;
+import com.shop.linepig.domain.member.dto.request.MemberSnsLoginRequest;
+import com.shop.linepig.domain.member.service.MemberService;
+import com.shop.linepig.domain.member.service.SnsService;
+import com.shop.linepig.common.constance.SessionConst;
+>>>>>>>> origin/master:src/main/java/com/shop/linepig/domain/member/api/SnsController.java
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
