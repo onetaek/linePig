@@ -21,7 +21,7 @@
 ## 기술 스택
 + 개발언어 : Java, JavaScript
 + DB : H2 Database, MariaDB, JPA, QueryDsl
-+ 프레임워크 : Spring boot, Vue.js, AdminLTE
++ 프레임워크 : Spring boot, Vue.js, AdminLTE, bootstrap
 + 베포 : AWS EC2, Cloud Type, Git, Github Action
 
 ## ERD (Entity Relationshop Diagram)
